@@ -6,5 +6,5 @@ output: html_document
 ---
 
 # Kevin Boyd's Website
-## This shows info about Kevin and his work
+This shows some info about Kevin and his first DDS project
 

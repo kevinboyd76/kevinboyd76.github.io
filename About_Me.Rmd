@@ -1,0 +1,24 @@
+---
+title: "About_Me"
+author: "Kevin Boyd"
+date: "11/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Kevin Boyd
+
+![](kevin.jpg){#id .class width=25% height=25%}
+
+### I live in Norman, Oklahoma
+
+### I enjoy playing tennis and guitar
+
+### I work at Oklahoma Medical Research Foundation
+
+### I have a MS in Microbiology from the University of Oklahoma
+
+Check out my work in the other tabs!!
