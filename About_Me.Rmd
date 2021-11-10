@@ -21,4 +21,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### I have a MS in Microbiology from the University of Oklahoma
 
-Check out my work in the other tabs!!
+### Check out my work in the other tabs!!
+
+[k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
