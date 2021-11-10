@@ -1,0 +1,100 @@
+---
+title: "Beer App"
+author: "Kevin"
+date: "11/8/2021"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo = FALSE}
+
+library(shiny)
+library(ggplot2)
+
+# Define UI for data upload app ----
+ui <- fluidPage(
+
+  # App title ----
+  titlePanel("Uploading Files"),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+
+      # Input: Select a file ----
+      fileInput("file1", "Choose CSV File",
+                multiple = FALSE,
+                accept = c("text/csv",
+                         "text/comma-separated-values,text/plain",
+                         ".csv")),
+
+      # Horizontal line ----
+      tags$hr(),
+
+
+      # Horizontal line ----
+      tags$hr(),
+
+      # Input: Select number of rows to display ----
+      radioButtons("disp", "ABV or IBU",
+                   choices = c(ABV = "ABV",
+                               IBU = "IBU"),
+                   selected = "ABV"),
+
+    ),
+    # Main panel for displaying outputs ----
+    mainPanel(
+
+      # Output: Data file ----
+      plotOutput("contents")
+
+    )
+
+  )
+)
+
+# Define server logic to read selected file ----
+server <- function(input, output) {
+
+  output$contents <- renderPlot({
+
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, head of that data file by default,
+    # or all rows if selected, will be shown.
+
+    req(input$file1)
+
+    # when reading semicolon separated files,
+    # having a comma separator causes `read.csv` to error
+    tryCatch(
+      {
+        df <- read.csv(input$file1$datapath)
+      },
+      error = function(e) {
+        # return a safeError if a parsing error occurs
+        stop(safeError(e))
+      }
+    )
+
+    if(input$disp == "ABV") {
+      return(ggplot(df,aes(x=ABV)) + geom_histogram(fill="blue") + xlab("ABV") + ylab("Count") + ggtitle("ABV Distribution"))
+    }
+    else {
+      return(ggplot(df,aes(x=IBU)) + geom_histogram(fill="dark green") + xlab("IBU") + ylab("Count") + ggtitle("IBU Distribution"))
+    }
+
+  })
+
+}
+
+# Create Shiny app ----
+shinyApp(ui, server)
+```
+
+
