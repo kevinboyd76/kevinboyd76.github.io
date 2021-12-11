@@ -14,7 +14,7 @@
 
 <title>Budweiser Case Study</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -253,6 +253,9 @@ $(document).ready(function () {
 <li>
   <a href="CLT2.html">CLT2</a>
 </li>
+<li>
+  <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -336,13 +339,20 @@ breweries &lt;- read.csv(&quot;breweries.csv&quot;, header = T)</code></pre>
 ##  $ City   : chr  &quot;Minneapolis&quot; &quot;Louisville&quot; &quot;Framingham&quot; &quot;San Diego&quot; ...
 ##  $ State  : chr  &quot; MN&quot; &quot; KY&quot; &quot; MA&quot; &quot; CA&quot; ...</code></pre>
 <pre class="r"><code>head(beers)</code></pre>
-<pre><code>##                  Name Beer_ID   ABV IBU Brewery_id                          Style Ounces
-## 1            Pub Beer    1436 0.050  NA        409            American Pale Lager     12
-## 2         Devil&#39;s Cup    2265 0.066  NA        178        American Pale Ale (APA)     12
-## 3 Rise of the Phoenix    2264 0.071  NA        178                   American IPA     12
-## 4            Sinister    2263 0.090  NA        178 American Double / Imperial IPA     12
-## 5       Sex and Candy    2262 0.075  NA        178                   American IPA     12
-## 6        Black Exodus    2261 0.077  NA        178                  Oatmeal Stout     12</code></pre>
+<pre><code>##                  Name Beer_ID   ABV IBU Brewery_id
+## 1            Pub Beer    1436 0.050  NA        409
+## 2         Devil&#39;s Cup    2265 0.066  NA        178
+## 3 Rise of the Phoenix    2264 0.071  NA        178
+## 4            Sinister    2263 0.090  NA        178
+## 5       Sex and Candy    2262 0.075  NA        178
+## 6        Black Exodus    2261 0.077  NA        178
+##                            Style Ounces
+## 1            American Pale Lager     12
+## 2        American Pale Ale (APA)     12
+## 3                   American IPA     12
+## 4 American Double / Imperial IPA     12
+## 5                   American IPA     12
+## 6                  Oatmeal Stout     12</code></pre>
 <pre class="r"><code>head(breweries)</code></pre>
 <pre><code>##   Brew_ID                      Name          City State
 ## 1       1        NorthGate Brewing    Minneapolis    MN
@@ -387,35 +397,49 @@ str(df1)</code></pre>
 ##  $ City      : chr  &quot;Minneapolis&quot; &quot;Minneapolis&quot; &quot;Minneapolis&quot; &quot;Minneapolis&quot; ...
 ##  $ State     : chr  &quot; MN&quot; &quot; MN&quot; &quot; MN&quot; &quot; MN&quot; ...</code></pre>
 <pre class="r"><code>head(df1)</code></pre>
-<pre><code>##   Brewery_id          Beer Beer_ID   ABV IBU                               Style Ounces
-## 1          1  Get Together    2692 0.045  50                        American IPA     16
-## 2          1 Maggie&#39;s Leap    2691 0.049  26                  Milk / Sweet Stout     16
-## 3          1    Wall&#39;s End    2690 0.048  19                   English Brown Ale     16
-## 4          1       Pumpion    2689 0.060  38                         Pumpkin Ale     16
-## 5          1    Stronghold    2688 0.060  25                     American Porter     16
-## 6          1   Parapet ESB    2687 0.056  47 Extra Special / Strong Bitter (ESB)     16
-##              Brewery        City State
-## 1 NorthGate Brewing  Minneapolis    MN
-## 2 NorthGate Brewing  Minneapolis    MN
-## 3 NorthGate Brewing  Minneapolis    MN
-## 4 NorthGate Brewing  Minneapolis    MN
-## 5 NorthGate Brewing  Minneapolis    MN
-## 6 NorthGate Brewing  Minneapolis    MN</code></pre>
+<pre><code>##   Brewery_id          Beer Beer_ID   ABV IBU
+## 1          1  Get Together    2692 0.045  50
+## 2          1 Maggie&#39;s Leap    2691 0.049  26
+## 3          1    Wall&#39;s End    2690 0.048  19
+## 4          1       Pumpion    2689 0.060  38
+## 5          1    Stronghold    2688 0.060  25
+## 6          1   Parapet ESB    2687 0.056  47
+##                                 Style Ounces            Brewery
+## 1                        American IPA     16 NorthGate Brewing 
+## 2                  Milk / Sweet Stout     16 NorthGate Brewing 
+## 3                   English Brown Ale     16 NorthGate Brewing 
+## 4                         Pumpkin Ale     16 NorthGate Brewing 
+## 5                     American Porter     16 NorthGate Brewing 
+## 6 Extra Special / Strong Bitter (ESB)     16 NorthGate Brewing 
+##          City State
+## 1 Minneapolis    MN
+## 2 Minneapolis    MN
+## 3 Minneapolis    MN
+## 4 Minneapolis    MN
+## 5 Minneapolis    MN
+## 6 Minneapolis    MN</code></pre>
 <pre class="r"><code>tail(df1)</code></pre>
-<pre><code>##      Brewery_id                      Beer Beer_ID   ABV IBU                   Style Ounces
-## 2405        556             Pilsner Ukiah      98 0.055  NA         German Pilsener     12
-## 2406        557  Heinnieweisse Weissebier      52 0.049  NA              Hefeweizen     12
-## 2407        557           Snapperhead IPA      51 0.068  NA            American IPA     12
-## 2408        557         Moo Thunder Stout      50 0.049  NA      Milk / Sweet Stout     12
-## 2409        557         Porkslap Pale Ale      49 0.043  NA American Pale Ale (APA)     12
-## 2410        558 Urban Wilderness Pale Ale      30 0.049  NA        English Pale Ale     12
-##                            Brewery          City State
-## 2405         Ukiah Brewing Company         Ukiah    CA
-## 2406       Butternuts Beer and Ale Garrattsville    NY
-## 2407       Butternuts Beer and Ale Garrattsville    NY
-## 2408       Butternuts Beer and Ale Garrattsville    NY
-## 2409       Butternuts Beer and Ale Garrattsville    NY
-## 2410 Sleeping Lady Brewing Company     Anchorage    AK</code></pre>
+<pre><code>##      Brewery_id                      Beer Beer_ID   ABV IBU
+## 2405        556             Pilsner Ukiah      98 0.055  NA
+## 2406        557  Heinnieweisse Weissebier      52 0.049  NA
+## 2407        557           Snapperhead IPA      51 0.068  NA
+## 2408        557         Moo Thunder Stout      50 0.049  NA
+## 2409        557         Porkslap Pale Ale      49 0.043  NA
+## 2410        558 Urban Wilderness Pale Ale      30 0.049  NA
+##                        Style Ounces                       Brewery
+## 2405         German Pilsener     12         Ukiah Brewing Company
+## 2406              Hefeweizen     12       Butternuts Beer and Ale
+## 2407            American IPA     12       Butternuts Beer and Ale
+## 2408      Milk / Sweet Stout     12       Butternuts Beer and Ale
+## 2409 American Pale Ale (APA)     12       Butternuts Beer and Ale
+## 2410        English Pale Ale     12 Sleeping Lady Brewing Company
+##               City State
+## 2405         Ukiah    CA
+## 2406 Garrattsville    NY
+## 2407 Garrattsville    NY
+## 2408 Garrattsville    NY
+## 2409 Garrattsville    NY
+## 2410     Anchorage    AK</code></pre>
 </div>
 <div id="number-3---missing-values" class="section level1">
 <h1>Number 3 - Missing Values</h1>
@@ -497,7 +521,8 @@ IBU_Values &lt;- df1 %&gt;% group_by(State) %&gt;%
   xlab(&quot;State&quot;) +
   ylab(&quot;Median IBU Value&quot;)
 IBU_Values + theme(axis.text.x=element_text(vjust=0.5))</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (position_stack).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values
+## (position_stack).</code></pre>
 <p><img src="DDS_Project1_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="number-5a---maximum-abv-and-ibu" class="section level1">
@@ -544,12 +569,14 @@ summary(df1$ABV)</code></pre>
 <pre class="r"><code>#Distributions
 #Histogram of ABV in df1
 df1 %&gt;% ggplot(aes(x=ABV)) + geom_histogram(fill = &quot;#377eb8&quot;) + ggtitle(&quot;Different ABV Values of Beer&quot;) + labs(x=&quot;ABV (Alcohol by Volume)&quot;, y=&quot;Frequency&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 62 rows containing non-finite values (stat_bin).</code></pre>
 <p><img src="DDS_Project1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>#boxplot
 df1 %&gt;% ggplot(aes(x=ABV)) + geom_boxplot(fill = &quot;#377eb8&quot;) + ggtitle(&quot;Different ABV Values of Beer&quot;) + labs(x=&quot;ABV (Alcohol by Volume)&quot;, y=&quot;&quot;) + coord_flip()</code></pre>
-<pre><code>## Warning: Removed 62 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>## Warning: Removed 62 rows containing non-finite values
+## (stat_boxplot).</code></pre>
 <p><img src="DDS_Project1_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
 <pre class="r"><code>#geom_density
 ABV_vizz = ggplot(df1, aes(x = ABV))
@@ -561,7 +588,8 @@ ABV_vizz + geom_density(fill = &quot;#377eb8&quot;, alpha=0.6) +
   ylab(&quot;Frequency&quot;) +
   ggtitle(&quot;Different ABV Values of Beer&quot;) +
   xlab(&quot;ABV (Alcohol by Volume)&quot;)</code></pre>
-<pre><code>## Warning: Removed 62 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning: Removed 62 rows containing non-finite values
+## (stat_density).</code></pre>
 <pre><code>## Warning: Removed 2410 rows containing missing values (geom_vline).</code></pre>
 <p><img src="DDS_Project1_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
 </div>
@@ -574,7 +602,8 @@ ABV_vizz + geom_density(fill = &quot;#377eb8&quot;, alpha=0.6) +
   geom_smooth() +
   ggtitle(&quot;Relationship Between ABV vs IBU&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
-<pre><code>## Warning: Removed 1005 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing non-finite values
+## (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1005 rows containing missing values (geom_point).
 
 ## Warning: Removed 1005 rows containing missing values (geom_point).</code></pre>
@@ -586,37 +615,51 @@ ABV_vizz + geom_density(fill = &quot;#377eb8&quot;, alpha=0.6) +
 df1$Type = ifelse(grepl(&quot;\\bale\\b&quot;, df1$Style, ignore.case = T), &quot;ALE&quot;,
                   ifelse(grepl(&quot;\\bipa\\b&quot;, df1$Style, ignore.case = T), &quot;IPA&quot;, &quot;Other&quot;))
 head(df1)</code></pre>
-<pre><code>##   Brewery_id          Beer Beer_ID   ABV IBU                               Style Ounces
-## 1          1  Get Together    2692 0.045  50                        American IPA     16
-## 2          1 Maggie&#39;s Leap    2691 0.049  26                  Milk / Sweet Stout     16
-## 3          1    Wall&#39;s End    2690 0.048  19                   English Brown Ale     16
-## 4          1       Pumpion    2689 0.060  38                         Pumpkin Ale     16
-## 5          1    Stronghold    2688 0.060  25                     American Porter     16
-## 6          1   Parapet ESB    2687 0.056  47 Extra Special / Strong Bitter (ESB)     16
-##              Brewery        City State  Type
-## 1 NorthGate Brewing  Minneapolis    MN   IPA
-## 2 NorthGate Brewing  Minneapolis    MN Other
-## 3 NorthGate Brewing  Minneapolis    MN   ALE
-## 4 NorthGate Brewing  Minneapolis    MN   ALE
-## 5 NorthGate Brewing  Minneapolis    MN Other
-## 6 NorthGate Brewing  Minneapolis    MN Other</code></pre>
+<pre><code>##   Brewery_id          Beer Beer_ID   ABV IBU
+## 1          1  Get Together    2692 0.045  50
+## 2          1 Maggie&#39;s Leap    2691 0.049  26
+## 3          1    Wall&#39;s End    2690 0.048  19
+## 4          1       Pumpion    2689 0.060  38
+## 5          1    Stronghold    2688 0.060  25
+## 6          1   Parapet ESB    2687 0.056  47
+##                                 Style Ounces            Brewery
+## 1                        American IPA     16 NorthGate Brewing 
+## 2                  Milk / Sweet Stout     16 NorthGate Brewing 
+## 3                   English Brown Ale     16 NorthGate Brewing 
+## 4                         Pumpkin Ale     16 NorthGate Brewing 
+## 5                     American Porter     16 NorthGate Brewing 
+## 6 Extra Special / Strong Bitter (ESB)     16 NorthGate Brewing 
+##          City State  Type
+## 1 Minneapolis    MN   IPA
+## 2 Minneapolis    MN Other
+## 3 Minneapolis    MN   ALE
+## 4 Minneapolis    MN   ALE
+## 5 Minneapolis    MN Other
+## 6 Minneapolis    MN Other</code></pre>
 <pre class="r"><code>#Make new data frame with only Ale beers
 aleIPA &lt;- df1 %&gt;% filter(df1$Type == &quot;ALE&quot; | df1$Type == &quot;IPA&quot;)
 head(aleIPA)</code></pre>
-<pre><code>##   Brewery_id           Beer Beer_ID   ABV IBU                          Style Ounces
-## 1          1   Get Together    2692 0.045  50                   American IPA     16
-## 2          1     Wall&#39;s End    2690 0.048  19              English Brown Ale     16
-## 3          1        Pumpion    2689 0.060  38                    Pumpkin Ale     16
-## 4          2 Citra Ass Down    2686 0.080  68 American Double / Imperial IPA     16
-## 5          2         A Beer    2683 0.042  42        American Pale Ale (APA)     16
-## 6          2  Flesh Gourd&#39;n    2681 0.066  21                    Pumpkin Ale     16
-##                     Brewery        City State Type
-## 1        NorthGate Brewing  Minneapolis    MN  IPA
-## 2        NorthGate Brewing  Minneapolis    MN  ALE
-## 3        NorthGate Brewing  Minneapolis    MN  ALE
-## 4 Against the Grain Brewery  Louisville    KY  IPA
-## 5 Against the Grain Brewery  Louisville    KY  ALE
-## 6 Against the Grain Brewery  Louisville    KY  ALE</code></pre>
+<pre><code>##   Brewery_id           Beer Beer_ID   ABV IBU
+## 1          1   Get Together    2692 0.045  50
+## 2          1     Wall&#39;s End    2690 0.048  19
+## 3          1        Pumpion    2689 0.060  38
+## 4          2 Citra Ass Down    2686 0.080  68
+## 5          2         A Beer    2683 0.042  42
+## 6          2  Flesh Gourd&#39;n    2681 0.066  21
+##                            Style Ounces                   Brewery
+## 1                   American IPA     16        NorthGate Brewing 
+## 2              English Brown Ale     16        NorthGate Brewing 
+## 3                    Pumpkin Ale     16        NorthGate Brewing 
+## 4 American Double / Imperial IPA     16 Against the Grain Brewery
+## 5        American Pale Ale (APA)     16 Against the Grain Brewery
+## 6                    Pumpkin Ale     16 Against the Grain Brewery
+##          City State Type
+## 1 Minneapolis    MN  IPA
+## 2 Minneapolis    MN  ALE
+## 3 Minneapolis    MN  ALE
+## 4  Louisville    KY  IPA
+## 5  Louisville    KY  ALE
+## 6  Louisville    KY  ALE</code></pre>
 <pre class="r"><code>#Make training and test data frames
 splitPerc &lt;- .7
 trainIndices &lt;- sample(1:dim(aleIPA)[1],round(splitPerc * dim(aleIPA)[1]))
@@ -632,33 +675,33 @@ classifications &lt;- knn(dfTrain[,4:5], dfTest[,4:5], dfTrain$Type, k = 10, pro
 table(dfTest$Type,classifications)</code></pre>
 <pre><code>##      classifications
 ##       ALE IPA
-##   ALE 133  20
-##   IPA  27  89</code></pre>
+##   ALE 161  12
+##   IPA  27  87</code></pre>
 <pre class="r"><code>confusionMatrix(table(dfTest$Type,classifications))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##      classifications
 ##       ALE IPA
-##   ALE 133  20
-##   IPA  27  89
+##   ALE 161  12
+##   IPA  27  87
 ##                                           
-##                Accuracy : 0.8253          
-##                  95% CI : (0.7745, 0.8687)
-##     No Information Rate : 0.5948          
-##     P-Value [Acc &gt; NIR] : 3.623e-16       
+##                Accuracy : 0.8641          
+##                  95% CI : (0.8189, 0.9016)
+##     No Information Rate : 0.6551          
+##     P-Value [Acc &gt; NIR] : 8.563e-16       
 ##                                           
-##                   Kappa : 0.6412          
+##                   Kappa : 0.7097          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.3815          
+##  Mcnemar&#39;s Test P-Value : 0.02497         
 ##                                           
-##             Sensitivity : 0.8313          
-##             Specificity : 0.8165          
-##          Pos Pred Value : 0.8693          
-##          Neg Pred Value : 0.7672          
-##              Prevalence : 0.5948          
-##          Detection Rate : 0.4944          
-##    Detection Prevalence : 0.5688          
-##       Balanced Accuracy : 0.8239          
+##             Sensitivity : 0.8564          
+##             Specificity : 0.8788          
+##          Pos Pred Value : 0.9306          
+##          Neg Pred Value : 0.7632          
+##              Prevalence : 0.6551          
+##          Detection Rate : 0.5610          
+##    Detection Prevalence : 0.6028          
+##       Balanced Accuracy : 0.8676          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -701,33 +744,33 @@ classifications4 &lt;- knn(dfTrain[,4:5], dfTest[,4:5], dfTrain$Type, k = 6, pro
 table(dfTest$Type,classifications4)</code></pre>
 <pre><code>##      classifications4
 ##       ALE IPA
-##   ALE 131  22
-##   IPA  22  94</code></pre>
+##   ALE 157  16
+##   IPA  29  85</code></pre>
 <pre class="r"><code>confusionMatrix(table(dfTest$Type,classifications4))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##      classifications4
 ##       ALE IPA
-##   ALE 131  22
-##   IPA  22  94
+##   ALE 157  16
+##   IPA  29  85
 ##                                           
-##                Accuracy : 0.8364          
-##                  95% CI : (0.7867, 0.8786)
-##     No Information Rate : 0.5688          
-##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                Accuracy : 0.8432          
+##                  95% CI : (0.7959, 0.8833)
+##     No Information Rate : 0.6481          
+##     P-Value [Acc &gt; NIR] : 1.341e-13       
 ##                                           
-##                   Kappa : 0.6666          
+##                   Kappa : 0.6661          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 1               
+##  Mcnemar&#39;s Test P-Value : 0.07364         
 ##                                           
-##             Sensitivity : 0.8562          
-##             Specificity : 0.8103          
-##          Pos Pred Value : 0.8562          
-##          Neg Pred Value : 0.8103          
-##              Prevalence : 0.5688          
-##          Detection Rate : 0.4870          
-##    Detection Prevalence : 0.5688          
-##       Balanced Accuracy : 0.8333          
+##             Sensitivity : 0.8441          
+##             Specificity : 0.8416          
+##          Pos Pred Value : 0.9075          
+##          Neg Pred Value : 0.7456          
+##              Prevalence : 0.6481          
+##          Detection Rate : 0.5470          
+##    Detection Prevalence : 0.6028          
+##       Balanced Accuracy : 0.8428          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -742,26 +785,26 @@ confusionMatrix(table(classifications1,dfTrain$Type))</code></pre>
 ## 
 ##                 
 ## classifications1 ALE IPA
-##              ALE 368  71
-##              IPA  38 198
+##              ALE 352  68
+##              IPA  34 203
 ##                                           
-##                Accuracy : 0.8385          
-##                  95% CI : (0.8085, 0.8655)
-##     No Information Rate : 0.6015          
+##                Accuracy : 0.8447          
+##                  95% CI : (0.8148, 0.8716)
+##     No Information Rate : 0.5875          
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.656           
+##                   Kappa : 0.6736          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.002176        
+##  Mcnemar&#39;s Test P-Value : 0.001085        
 ##                                           
-##             Sensitivity : 0.9064          
-##             Specificity : 0.7361          
-##          Pos Pred Value : 0.8383          
-##          Neg Pred Value : 0.8390          
-##              Prevalence : 0.6015          
-##          Detection Rate : 0.5452          
-##    Detection Prevalence : 0.6504          
-##       Balanced Accuracy : 0.8212          
+##             Sensitivity : 0.9119          
+##             Specificity : 0.7491          
+##          Pos Pred Value : 0.8381          
+##          Neg Pred Value : 0.8565          
+##              Prevalence : 0.5875          
+##          Detection Rate : 0.5358          
+##    Detection Prevalence : 0.6393          
+##       Balanced Accuracy : 0.8305          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -772,26 +815,26 @@ confusionMatrix(table(classifications2,dfTrain$Type))</code></pre>
 ## 
 ##                 
 ## classifications2 ALE IPA
-##              ALE 311  60
-##              IPA  95 209
+##              ALE 284  50
+##              IPA 102 221
 ##                                           
-##                Accuracy : 0.7704          
-##                  95% CI : (0.7368, 0.8016)
-##     No Information Rate : 0.6015          
+##                Accuracy : 0.7686          
+##                  95% CI : (0.7345, 0.8004)
+##     No Information Rate : 0.5875          
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.5313          
+##                   Kappa : 0.5359          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.006315        
+##  Mcnemar&#39;s Test P-Value : 3.524e-05       
 ##                                           
-##             Sensitivity : 0.7660          
-##             Specificity : 0.7770          
-##          Pos Pred Value : 0.8383          
-##          Neg Pred Value : 0.6875          
-##              Prevalence : 0.6015          
-##          Detection Rate : 0.4607          
-##    Detection Prevalence : 0.5496          
-##       Balanced Accuracy : 0.7715          
+##             Sensitivity : 0.7358          
+##             Specificity : 0.8155          
+##          Pos Pred Value : 0.8503          
+##          Neg Pred Value : 0.6842          
+##              Prevalence : 0.5875          
+##          Detection Rate : 0.4323          
+##    Detection Prevalence : 0.5084          
+##       Balanced Accuracy : 0.7756          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -802,26 +845,26 @@ confusionMatrix(table(classifications3,dfTrain$Type))</code></pre>
 ## 
 ##                 
 ## classifications3 ALE IPA
-##              ALE 348  50
-##              IPA  58 219
+##              ALE 330  47
+##              IPA  56 224
 ##                                           
-##                Accuracy : 0.84            
-##                  95% CI : (0.8101, 0.8669)
-##     No Information Rate : 0.6015          
+##                Accuracy : 0.8432          
+##                  95% CI : (0.8131, 0.8702)
+##     No Information Rate : 0.5875          
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.6679          
+##                   Kappa : 0.6781          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.5006          
+##  Mcnemar&#39;s Test P-Value : 0.4305          
 ##                                           
-##             Sensitivity : 0.8571          
-##             Specificity : 0.8141          
-##          Pos Pred Value : 0.8744          
-##          Neg Pred Value : 0.7906          
-##              Prevalence : 0.6015          
-##          Detection Rate : 0.5156          
-##    Detection Prevalence : 0.5896          
-##       Balanced Accuracy : 0.8356          
+##             Sensitivity : 0.8549          
+##             Specificity : 0.8266          
+##          Pos Pred Value : 0.8753          
+##          Neg Pred Value : 0.8000          
+##              Prevalence : 0.5875          
+##          Detection Rate : 0.5023          
+##    Detection Prevalence : 0.5738          
+##       Balanced Accuracy : 0.8407          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -839,20 +882,27 @@ df1$New &lt;- ifelse(grepl(&quot;\\bale\\b&quot;, df1$Style, ignore.case = T), &
                                                             ifelse(grepl(&quot;\\bPilsner\\b&quot;, df1$Style, ignore.case = T), &quot;Pilsner&quot;,
                                                                    &quot;Other&quot;))))))))
 head(df1)</code></pre>
-<pre><code>##   Brewery_id          Beer Beer_ID   ABV IBU                               Style Ounces
-## 1          1  Get Together    2692 0.045  50                        American IPA     16
-## 2          1 Maggie&#39;s Leap    2691 0.049  26                  Milk / Sweet Stout     16
-## 3          1    Wall&#39;s End    2690 0.048  19                   English Brown Ale     16
-## 4          1       Pumpion    2689 0.060  38                         Pumpkin Ale     16
-## 5          1    Stronghold    2688 0.060  25                     American Porter     16
-## 6          1   Parapet ESB    2687 0.056  47 Extra Special / Strong Bitter (ESB)     16
-##              Brewery        City State  Type    New
-## 1 NorthGate Brewing  Minneapolis    MN   IPA    IPA
-## 2 NorthGate Brewing  Minneapolis    MN Other  Stout
-## 3 NorthGate Brewing  Minneapolis    MN   ALE    ALE
-## 4 NorthGate Brewing  Minneapolis    MN   ALE    ALE
-## 5 NorthGate Brewing  Minneapolis    MN Other Porter
-## 6 NorthGate Brewing  Minneapolis    MN Other  Other</code></pre>
+<pre><code>##   Brewery_id          Beer Beer_ID   ABV IBU
+## 1          1  Get Together    2692 0.045  50
+## 2          1 Maggie&#39;s Leap    2691 0.049  26
+## 3          1    Wall&#39;s End    2690 0.048  19
+## 4          1       Pumpion    2689 0.060  38
+## 5          1    Stronghold    2688 0.060  25
+## 6          1   Parapet ESB    2687 0.056  47
+##                                 Style Ounces            Brewery
+## 1                        American IPA     16 NorthGate Brewing 
+## 2                  Milk / Sweet Stout     16 NorthGate Brewing 
+## 3                   English Brown Ale     16 NorthGate Brewing 
+## 4                         Pumpkin Ale     16 NorthGate Brewing 
+## 5                     American Porter     16 NorthGate Brewing 
+## 6 Extra Special / Strong Bitter (ESB)     16 NorthGate Brewing 
+##          City State  Type    New
+## 1 Minneapolis    MN   IPA    IPA
+## 2 Minneapolis    MN Other  Stout
+## 3 Minneapolis    MN   ALE    ALE
+## 4 Minneapolis    MN   ALE    ALE
+## 5 Minneapolis    MN Other Porter
+## 6 Minneapolis    MN Other  Other</code></pre>
 <pre class="r"><code>df1$New &lt;- as.factor(df1$New)
 str(df1)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    2410 obs. of  12 variables:
@@ -877,7 +927,8 @@ ggplot(df1, aes(x=ABV, y=IBU, color=New)) +
   labs(color=&quot;Type of Beer&quot;) +
   facet_wrap(~New)</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 1005 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing non-finite values
+## (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1005 rows containing missing values (geom_point).
 
 ## Warning: Removed 1005 rows containing missing values (geom_point).</code></pre>
@@ -889,7 +940,8 @@ p1 &lt;- ggplot(df1, aes(x=New, y=ABV, fill=New)) +
   xlab(&quot;Type of Beer&quot;) + 
   theme(legend.position=&quot;none&quot;)
 p1</code></pre>
-<pre><code>## Warning: Removed 62 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>## Warning: Removed 62 rows containing non-finite values
+## (stat_boxplot).</code></pre>
 <p><img src="DDS_Project1_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <pre class="r"><code>#boxplot for IBU of each beer
 p2 &lt;- ggplot(df1, aes(x=New, y=IBU, fill=New)) +
@@ -898,7 +950,8 @@ p2 &lt;- ggplot(df1, aes(x=New, y=IBU, fill=New)) +
   xlab(&quot;Type of Beer&quot;) + 
   theme(legend.position=&quot;none&quot;)
 p2</code></pre>
-<pre><code>## Warning: Removed 1005 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing non-finite values
+## (stat_boxplot).</code></pre>
 <p><img src="DDS_Project1_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 <div id="number-9b---median-abv-and-ibu-by-state" class="section level1">
