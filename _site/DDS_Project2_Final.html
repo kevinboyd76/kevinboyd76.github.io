@@ -14,6 +14,7 @@
 
 <title>DDS_CaseStudy_2</title>
 
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -60,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -80,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -137,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -170,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -179,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -232,7 +234,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -276,46 +278,86 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#video">Video</a></li>
-<li><a href="#load-libraries-and-set-color-scheme">Load Libraries and Set Color Scheme</a></li>
-<li><a href="#load-and-look-at-the-data">Load and look at the data</a></li>
-<li><a href="#employee-eda">Employee EDA</a><ul>
-<li><a href="#look-at-the-variables">Look at the Variables</a><ul>
-<li><a href="#investigate-missing-values-in-each-column">Investigate Missing Values in Each Column</a></li>
-<li><a href="#attrition-distribution">Attrition Distribution</a></li>
-<li><a href="#monthly-income">Monthly Income</a></li>
-<li><a href="#monthly-income-by-groups">Monthly Income by Groups</a></li>
-<li><a href="#age-by-groups">Age by Groups</a></li>
-<li><a href="#job-role">Job Role</a></li>
-<li><a href="#monthly-income-based-on-job-role">Monthly Income based on Job Role</a></li>
-<li><a href="#job-role-and-job-satisfaction">Job Role and Job Satisfaction</a></li>
-<li><a href="#job-role-age-and-monthly-income">Job Role, Age, and Monthly Income</a></li>
-<li><a href="#overtime">Overtime</a></li>
-<li><a href="#business-travel">Business Travel</a></li>
-<li><a href="#marital-status">Marital Status</a></li>
-<li><a href="#bar-plots-multiple-variables">Bar Plots Multiple Variables</a></li>
-<li><a href="#scatter-plots-with-continuous-variables">Scatter Plots with Continuous Variables</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#video" id="toc-video">Video</a></li>
+<li><a href="#load-libraries-and-set-color-scheme"
+id="toc-load-libraries-and-set-color-scheme">Load Libraries and Set
+Color Scheme</a></li>
+<li><a href="#load-and-look-at-the-data"
+id="toc-load-and-look-at-the-data">Load and look at the data</a></li>
+<li><a href="#employee-eda" id="toc-employee-eda">Employee EDA</a>
+<ul>
+<li><a href="#look-at-the-variables" id="toc-look-at-the-variables">Look
+at the Variables</a>
+<ul>
+<li><a href="#investigate-missing-values-in-each-column"
+id="toc-investigate-missing-values-in-each-column">Investigate Missing
+Values in Each Column</a></li>
+<li><a href="#attrition-distribution"
+id="toc-attrition-distribution">Attrition Distribution</a></li>
+<li><a href="#monthly-income" id="toc-monthly-income">Monthly
+Income</a></li>
+<li><a href="#monthly-income-by-groups"
+id="toc-monthly-income-by-groups">Monthly Income by Groups</a></li>
+<li><a href="#age-by-groups" id="toc-age-by-groups">Age by
+Groups</a></li>
+<li><a href="#job-role" id="toc-job-role">Job Role</a></li>
+<li><a href="#monthly-income-based-on-job-role"
+id="toc-monthly-income-based-on-job-role">Monthly Income based on Job
+Role</a></li>
+<li><a href="#job-role-and-job-satisfaction"
+id="toc-job-role-and-job-satisfaction">Job Role and Job
+Satisfaction</a></li>
+<li><a href="#job-role-age-and-monthly-income"
+id="toc-job-role-age-and-monthly-income">Job Role, Age, and Monthly
+Income</a></li>
+<li><a href="#overtime" id="toc-overtime">Overtime</a></li>
+<li><a href="#business-travel" id="toc-business-travel">Business
+Travel</a></li>
+<li><a href="#marital-status" id="toc-marital-status">Marital
+Status</a></li>
+<li><a href="#bar-plots-multiple-variables"
+id="toc-bar-plots-multiple-variables">Bar Plots Multiple
+Variables</a></li>
+<li><a href="#scatter-plots-with-continuous-variables"
+id="toc-scatter-plots-with-continuous-variables">Scatter Plots with
+Continuous Variables</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#models">Models</a><ul>
-<li><a href="#attrition-models">Attrition Models</a><ul>
-<li><a href="#naive-bayes">Naive Bayes</a></li>
-<li><a href="#multiple-traintest-sets">Multiple Train/Test Sets</a></li>
-<li><a href="#k-nn-models">k-NN Models</a></li>
+<li><a href="#models" id="toc-models">Models</a>
+<ul>
+<li><a href="#attrition-models" id="toc-attrition-models">Attrition
+Models</a>
+<ul>
+<li><a href="#naive-bayes" id="toc-naive-bayes">Naive Bayes</a></li>
+<li><a href="#multiple-traintest-sets"
+id="toc-multiple-traintest-sets">Multiple Train/Test Sets</a></li>
+<li><a href="#k-nn-models" id="toc-k-nn-models">k-NN Models</a></li>
 </ul></li>
-<li><a href="#salary-model">Salary Model</a><ul>
-<li><a href="#linear-regression">Linear Regression</a></li>
+<li><a href="#salary-model" id="toc-salary-model">Salary Model</a>
+<ul>
+<li><a href="#linear-regression" id="toc-linear-regression">Linear
+Regression</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
 </ul>
 </div>
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>DDSAnalytics is an analytics company that specializes in talent management solutions for Fortune 100 companies. It is planning to leverage data science for talent management to gain a competitive edge over its competition. Their executive leadership has identified predicting employee turnover as its first application of data science for talent management and they have tasked our data science team to conduct an analysis of existing employee data.</p>
-<p>We have to use R on a given dataset to do a data analysis to identify factors that lead to attrition. Based on statistical analysis and evidence, we will identify the top three factors that contribute to turnover along with any other interesting trends and observations. We will also build models to predict attrition and salary.</p>
+<p>DDSAnalytics is an analytics company that specializes in talent
+management solutions for Fortune 100 companies. It is planning to
+leverage data science for talent management to gain a competitive edge
+over its competition. Their executive leadership has identified
+predicting employee turnover as its first application of data science
+for talent management and they have tasked our data science team to
+conduct an analysis of existing employee data.</p>
+<p>We have to use R on a given dataset to do a data analysis to identify
+factors that lead to attrition. Based on statistical analysis and
+evidence, we will identify the top three factors that contribute to
+turnover along with any other interesting trends and observations. We
+will also build models to predict attrition and salary.</p>
 </div>
 <div id="video" class="section level1">
 <h1>Video</h1>
@@ -381,48 +423,58 @@ str(employee.df)</code></pre>
 <table>
 <caption>Data summary</caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Name</td>
 <td align="left">employee.df</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Number of rows</td>
 <td align="left">870</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Number of columns</td>
 <td align="left">36</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">_______________________</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Column type frequency:</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">character</td>
 <td align="left">9</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">numeric</td>
 <td align="left">27</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">________________________</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Group variables</td>
 <td align="left">None</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: character</strong></p>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="19%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">skim_variable</th>
 <th align="right">n_missing</th>
 <th align="right">complete_rate</th>
@@ -434,7 +486,7 @@ str(employee.df)</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Attrition</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -444,7 +496,7 @@ str(employee.df)</code></pre>
 <td align="right">2</td>
 <td align="right">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">BusinessTravel</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -454,7 +506,7 @@ str(employee.df)</code></pre>
 <td align="right">3</td>
 <td align="right">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Department</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -464,7 +516,7 @@ str(employee.df)</code></pre>
 <td align="right">3</td>
 <td align="right">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">EducationField</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -474,7 +526,7 @@ str(employee.df)</code></pre>
 <td align="right">6</td>
 <td align="right">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Gender</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -484,7 +536,7 @@ str(employee.df)</code></pre>
 <td align="right">2</td>
 <td align="right">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">JobRole</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -494,7 +546,7 @@ str(employee.df)</code></pre>
 <td align="right">9</td>
 <td align="right">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">MaritalStatus</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -504,7 +556,7 @@ str(employee.df)</code></pre>
 <td align="right">3</td>
 <td align="right">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Over18</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -514,7 +566,7 @@ str(employee.df)</code></pre>
 <td align="right">1</td>
 <td align="right">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">OverTime</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -528,8 +580,21 @@ str(employee.df)</code></pre>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
+<colgroup>
+<col width="17%" />
+<col width="6%" />
+<col width="9%" />
+<col width="6%" />
+<col width="5%" />
+<col width="3%" />
+<col width="5%" />
+<col width="5%" />
+<col width="6%" />
+<col width="4%" />
+<col width="28%" />
+</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">skim_variable</th>
 <th align="right">n_missing</th>
 <th align="right">complete_rate</th>
@@ -544,7 +609,7 @@ str(employee.df)</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">ID</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -557,7 +622,7 @@ str(employee.df)</code></pre>
 <td align="right">870</td>
 <td align="left">▇▇▇▇▇</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Age</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -570,7 +635,7 @@ str(employee.df)</code></pre>
 <td align="right">60</td>
 <td align="left">▂▇▇▃▂</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">DailyRate</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -583,7 +648,7 @@ str(employee.df)</code></pre>
 <td align="right">1499</td>
 <td align="left">▇▇▇▇▇</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">DistanceFromHome</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -596,7 +661,7 @@ str(employee.df)</code></pre>
 <td align="right">29</td>
 <td align="left">▇▅▂▂▂</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Education</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -609,7 +674,7 @@ str(employee.df)</code></pre>
 <td align="right">5</td>
 <td align="left">▂▅▇▆▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">EmployeeCount</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -622,7 +687,7 @@ str(employee.df)</code></pre>
 <td align="right">1</td>
 <td align="left">▁▁▇▁▁</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">EmployeeNumber</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -635,7 +700,7 @@ str(employee.df)</code></pre>
 <td align="right">2064</td>
 <td align="left">▇▇▇▇▇</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">EnvironmentSatisfaction</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -648,7 +713,7 @@ str(employee.df)</code></pre>
 <td align="right">4</td>
 <td align="left">▅▆▁▇▇</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">HourlyRate</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -661,7 +726,7 @@ str(employee.df)</code></pre>
 <td align="right">100</td>
 <td align="left">▇▇▆▇▇</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">JobInvolvement</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -674,7 +739,7 @@ str(employee.df)</code></pre>
 <td align="right">4</td>
 <td align="left">▁▃▁▇▁</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">JobLevel</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -687,7 +752,7 @@ str(employee.df)</code></pre>
 <td align="right">5</td>
 <td align="left">▇▇▃▂▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">JobSatisfaction</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -700,7 +765,7 @@ str(employee.df)</code></pre>
 <td align="right">4</td>
 <td align="left">▅▅▁▇▇</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">MonthlyIncome</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -713,7 +778,7 @@ str(employee.df)</code></pre>
 <td align="right">19999</td>
 <td align="left">▇▅▂▁▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">MonthlyRate</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -726,7 +791,7 @@ str(employee.df)</code></pre>
 <td align="right">26997</td>
 <td align="left">▇▇▇▇▇</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">NumCompaniesWorked</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -739,7 +804,7 @@ str(employee.df)</code></pre>
 <td align="right">9</td>
 <td align="left">▇▃▂▂▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PercentSalaryHike</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -752,7 +817,7 @@ str(employee.df)</code></pre>
 <td align="right">25</td>
 <td align="left">▇▅▃▂▁</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">PerformanceRating</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -765,7 +830,7 @@ str(employee.df)</code></pre>
 <td align="right">4</td>
 <td align="left">▇▁▁▁▂</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">RelationshipSatisfaction</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -778,7 +843,7 @@ str(employee.df)</code></pre>
 <td align="right">4</td>
 <td align="left">▅▅▁▇▇</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">StandardHours</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -791,7 +856,7 @@ str(employee.df)</code></pre>
 <td align="right">80</td>
 <td align="left">▁▁▇▁▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">StockOptionLevel</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -804,7 +869,7 @@ str(employee.df)</code></pre>
 <td align="right">3</td>
 <td align="left">▇▇▁▂▁</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">TotalWorkingYears</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -817,7 +882,7 @@ str(employee.df)</code></pre>
 <td align="right">40</td>
 <td align="left">▇▇▂▁▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">TrainingTimesLastYear</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -830,7 +895,7 @@ str(employee.df)</code></pre>
 <td align="right">6</td>
 <td align="left">▂▇▇▂▃</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">WorkLifeBalance</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -843,7 +908,7 @@ str(employee.df)</code></pre>
 <td align="right">4</td>
 <td align="left">▁▃▁▇▂</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">YearsAtCompany</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -856,7 +921,7 @@ str(employee.df)</code></pre>
 <td align="right">40</td>
 <td align="left">▇▃▁▁▁</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">YearsInCurrentRole</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -869,7 +934,7 @@ str(employee.df)</code></pre>
 <td align="right">18</td>
 <td align="left">▇▃▂▁▁</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">YearsSinceLastPromotion</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -882,7 +947,7 @@ str(employee.df)</code></pre>
 <td align="right">15</td>
 <td align="left">▇▁▁▁▁</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">YearsWithCurrManager</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -905,11 +970,11 @@ NoSalary &lt;- read.csv(&quot;CaseStudy2CompSet(NoSalary).csv&quot;, header = T)
 <h1>Employee EDA</h1>
 <div id="look-at-the-variables" class="section level2">
 <h2>Look at the Variables</h2>
-<div id="investigate-missing-values-in-each-column" class="section level3">
+<div id="investigate-missing-values-in-each-column"
+class="section level3">
 <h3>Investigate Missing Values in Each Column</h3>
 <pre class="r"><code># No missing values are found for any variables (columns) in the dataset.
 gg_miss_var(employee.df, show_pct = T) + labs(title = &#39;Percent Missing Values&#39;) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
-<pre><code>## Warning: It is deprecated to specify `guide = FALSE` to remove a guide. Please use `guide = &quot;none&quot;` instead.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="attrition-distribution" class="section level3">
@@ -931,7 +996,8 @@ ggplot(employee.df, aes(x=MonthlyIncome, fill = Attrition)) +
   ylab(&quot;Count&quot;) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values = Rcolors)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="monthly-income-by-groups" class="section level3">
@@ -946,6 +1012,15 @@ employee.df %&gt;% ggplot(aes_string(x = &quot;IncomeGroup&quot;, fill = &quot;A
   labs(x = &quot;Income Group&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Income Groups&quot;) + 
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values = Rcolors)</code></pre>
+<pre><code>## Warning: `aes_string()` was deprecated in ggplot2
+## 3.0.0.
+## i Please use tidy evaluation idioms with
+##   `aes()`.
+## i See also `vignette(&quot;ggplot2-in-packages&quot;)`
+##   for more information.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()`
+## to see where this warning was generated.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="age-by-groups" class="section level3">
@@ -985,7 +1060,8 @@ employee.df %&gt;% ggplot(aes_string(x = &quot;JobRole&quot;, fill = &quot;Attri
   ylab(&quot;Count&quot;) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values = Rcolors)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="job-role-and-job-satisfaction" class="section level3">
@@ -1167,7 +1243,8 @@ EDA10 &lt;- plot_grid(EDA1,EDA2,EDA3,EDA4,EDA5,EDA6,EDA7,EDA8,EDA9, ncol = 3, nr
 EDA10</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
-<div id="scatter-plots-with-continuous-variables" class="section level3">
+<div id="scatter-plots-with-continuous-variables"
+class="section level3">
 <h3>Scatter Plots with Continuous Variables</h3>
 <pre class="r"><code>EDA.A &lt;- ggplot(employee.df, aes(x=TotalWorkingYears, y=PercentSalaryHike, color = Attrition)) +
   geom_point() +
@@ -1553,11 +1630,15 @@ NoSalary %&gt;% ggplot(aes(x = Age, y = Salary)) +
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
 <ol style="list-style-type: decimal">
-<li>Top 3 factors that contribute to employee turnover are Age, Monthly Income, and Job Role.</li>
+<li>Top 3 factors that contribute to employee turnover are Age, Monthly
+Income, and Job Role.</li>
 <li>Sales Representative have the highest turnover.</li>
-<li>Manufacturing Director, Research Director and Managers are the oldest, have highest income and have the least amount of turnover.</li>
-<li>We used a Naïve Bayes model to predict attrition with 87% Accuracy.</li>
-<li>We used a Linear Regression model to predict salary with RMSE of 1080 and extremely low P-Value (&lt; 2.2e-16).</li>
+<li>Manufacturing Director, Research Director and Managers are the
+oldest, have highest income and have the least amount of turnover.</li>
+<li>We used a Naïve Bayes model to predict attrition with 87%
+Accuracy.</li>
+<li>We used a Linear Regression model to predict salary with RMSE of
+1080 and extremely low P-Value (&lt; 2.2e-16).</li>
 </ol>
 </div>
 

@@ -13,12 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ![](kevin.jpg){#id .class width=25% height=25%}
 
-### I live in Norman, Oklahoma
+### About Me
+Hi, my name is Kevin Boyd. I obtained my undergraduate degree from the University of Oklahoma in Microbiology in May 2016. After graduating I worked in Dr. David Jones' lab and Dr. Christopher Sansam's lab at Oklahoma Medical Research Foundation (OMRF) as a research technician for 5 years. While working in Dr. Sansam's lab I had the opportunity to work directly with very large data sets and learn how to code in bash, R, and Python both locally and using OMRF's high performance computing cluster.
 
-### I enjoy playing tennis and guitar
+I graduated from SMU in the Fall of 2023 earning a 4.0 GPA for a Masters of Science in Data Science. I have heavy exposure to cutting edge machine learning techniques and with that experience I developed an automated cell segmentation and classification program for my masters thesis. I am currently working as a Senior Bioinformatic Analyst providing support for many different Principal Investigators. My main focus in this role has been pipeline development for multiple processes including: RNA seq, scRNA seq, Cut and Run, Cut and Tag, CHiP seq, ChEC seq, CRISPR screens, and using machine learning to automate image classification. It is amazing to see how technology has progressed so quickly to give us some of our modern tools. What excites me the most is leveraging those tools to solve even more complex problems.
 
-### I work at Oklahoma Medical Research Foundation
-
-### I have a MS in Microbiology from the University of Oklahoma
-
-### Check out my work in the other tabs!!
+### Please check out my other tabs to see some of my work.

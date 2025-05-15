@@ -14,6 +14,7 @@
 
 <title>Live Session 2 CLT</title>
 
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -62,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -82,6 +84,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -139,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -172,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -181,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -234,7 +236,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -295,7 +297,8 @@ xbar_holder2 = numeric(simulations) # This will hold all the sample means for th
 </div>
 <div id="simulate-and-store" class="section level2">
 <h2>Simulate and Store</h2>
-<p>Generate 1000 samples each of size 10 and find the mean of each sample. Then store each mean in the xbar_holder vector.</p>
+<p>Generate 1000 samples each of size 10 and find the mean of each
+sample. Then store each mean in the xbar_holder vector.</p>
 <pre class="r"><code>for (i in 1:simulations)
 { 
   sample1 = rnorm(n1,mean = mu, sd = sigma)
@@ -306,7 +309,8 @@ xbar_holder2 = numeric(simulations) # This will hold all the sample means for th
   xbar_holder2[i] = xbar2
 }</code></pre>
 </div>
-<div id="display-the-distribution-of-sample-means" class="section level2">
+<div id="display-the-distribution-of-sample-means"
+class="section level2">
 <h2>Display the Distribution of Sample Means</h2>
 <div id="plot-a-histogram-of-the-sample-means" class="section level4">
 <h4>(plot a histogram of the sample means)</h4>
@@ -320,14 +324,14 @@ hist(xbar_holder2, col = &quot;red&quot;, main = paste(&quot;Distribution of the
 <h2>Summary Statistics</h2>
 <pre class="r"><code>summary(xbar_holder1) #5 number summary and the mean</code></pre>
 <pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-## -0.871747 -0.199773  0.002897  0.010439  0.207463  1.050748</code></pre>
+## -1.067912 -0.228149 -0.015126 -0.002725  0.215236  0.915152</code></pre>
 <pre class="r"><code>summary(xbar_holder2) #5 number summary and the mean</code></pre>
-<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-## -0.319501 -0.060417  0.001786  0.004455  0.071779  0.295646</code></pre>
+<pre><code>##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+## -0.3303362 -0.0679767 -0.0047050  0.0000844  0.0711649  0.3358416</code></pre>
 <pre class="r"><code>sd(xbar_holder1) # standard deviation of dstribuion 1</code></pre>
-<pre><code>## [1] 0.3139522</code></pre>
+<pre><code>## [1] 0.3248464</code></pre>
 <pre class="r"><code>sd(xbar_holder2) #standard deviation of distribuion 2</code></pre>
-<pre><code>## [1] 0.09971204</code></pre>
+<pre><code>## [1] 0.1027323</code></pre>
 </div>
 </div>
 
