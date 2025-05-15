@@ -1,16 +1,23 @@
 ---
 title: "Website Showcasing Work"
 author: "Kevin Boyd"
-date: "11/8/2021"
+date: "5/15/2025"
 output: html_document
 ---
 
-# Kevin Boyd's Website
-This shows some info about Kevin and some of his work from DDS
+# Welcome
+Hi, my name is **Kevin Boyd** — a data scientist and bioinformatician with a passion for utilizing complex data into actionable insights. I currently live in Oklahoma and work as a Senior Bioinformatic Analyst. I specialize in statistical modeling, data visualization, image analysis, and building end-to-end data pipelines with R and Python.
 
+# Explore my Work:
 ### Shiny Apps
-[k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
-
+- [k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
 
 ### Attrition Case Study Youtube Video
-[Attrition Case Study](https://youtu.be/MuLEzt19qhw)
+- [Attrition Case Study](https://youtu.be/MuLEzt19qhw)
+
+### Github
+- [Code + Projects](https://github.com/kevinboyd76)
+
+---
+
+Feel free to look around and reach out if you would like to connect! You can contact me by email at kevinboyd76@gmail.com
