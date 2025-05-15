@@ -1,7 +1,7 @@
 ---
 title: "My Portfolio"
-author: "Kevin Boyd"
-date: "5/15/2025"
+author: "Author: Kevin Boyd"
+date: "Last Updated: 5/15/2025"
 output: html_document
 ---
 
@@ -14,7 +14,8 @@ Hi, my name is **Kevin Boyd** — a data scientist and bioinformatician with a p
 ### Shiny Apps
 - [k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
 
-### Attrition Case Study Youtube Video
+### Presentations - Youtube Videos
+- [Budweiser Case Study](https://youtu.be/fjBUYcG8ZlI)
 - [Attrition Case Study](https://youtu.be/MuLEzt19qhw)
 
 ### Github
