@@ -729,35 +729,35 @@ classifications &lt;- knn(dfTrain[,4:5], dfTest[,4:5], dfTrain$Type, k = 10, pro
 table(dfTest$Type,classifications)</code></pre>
 <pre><code>##      classifications
 ##       ALE IPA
-##   ALE 153  17
-##   IPA  27  80</code></pre>
+##   ALE 139  21
+##   IPA  23  87</code></pre>
 <pre class="r"><code>confusionMatrix(table(dfTest$Type,classifications))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##      classifications
 ##       ALE IPA
-##   ALE 153  17
-##   IPA  27  80
-##                                           
-##                Accuracy : 0.8412          
-##                  95% CI : (0.7927, 0.8821)
-##     No Information Rate : 0.6498          
-##     P-Value [Acc &gt; NIR] : 9.765e-13       
-##                                           
-##                   Kappa : 0.6591          
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.1748          
-##                                           
-##             Sensitivity : 0.8500          
-##             Specificity : 0.8247          
-##          Pos Pred Value : 0.9000          
-##          Neg Pred Value : 0.7477          
-##              Prevalence : 0.6498          
-##          Detection Rate : 0.5523          
-##    Detection Prevalence : 0.6137          
-##       Balanced Accuracy : 0.8374          
-##                                           
-##        &#39;Positive&#39; Class : ALE             
+##   ALE 139  21
+##   IPA  23  87
+##                                          
+##                Accuracy : 0.837          
+##                  95% CI : (0.7875, 0.879)
+##     No Information Rate : 0.6            
+##     P-Value [Acc &gt; NIR] : &lt;2e-16         
+##                                          
+##                   Kappa : 0.6615         
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.8802         
+##                                          
+##             Sensitivity : 0.8580         
+##             Specificity : 0.8056         
+##          Pos Pred Value : 0.8688         
+##          Neg Pred Value : 0.7909         
+##              Prevalence : 0.6000         
+##          Detection Rate : 0.5148         
+##    Detection Prevalence : 0.5926         
+##       Balanced Accuracy : 0.8318         
+##                                          
+##        &#39;Positive&#39; Class : ALE            
 ## </code></pre>
 </div>
 <div id="number-8b---find-best-k-value" class="section level1">
@@ -799,33 +799,33 @@ classifications4 &lt;- knn(dfTrain[,4:5], dfTest[,4:5], dfTrain$Type, k = 6, pro
 table(dfTest$Type,classifications4)</code></pre>
 <pre><code>##      classifications4
 ##       ALE IPA
-##   ALE 156  14
-##   IPA  25  82</code></pre>
+##   ALE 134  26
+##   IPA  21  89</code></pre>
 <pre class="r"><code>confusionMatrix(table(dfTest$Type,classifications4))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##      classifications4
 ##       ALE IPA
-##   ALE 156  14
-##   IPA  25  82
+##   ALE 134  26
+##   IPA  21  89
 ##                                           
-##                Accuracy : 0.8592          
-##                  95% CI : (0.8126, 0.8979)
-##     No Information Rate : 0.6534          
-##     P-Value [Acc &gt; NIR] : 8.992e-15       
+##                Accuracy : 0.8259          
+##                  95% CI : (0.7753, 0.8692)
+##     No Information Rate : 0.5741          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.6973          
+##                   Kappa : 0.642           
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.1093          
+##  Mcnemar&#39;s Test P-Value : 0.5596          
 ##                                           
-##             Sensitivity : 0.8619          
-##             Specificity : 0.8542          
-##          Pos Pred Value : 0.9176          
-##          Neg Pred Value : 0.7664          
-##              Prevalence : 0.6534          
-##          Detection Rate : 0.5632          
-##    Detection Prevalence : 0.6137          
-##       Balanced Accuracy : 0.8580          
+##             Sensitivity : 0.8645          
+##             Specificity : 0.7739          
+##          Pos Pred Value : 0.8375          
+##          Neg Pred Value : 0.8091          
+##              Prevalence : 0.5741          
+##          Detection Rate : 0.4963          
+##    Detection Prevalence : 0.5926          
+##       Balanced Accuracy : 0.8192          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -843,26 +843,26 @@ confusionMatrix(table(classifications1,dfTrain$Type))</code></pre>
 ## 
 ##                 
 ## classifications1 ALE IPA
-##              ALE 355  65
-##              IPA  34 213
+##              ALE 360  59
+##              IPA  39 216
 ##                                           
-##                Accuracy : 0.8516          
-##                  95% CI : (0.8223, 0.8777)
-##     No Information Rate : 0.5832          
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                Accuracy : 0.8546          
+##                  95% CI : (0.8257, 0.8804)
+##     No Information Rate : 0.592           
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
 ##                                           
-##                   Kappa : 0.6898          
+##                   Kappa : 0.6956          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.002569        
+##  Mcnemar&#39;s Test P-Value : 0.05495         
 ##                                           
-##             Sensitivity : 0.9126          
-##             Specificity : 0.7662          
-##          Pos Pred Value : 0.8452          
-##          Neg Pred Value : 0.8623          
-##              Prevalence : 0.5832          
-##          Detection Rate : 0.5322          
-##    Detection Prevalence : 0.6297          
-##       Balanced Accuracy : 0.8394          
+##             Sensitivity : 0.9023          
+##             Specificity : 0.7855          
+##          Pos Pred Value : 0.8592          
+##          Neg Pred Value : 0.8471          
+##              Prevalence : 0.5920          
+##          Detection Rate : 0.5341          
+##    Detection Prevalence : 0.6217          
+##       Balanced Accuracy : 0.8439          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -873,26 +873,26 @@ confusionMatrix(table(classifications2,dfTrain$Type))</code></pre>
 ## 
 ##                 
 ## classifications2 ALE IPA
-##              ALE 286  47
-##              IPA 103 231
+##              ALE 297  51
+##              IPA 102 224
 ##                                           
-##                Accuracy : 0.7751          
-##                  95% CI : (0.7415, 0.8063)
-##     No Information Rate : 0.5832          
+##                Accuracy : 0.773           
+##                  95% CI : (0.7395, 0.8041)
+##     No Information Rate : 0.592           
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.5503          
+##                   Kappa : 0.5433          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 7.098e-06       
+##  Mcnemar&#39;s Test P-Value : 5.294e-05       
 ##                                           
-##             Sensitivity : 0.7352          
-##             Specificity : 0.8309          
-##          Pos Pred Value : 0.8589          
-##          Neg Pred Value : 0.6916          
-##              Prevalence : 0.5832          
-##          Detection Rate : 0.4288          
-##    Detection Prevalence : 0.4993          
-##       Balanced Accuracy : 0.7831          
+##             Sensitivity : 0.7444          
+##             Specificity : 0.8145          
+##          Pos Pred Value : 0.8534          
+##          Neg Pred Value : 0.6871          
+##              Prevalence : 0.5920          
+##          Detection Rate : 0.4407          
+##    Detection Prevalence : 0.5163          
+##       Balanced Accuracy : 0.7795          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
@@ -903,26 +903,26 @@ confusionMatrix(table(classifications3,dfTrain$Type))</code></pre>
 ## 
 ##                 
 ## classifications3 ALE IPA
-##              ALE 343  51
-##              IPA  46 227
+##              ALE 340  50
+##              IPA  59 225
 ##                                           
-##                Accuracy : 0.8546          
-##                  95% CI : (0.8255, 0.8805)
-##     No Information Rate : 0.5832          
+##                Accuracy : 0.8383          
+##                  95% CI : (0.8083, 0.8653)
+##     No Information Rate : 0.592           
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.7001          
+##                   Kappa : 0.6669          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.6846          
+##  Mcnemar&#39;s Test P-Value : 0.4435          
 ##                                           
-##             Sensitivity : 0.8817          
-##             Specificity : 0.8165          
-##          Pos Pred Value : 0.8706          
-##          Neg Pred Value : 0.8315          
-##              Prevalence : 0.5832          
-##          Detection Rate : 0.5142          
-##    Detection Prevalence : 0.5907          
-##       Balanced Accuracy : 0.8491          
+##             Sensitivity : 0.8521          
+##             Specificity : 0.8182          
+##          Pos Pred Value : 0.8718          
+##          Neg Pred Value : 0.7923          
+##              Prevalence : 0.5920          
+##          Detection Rate : 0.5045          
+##    Detection Prevalence : 0.5786          
+##       Balanced Accuracy : 0.8352          
 ##                                           
 ##        &#39;Positive&#39; Class : ALE             
 ## </code></pre>
