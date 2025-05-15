@@ -1,5 +1,5 @@
 ---
-title: "Kevin Boyd Portfolio"
+title: "My Portfolio"
 author: "Kevin Boyd"
 date: "5/15/2025"
 output: html_document
@@ -20,6 +20,6 @@ Hi, my name is **Kevin Boyd** — a data scientist and bioinformatician with a p
 ### Github
 - [Code + Projects](https://github.com/kevinboyd76)
 
----
+ ---
 
 Feel free to look around and reach out if you would like to connect! You can contact me by email at kevinboyd76@gmail.com

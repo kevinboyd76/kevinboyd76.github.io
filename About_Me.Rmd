@@ -1,7 +1,7 @@
 ---
-title: "About_Me"
+title: "About Me"
 author: "Kevin Boyd"
-date: "11/8/2021"
+date: "5/15/2025"
 output: html_document
 ---
 
@@ -18,6 +18,6 @@ Hi, my name is Kevin Boyd. I obtained my undergraduate degree from the Universit
 
 I graduated from SMU in the Fall of 2023 earning a 4.0 GPA for a Masters of Science in Data Science. I have heavy exposure to cutting edge machine learning techniques and with that experience I developed an automated cell segmentation and classification program for my masters thesis. I am currently working as a Senior Bioinformatic Analyst providing support for many different Principal Investigators. My main focus in this role has been pipeline development for multiple processes including: RNA seq, scRNA seq, Cut and Run, Cut and Tag, CHiP seq, ChEC seq, CRISPR screens, and using machine learning to automate image classification. It is amazing to see how technology has progressed so quickly to give us some of our modern tools. What excites me the most is leveraging those tools to solve even more complex problems.
 
----
+ ---
 
 ### Please check out my other tabs to see some of my work.
