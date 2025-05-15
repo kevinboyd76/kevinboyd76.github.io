@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kevin Boyd &amp; Shikha Pandey" />
+
+
+<title>DDS_CaseStudy_2</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About_Me.html">About Me</a>
+</li>
+<li>
+  <a href="DDS_Project1.html">Budweiser Case Study</a>
+</li>
+<li>
+  <a href="CLT2.html">CLT2</a>
+</li>
+<li>
+  <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">DDS_CaseStudy_2</h1>
+<h4 class="author">Kevin Boyd &amp; Shikha Pandey</h4>
+<h4 class="date">12/7/2021</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#video" id="toc-video">Video</a></li>
+<li><a href="#load-libraries-and-set-color-scheme"
+id="toc-load-libraries-and-set-color-scheme">Load Libraries and Set
+Color Scheme</a></li>
+<li><a href="#load-and-look-at-the-data"
+id="toc-load-and-look-at-the-data">Load and look at the data</a></li>
+<li><a href="#employee-eda" id="toc-employee-eda">Employee EDA</a>
+<ul>
+<li><a href="#look-at-the-variables" id="toc-look-at-the-variables">Look
+at the Variables</a>
+<ul>
+<li><a href="#investigate-missing-values-in-each-column"
+id="toc-investigate-missing-values-in-each-column">Investigate Missing
+Values in Each Column</a></li>
+<li><a href="#attrition-distribution"
+id="toc-attrition-distribution">Attrition Distribution</a></li>
+<li><a href="#monthly-income" id="toc-monthly-income">Monthly
+Income</a></li>
+<li><a href="#monthly-income-by-groups"
+id="toc-monthly-income-by-groups">Monthly Income by Groups</a></li>
+<li><a href="#age-by-groups" id="toc-age-by-groups">Age by
+Groups</a></li>
+<li><a href="#job-role" id="toc-job-role">Job Role</a></li>
+<li><a href="#monthly-income-based-on-job-role"
+id="toc-monthly-income-based-on-job-role">Monthly Income based on Job
+Role</a></li>
+<li><a href="#job-role-and-job-satisfaction"
+id="toc-job-role-and-job-satisfaction">Job Role and Job
+Satisfaction</a></li>
+<li><a href="#job-role-age-and-monthly-income"
+id="toc-job-role-age-and-monthly-income">Job Role, Age, and Monthly
+Income</a></li>
+<li><a href="#overtime" id="toc-overtime">Overtime</a></li>
+<li><a href="#business-travel" id="toc-business-travel">Business
+Travel</a></li>
+<li><a href="#marital-status" id="toc-marital-status">Marital
+Status</a></li>
+<li><a href="#bar-plots-multiple-variables"
+id="toc-bar-plots-multiple-variables">Bar Plots Multiple
+Variables</a></li>
+<li><a href="#scatter-plots-with-continuous-variables"
+id="toc-scatter-plots-with-continuous-variables">Scatter Plots with
+Continuous Variables</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#models" id="toc-models">Models</a>
+<ul>
+<li><a href="#attrition-models" id="toc-attrition-models">Attrition
+Models</a>
+<ul>
+<li><a href="#naive-bayes" id="toc-naive-bayes">Naive Bayes</a></li>
+<li><a href="#multiple-traintest-sets"
+id="toc-multiple-traintest-sets">Multiple Train/Test Sets</a></li>
+<li><a href="#k-nn-models" id="toc-k-nn-models">k-NN Models</a></li>
+</ul></li>
+<li><a href="#salary-model" id="toc-salary-model">Salary Model</a>
+<ul>
+<li><a href="#linear-regression" id="toc-linear-regression">Linear
+Regression</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>DDSAnalytics is an analytics company that specializes in talent
+management solutions for Fortune 100 companies. It is planning to
+leverage data science for talent management to gain a competitive edge
+over its competition. Their executive leadership has identified
+predicting employee turnover as its first application of data science
+for talent management and they have tasked our data science team to
+conduct an analysis of existing employee data.</p>
+<p>We have to use R on a given dataset to do a data analysis to identify
+factors that lead to attrition. Based on statistical analysis and
+evidence, we will identify the top three factors that contribute to
+turnover along with any other interesting trends and observations. We
+will also build models to predict attrition and salary.</p>
+</div>
+<div id="video" class="section level1">
+<h1>Video</h1>
+<p><a href="https://youtu.be/MuLEzt19qhw">Attrition Case Study</a></p>
+</div>
+<div id="load-libraries-and-set-color-scheme" class="section level1">
+<h1>Load Libraries and Set Color Scheme</h1>
+<pre class="r"><code>library(tidyverse)
+library(GGally)
+library(cowplot)
+library(class)
+library(caret)
+library(e1071)
+library(reshape2)
+library(stringr)
+library(naniar)
+library(skimr) #for data summary
+Rcolors &lt;- c(&quot;lightseagreen&quot;, &quot;darkslateblue&quot;,&quot;orange&quot;)</code></pre>
+</div>
+<div id="load-and-look-at-the-data" class="section level1">
+<h1>Load and look at the data</h1>
+<pre class="r"><code># The dataset has 870 observations (rows) and 36 variables (columns).
+employee.df &lt;- read.csv(&quot;CaseStudy2-data.csv&quot;, header = T)
+str(employee.df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    870 obs. of  36 variables:
+##  $ ID                      : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Age                     : int  32 40 35 32 24 27 41 37 34 34 ...
+##  $ Attrition               : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ BusinessTravel          : chr  &quot;Travel_Rarely&quot; &quot;Travel_Rarely&quot; &quot;Travel_Frequently&quot; &quot;Travel_Rarely&quot; ...
+##  $ DailyRate               : int  117 1308 200 801 567 294 1283 309 1333 653 ...
+##  $ Department              : chr  &quot;Sales&quot; &quot;Research &amp; Development&quot; &quot;Research &amp; Development&quot; &quot;Sales&quot; ...
+##  $ DistanceFromHome        : int  13 14 18 1 2 10 5 10 10 10 ...
+##  $ Education               : int  4 3 2 4 1 2 5 4 4 4 ...
+##  $ EducationField          : chr  &quot;Life Sciences&quot; &quot;Medical&quot; &quot;Life Sciences&quot; &quot;Marketing&quot; ...
+##  $ EmployeeCount           : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ EmployeeNumber          : int  859 1128 1412 2016 1646 733 1448 1105 1055 1597 ...
+##  $ EnvironmentSatisfaction : int  2 3 3 3 1 4 2 4 3 4 ...
+##  $ Gender                  : chr  &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Female&quot; ...
+##  $ HourlyRate              : int  73 44 60 48 32 32 90 88 87 92 ...
+##  $ JobInvolvement          : int  3 2 3 3 3 3 4 2 3 2 ...
+##  $ JobLevel                : int  2 5 3 3 1 3 1 2 1 2 ...
+##  $ JobRole                 : chr  &quot;Sales Executive&quot; &quot;Research Director&quot; &quot;Manufacturing Director&quot; &quot;Sales Executive&quot; ...
+##  $ JobSatisfaction         : int  4 3 4 4 4 1 3 4 3 3 ...
+##  $ MaritalStatus           : chr  &quot;Divorced&quot; &quot;Single&quot; &quot;Single&quot; &quot;Married&quot; ...
+##  $ MonthlyIncome           : int  4403 19626 9362 10422 3760 8793 2127 6694 2220 5063 ...
+##  $ MonthlyRate             : int  9250 17544 19944 24032 17218 4809 5561 24223 18410 15332 ...
+##  $ NumCompaniesWorked      : int  2 1 2 1 1 1 2 2 1 1 ...
+##  $ Over18                  : chr  &quot;Y&quot; &quot;Y&quot; &quot;Y&quot; &quot;Y&quot; ...
+##  $ OverTime                : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ PercentSalaryHike       : int  11 14 11 19 13 21 12 14 19 14 ...
+##  $ PerformanceRating       : int  3 3 3 3 3 4 3 3 3 3 ...
+##  $ RelationshipSatisfaction: int  3 1 3 3 3 3 1 3 4 2 ...
+##  $ StandardHours           : int  80 80 80 80 80 80 80 80 80 80 ...
+##  $ StockOptionLevel        : int  1 0 0 2 0 2 0 3 1 1 ...
+##  $ TotalWorkingYears       : int  8 21 10 14 6 9 7 8 1 8 ...
+##  $ TrainingTimesLastYear   : int  3 2 2 3 2 4 5 5 2 3 ...
+##  $ WorkLifeBalance         : int  2 4 3 3 3 2 2 3 3 2 ...
+##  $ YearsAtCompany          : int  5 20 2 14 6 9 4 1 1 8 ...
+##  $ YearsInCurrentRole      : int  2 7 2 10 3 7 2 0 1 2 ...
+##  $ YearsSinceLastPromotion : int  0 4 2 5 1 1 0 0 0 7 ...
+##  $ YearsWithCurrManager    : int  3 9 2 7 3 7 3 0 0 7 ...</code></pre>
+<pre class="r"><code>skim(employee.df)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr>
+<td align="left">Name</td>
+<td align="left">employee.df</td>
+</tr>
+<tr>
+<td align="left">Number of rows</td>
+<td align="left">870</td>
+</tr>
+<tr>
+<td align="left">Number of columns</td>
+<td align="left">36</td>
+</tr>
+<tr>
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">character</td>
+<td align="left">9</td>
+</tr>
+<tr>
+<td align="left">numeric</td>
+<td align="left">27</td>
+</tr>
+<tr>
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%" />
+<col width="13%" />
+<col width="19%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr>
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Attrition</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">BusinessTravel</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">10</td>
+<td align="right">17</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">Department</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">EducationField</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">16</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">Gender</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">JobRole</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">25</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">MaritalStatus</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">Over18</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left">OverTime</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="6%" />
+<col width="9%" />
+<col width="6%" />
+<col width="5%" />
+<col width="3%" />
+<col width="5%" />
+<col width="5%" />
+<col width="6%" />
+<col width="4%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr>
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ID</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">435.50</td>
+<td align="right">251.29</td>
+<td align="right">1</td>
+<td align="right">218.25</td>
+<td align="right">435.5</td>
+<td align="right">652.75</td>
+<td align="right">870</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td align="left">Age</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">36.83</td>
+<td align="right">8.93</td>
+<td align="right">18</td>
+<td align="right">30.00</td>
+<td align="right">35.0</td>
+<td align="right">43.00</td>
+<td align="right">60</td>
+<td align="left">▂▇▇▃▂</td>
+</tr>
+<tr>
+<td align="left">DailyRate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">815.23</td>
+<td align="right">401.12</td>
+<td align="right">103</td>
+<td align="right">472.50</td>
+<td align="right">817.5</td>
+<td align="right">1165.75</td>
+<td align="right">1499</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td align="left">DistanceFromHome</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">9.34</td>
+<td align="right">8.14</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">7.0</td>
+<td align="right">14.00</td>
+<td align="right">29</td>
+<td align="left">▇▅▂▂▂</td>
+</tr>
+<tr>
+<td align="left">Education</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.90</td>
+<td align="right">1.02</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">5</td>
+<td align="left">▂▅▇▆▁</td>
+</tr>
+<tr>
+<td align="left">EmployeeCount</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">0.00</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="left">▁▁▇▁▁</td>
+</tr>
+<tr>
+<td align="left">EmployeeNumber</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1029.83</td>
+<td align="right">604.79</td>
+<td align="right">1</td>
+<td align="right">477.25</td>
+<td align="right">1039.0</td>
+<td align="right">1561.50</td>
+<td align="right">2064</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td align="left">EnvironmentSatisfaction</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.70</td>
+<td align="right">1.10</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▅▆▁▇▇</td>
+</tr>
+<tr>
+<td align="left">HourlyRate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">65.61</td>
+<td align="right">20.13</td>
+<td align="right">30</td>
+<td align="right">48.00</td>
+<td align="right">66.0</td>
+<td align="right">83.00</td>
+<td align="right">100</td>
+<td align="left">▇▇▆▇▇</td>
+</tr>
+<tr>
+<td align="left">JobInvolvement</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.72</td>
+<td align="right">0.70</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▁▃▁▇▁</td>
+</tr>
+<tr>
+<td align="left">JobLevel</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.04</td>
+<td align="right">1.09</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▇▇▃▂▁</td>
+</tr>
+<tr>
+<td align="left">JobSatisfaction</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.71</td>
+<td align="right">1.11</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▅▅▁▇▇</td>
+</tr>
+<tr>
+<td align="left">MonthlyIncome</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6390.26</td>
+<td align="right">4597.70</td>
+<td align="right">1081</td>
+<td align="right">2839.50</td>
+<td align="right">4945.5</td>
+<td align="right">8182.00</td>
+<td align="right">19999</td>
+<td align="left">▇▅▂▁▁</td>
+</tr>
+<tr>
+<td align="left">MonthlyRate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14325.62</td>
+<td align="right">7108.38</td>
+<td align="right">2094</td>
+<td align="right">8092.00</td>
+<td align="right">14074.5</td>
+<td align="right">20456.25</td>
+<td align="right">26997</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td align="left">NumCompaniesWorked</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.73</td>
+<td align="right">2.52</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">4.00</td>
+<td align="right">9</td>
+<td align="left">▇▃▂▂▁</td>
+</tr>
+<tr>
+<td align="left">PercentSalaryHike</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">15.20</td>
+<td align="right">3.68</td>
+<td align="right">11</td>
+<td align="right">12.00</td>
+<td align="right">14.0</td>
+<td align="right">18.00</td>
+<td align="right">25</td>
+<td align="left">▇▅▃▂▁</td>
+</tr>
+<tr>
+<td align="left">PerformanceRating</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.15</td>
+<td align="right">0.36</td>
+<td align="right">3</td>
+<td align="right">3.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▇▁▁▁▂</td>
+</tr>
+<tr>
+<td align="left">RelationshipSatisfaction</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.71</td>
+<td align="right">1.10</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▅▅▁▇▇</td>
+</tr>
+<tr>
+<td align="left">StandardHours</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">80.00</td>
+<td align="right">0.00</td>
+<td align="right">80</td>
+<td align="right">80.00</td>
+<td align="right">80.0</td>
+<td align="right">80.00</td>
+<td align="right">80</td>
+<td align="left">▁▁▇▁▁</td>
+</tr>
+<tr>
+<td align="left">StockOptionLevel</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.78</td>
+<td align="right">0.86</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▇▇▁▂▁</td>
+</tr>
+<tr>
+<td align="left">TotalWorkingYears</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">11.05</td>
+<td align="right">7.51</td>
+<td align="right">0</td>
+<td align="right">6.00</td>
+<td align="right">10.0</td>
+<td align="right">15.00</td>
+<td align="right">40</td>
+<td align="left">▇▇▂▁▁</td>
+</tr>
+<tr>
+<td align="left">TrainingTimesLastYear</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.83</td>
+<td align="right">1.27</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">6</td>
+<td align="left">▂▇▇▂▃</td>
+</tr>
+<tr>
+<td align="left">WorkLifeBalance</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.78</td>
+<td align="right">0.71</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▁▃▁▇▂</td>
+</tr>
+<tr>
+<td align="left">YearsAtCompany</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.96</td>
+<td align="right">6.02</td>
+<td align="right">0</td>
+<td align="right">3.00</td>
+<td align="right">5.0</td>
+<td align="right">10.00</td>
+<td align="right">40</td>
+<td align="left">▇▃▁▁▁</td>
+</tr>
+<tr>
+<td align="left">YearsInCurrentRole</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.20</td>
+<td align="right">3.64</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">7.00</td>
+<td align="right">18</td>
+<td align="left">▇▃▂▁▁</td>
+</tr>
+<tr>
+<td align="left">YearsSinceLastPromotion</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.17</td>
+<td align="right">3.19</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">3.00</td>
+<td align="right">15</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td align="left">YearsWithCurrManager</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.14</td>
+<td align="right">3.57</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">7.00</td>
+<td align="right">17</td>
+<td align="left">▇▂▅▁▁</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># There are 300 observations in each dataset below to predict Attrition and Salary respectively.
+NoAttrition = read.csv(&quot;CaseStudy2CompSet No Attrition.csv&quot;, header = TRUE)
+NoSalary &lt;- read.csv(&quot;CaseStudy2CompSet(NoSalary).csv&quot;, header = T)</code></pre>
+</div>
+<div id="employee-eda" class="section level1">
+<h1>Employee EDA</h1>
+<div id="look-at-the-variables" class="section level2">
+<h2>Look at the Variables</h2>
+<div id="investigate-missing-values-in-each-column"
+class="section level3">
+<h3>Investigate Missing Values in Each Column</h3>
+<pre class="r"><code># No missing values are found for any variables (columns) in the dataset.
+gg_miss_var(employee.df, show_pct = T) + labs(title = &#39;Percent Missing Values&#39;) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="attrition-distribution" class="section level3">
+<h3>Attrition Distribution</h3>
+<pre class="r"><code>employee.df %&gt;% ggplot(aes(x = Attrition, fill = Attrition)) + 
+  geom_bar() + 
+  ggtitle(&quot;Distribution of Attrition&quot;)  + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="monthly-income" class="section level3">
+<h3>Monthly Income</h3>
+<pre class="r"><code># We see from the histogram that most number of employees have salary in range $2000-$4000 and then second highest range is $4000-$6000.
+ggplot(employee.df, aes(x=MonthlyIncome, fill = Attrition)) +
+  geom_histogram() +
+  ggtitle(&quot;Monthly Income Based on Attrition&quot;) +
+  xlab(&quot;Monthly Income&quot;) +
+  ylab(&quot;Count&quot;) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = Rcolors)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="monthly-income-by-groups" class="section level3">
+<h3>Monthly Income by Groups</h3>
+<pre class="r"><code># Let&#39;s create income groups and look at Attrition for those income groups.
+employee.df$IncomeGroup &lt;- cut(employee.df$MonthlyIncome, breaks = c(0, 2000, 4000, 6000, 10000, 15000, 20000), labels = c(&quot;&lt;$2000&quot;,&quot;$2000-$4000&quot;,&quot;$4000-$6000&quot;,&quot;$6000-$10000&quot;,&quot;$10000-$15000&quot;,&quot;$15000-$20000&quot;))
+
+# Lowest Income Group (&lt;$2000) has the highest Attrition rate, followed by second lowest Income Group ($2000-$4000).
+employee.df %&gt;% ggplot(aes_string(x = &quot;IncomeGroup&quot;, fill = &quot;Attrition&quot;)) + 
+  geom_bar(position = &quot;fill&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  labs(x = &quot;Income Group&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Income Groups&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = Rcolors)</code></pre>
+<pre><code>## Warning: `aes_string()` was deprecated in ggplot2
+## 3.0.0.
+## i Please use tidy evaluation idioms with
+##   `aes()`.
+## i See also `vignette(&quot;ggplot2-in-packages&quot;)`
+##   for more information.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()`
+## to see where this warning was generated.</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="age-by-groups" class="section level3">
+<h3>Age by Groups</h3>
+<pre class="r"><code># Let&#39;s create age groups and look at Attrition for those age groups.
+employee.df$AgeGroup &lt;- cut(employee.df$Age, breaks = c(18,25,35,45,60), labels = c(&quot;18-25&quot;,&quot;25-35&quot;,&quot;35-45&quot;,&quot;45-60&quot;), include.lowest = TRUE)
+
+# Younger age groups 18-25 and 25-35 have higher attrition rate.
+employee.df %&gt;% ggplot(aes_string(x = &quot;AgeGroup&quot;, fill = &quot;Attrition&quot;)) + 
+  geom_bar(position = &quot;fill&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  labs(x = &quot;Age Group&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Age Groups&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="job-role" class="section level3">
+<h3>Job Role</h3>
+<pre class="r"><code># Research Directors have highest attrition rate whereas Sales Representatives have the least. 
+employee.df %&gt;% ggplot(aes_string(x = &quot;JobRole&quot;, fill = &quot;Attrition&quot;)) + 
+  geom_bar(position = &quot;fill&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  labs(x = &quot;Job Role&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Job Role&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  coord_flip() + 
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 12)) + 
+  scale_fill_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="monthly-income-based-on-job-role" class="section level3">
+<h3>Monthly Income based on Job Role</h3>
+<pre class="r"><code>ggplot(employee.df, aes(x=MonthlyIncome, fill = Attrition)) +
+  geom_histogram() +
+  facet_wrap(~JobRole) +
+  ggtitle(&quot;Monthly Income based on Job Role&quot;) +
+  xlab(&quot;Monthly Income&quot;) +
+  ylab(&quot;Count&quot;) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = Rcolors)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="job-role-and-job-satisfaction" class="section level3">
+<h3>Job Role and Job Satisfaction</h3>
+<pre class="r"><code>ggplot(employee.df, aes(x=JobSatisfaction, fill = Attrition)) +
+  geom_bar() +
+  ggtitle(&quot;Attrition based on Job Role and Job Satisfaction&quot;) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = Rcolors) +
+  facet_wrap(~JobRole)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="job-role-age-and-monthly-income" class="section level3">
+<h3>Job Role, Age, and Monthly Income</h3>
+<pre class="r"><code>ggplot(employee.df, aes(x=Age, y=MonthlyIncome, color = Attrition)) +
+  geom_point() +
+  facet_wrap(~JobRole) +
+  ggtitle(&quot;Attrition based on Age and Monthly Income&quot;) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="overtime" class="section level3">
+<h3>Overtime</h3>
+<pre class="r"><code># Higher attrition rate for employees who work overtime.
+employee.df %&gt;% ggplot(aes_string(x = &quot;OverTime&quot;, fill = &quot;Attrition&quot;)) + 
+  geom_bar(position = &quot;fill&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  labs(x = &quot;Overtime&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Overtime&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_fill_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="business-travel" class="section level3">
+<h3>Business Travel</h3>
+<pre class="r"><code># Attrition level goes up from Non-Travel to Travel-Frequently category.
+employee.df %&gt;% ggplot(aes_string(x = &quot;BusinessTravel&quot;, fill = &quot;Attrition&quot;)) + 
+  geom_bar(position = &quot;fill&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  labs(x = &quot;Business Travel&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Business Travel&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_fill_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="marital-status" class="section level3">
+<h3>Marital Status</h3>
+<pre class="r"><code># Divorce contribute to attrition
+bar &lt;- ggplot(employee.df, aes(x=MaritalStatus, fill = MaritalStatus)) +
+  geom_bar() +
+  facet_wrap(~Attrition) +
+  ggtitle(&quot;Attrition Dependent on Marital Status &quot;) +
+  xlab(&quot;Attrition&quot;) +
+  ylab(&quot;Count&quot;)
+bar &lt;- bar + scale_fill_manual(values = Rcolors)
+
+# Yes Attrition
+# Make new data frames for married, divorced, and single
+df1 &lt;- employee.df %&gt;%
+  filter(Attrition == &quot;Yes&quot;)
+df1length &lt;- NROW(df1)
+df1married &lt;- length(grep(&quot;Married&quot;, df1$MaritalStatus))
+df1divorced &lt;- length(grep(&quot;Divorced&quot;, df1$MaritalStatus))
+df1single &lt;- length(grep(&quot;Single&quot;, df1$MaritalStatus))
+
+Yes_df &lt;- data.frame(MaritalStatus = c(&quot;Married&quot;,&quot;Divorced&quot;,&quot;Single&quot;), 
+                     Value = c(df1married,df1divorced,df1single))
+
+plot1 &lt;- ggplot(Yes_df, aes(x=&quot;&quot;, y=Value, fill=MaritalStatus)) +
+  geom_bar(width = 1, stat = &quot;identity&quot;) + xlab(&quot;&quot;) + ylab(&quot;&quot;) + ggtitle(&quot;Attrition: Yes&quot;)
+pie1 &lt;- plot1 + coord_polar(&quot;y&quot;, start=0)
+pie1 &lt;- pie1 + scale_fill_manual(values = Rcolors)
+
+# No Attrition
+# Make new data frames for married, divorced, and single
+df2 &lt;- employee.df %&gt;%
+  filter(Attrition == &quot;No&quot;)
+df2length &lt;- NROW(df2)
+df2married &lt;- length(grep(&quot;Married&quot;, df2$MaritalStatus))
+df2divorced &lt;- length(grep(&quot;Divorced&quot;, df2$MaritalStatus))
+df2single &lt;- length(grep(&quot;Single&quot;, df2$MaritalStatus))
+
+No_df &lt;- data.frame(MaritalStatus = c(&quot;Married&quot;,&quot;Divorced&quot;,&quot;Single&quot;), 
+                     Value = c(df2married,df2divorced,df2single))
+
+plot2 &lt;- ggplot(No_df, aes(x=&quot;&quot;, y=Value, fill=MaritalStatus)) +
+  geom_bar(width = 1, stat = &quot;identity&quot;) + xlab(&quot;&quot;) + ylab(&quot;&quot;) + ggtitle(&quot;Attrition: No&quot;)
+pie2 &lt;- plot2 + coord_polar(&quot;y&quot;, start=0)
+pie2 &lt;- pie2 + scale_fill_manual(values = Rcolors)
+
+piecharts &lt;- plot_grid(pie2,pie1, ncol = 2,  labels = c(&quot;B&quot;,&quot;C&quot;))
+allplots &lt;- plot_grid(bar,piecharts, nrow = 2, labels = &quot;A&quot;)
+allplots</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="bar-plots-multiple-variables" class="section level3">
+<h3>Bar Plots Multiple Variables</h3>
+<pre class="r"><code>EDA1 &lt;- ggplot(employee.df, aes(x=RelationshipSatisfaction, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Relationship Satisfaction&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA1 &lt;- EDA1 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA2 &lt;- ggplot(employee.df, aes(x=JobLevel, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Job Level&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA2 &lt;- EDA2 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA3 &lt;- ggplot(employee.df, aes(x=JobSatisfaction, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Job Satisfaction&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA3 &lt;- EDA3 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA4 &lt;- ggplot(employee.df, aes(x=YearsWithCurrManager, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Years With Current Manager&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA4 &lt;- EDA4 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA5 &lt;- ggplot(employee.df, aes(x=YearsSinceLastPromotion, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Years Since Last Promotion&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA5 &lt;- EDA5 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA6 &lt;- ggplot(employee.df, aes(x=YearsAtCompany, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Years At Company&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA6 &lt;- EDA6 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA7 &lt;- ggplot(employee.df, aes(x=YearsInCurrentRole, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Years in Current Role&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA7 &lt;- EDA7 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA8 &lt;- ggplot(employee.df, aes(x=NumCompaniesWorked, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Companies Worked&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA8 &lt;- EDA8 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA9 &lt;- ggplot(employee.df, aes(x=MaritalStatus, fill = Attrition)) +
+  geom_bar(position = &quot;fill&quot;) +
+  ggtitle(&quot;Marital Status&quot;) +
+  ylab(&quot;% Count&quot;) + 
+  scale_y_continuous(labels = scales::percent) + 
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = Rcolors)
+EDA9 &lt;- EDA9 + theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA10 &lt;- plot_grid(EDA1,EDA2,EDA3,EDA4,EDA5,EDA6,EDA7,EDA8,EDA9, ncol = 3, nrow = 3)
+EDA10</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="scatter-plots-with-continuous-variables"
+class="section level3">
+<h3>Scatter Plots with Continuous Variables</h3>
+<pre class="r"><code>EDA.A &lt;- ggplot(employee.df, aes(x=TotalWorkingYears, y=PercentSalaryHike, color = Attrition)) +
+  geom_point() +
+  ggtitle(&quot;Total Working Years vs % Salary Hike&quot;) +
+  scale_color_manual(values = Rcolors) +
+  ylab(&quot;% Salary Hike&quot;) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA.B &lt;- ggplot(employee.df, aes(x=YearsWithCurrManager, y=PercentSalaryHike, color = Attrition)) +
+  geom_point() +
+  ggtitle(&quot;Yrs With Manager vs % Salary Hike&quot;) +
+  scale_color_manual(values = Rcolors) +
+  ylab(&quot;% Salary Hike&quot;) +
+  xlab(&quot;Yrs With Manager&quot;) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA.C &lt;-ggplot(employee.df, aes(x=YearsAtCompany, y=YearsInCurrentRole, color = Attrition)) +
+  geom_point() +
+  ggtitle(&quot;Yrs At Company vs Yrs In Role&quot;) +
+  scale_color_manual(values = Rcolors) +
+  ylab(&quot;Yrs In Role&quot;) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA.E &lt;- ggplot(employee.df, aes(x=Age, y=YearsSinceLastPromotion, color = Attrition)) +
+  geom_point() +
+  ggtitle(&quot;Age vs Job Yrs Last Promotion&quot;) + 
+  scale_color_manual(values = Rcolors) +
+  ylab(&quot;Yrs Last Promotion&quot;) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.5))
+
+EDA.G &lt;- plot_grid(EDA.A,EDA.B,EDA.C,EDA.E, ncol = 2, nrow = 2)
+EDA.G</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="models" class="section level1">
+<h1>Models</h1>
+<div id="attrition-models" class="section level2">
+<h2>Attrition Models</h2>
+<div id="naive-bayes" class="section level3">
+<h3>Naive Bayes</h3>
+<pre class="r"><code>set.seed(9)
+NB.df &lt;- select(employee.df, &quot;Attrition&quot;, &quot;Age&quot;, &quot;Department&quot;, &quot;EnvironmentSatisfaction&quot;, &quot;JobInvolvement&quot;, &quot;JobLevel&quot;, &quot;JobRole&quot;, &quot;JobSatisfaction&quot;, &quot;MaritalStatus&quot;, &quot;MonthlyIncome&quot;, &quot;NumCompaniesWorked&quot;, &quot;OverTime&quot;, &quot;StockOptionLevel&quot;, &quot;TotalWorkingYears&quot;, &quot;WorkLifeBalance&quot;, &quot;YearsAtCompany&quot;, &quot;YearsInCurrentRole&quot;, &quot;YearsWithCurrManager&quot;)
+NBsplitPerc &lt;- .85
+NBtrainIndices &lt;- sample(1:dim(NB.df)[1],round(NBsplitPerc * dim(NB.df)[1]))
+NBdfTrain &lt;- NB.df[NBtrainIndices,]
+NBdfTest &lt;- NB.df[-NBtrainIndices,]
+
+# Naive Bayes model
+NBmodel = naiveBayes(Attrition~.,data = NBdfTrain)
+confusionMatrix(table(predict(NBmodel,NBdfTest),NBdfTest$Attrition))</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##      
+##       No Yes
+##   No  96   6
+##   Yes 10  18
+##                                          
+##                Accuracy : 0.8769         
+##                  95% CI : (0.8078, 0.928)
+##     No Information Rate : 0.8154         
+##     P-Value [Acc &gt; NIR] : 0.0401         
+##                                          
+##                   Kappa : 0.616          
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.4533         
+##                                          
+##             Sensitivity : 0.9057         
+##             Specificity : 0.7500         
+##          Pos Pred Value : 0.9412         
+##          Neg Pred Value : 0.6429         
+##              Prevalence : 0.8154         
+##          Detection Rate : 0.7385         
+##    Detection Prevalence : 0.7846         
+##       Balanced Accuracy : 0.8278         
+##                                          
+##        &#39;Positive&#39; Class : No             
+## </code></pre>
+<pre class="r"><code># Make predictions with model
+NBpreds = predict(NBmodel, NoAttrition)
+NBpreds = data.frame(NBpreds)
+NoAttrition$Attrition = NBpreds$NBpreds
+
+Attrition.Classify = NoAttrition %&gt;% select(&quot;ID&quot;, &quot;Attrition&quot;) %&gt;% arrange(ID)
+
+# This code was used to label the predicted attrition on the file provided, but commented out to not replace the file when knitted at a later time.
+#write.csv(Attrition.Classify, file = &quot;Case2PredictionsBoyd_Pandey Attrition.csv&quot;, row.names=FALSE)
+
+# plot counts of attrition
+ggplot(Attrition.Classify, aes(x=Attrition, fill=Attrition)) +
+  geom_bar(fill = Rcolors[c(1,2)]) +
+  ggtitle(&quot;Predicted Attrition&quot;) +
+  ylab(&quot;Count&quot;) +
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="multiple-traintest-sets" class="section level3">
+<h3>Multiple Train/Test Sets</h3>
+<pre class="r"><code>iterations = 100
+
+masterAcc = matrix(nrow = iterations)
+masterSens = matrix(nrow = iterations)
+masterSpec = matrix(nrow = iterations)
+
+splitPerc = .85 #Training / Test split Percentage
+
+for(j in 1:iterations)
+{
+  
+  trainIndices = sample(1:dim(NB.df)[1],round(splitPerc * dim(NB.df)[1]))
+  train = NB.df[trainIndices,]
+  test = NB.df[-trainIndices,]
+  
+  model = naiveBayes(train[,c(2:18)],train$Attrition)
+  table(predict(model,test[,c(2:18)]),test$Attrition)
+  CM = confusionMatrix(table(predict(model,test[,c(2:18)]),test$Attrition))
+  masterAcc[j] = CM$overall[1]
+  masterSens[j] = CM$byClass[1]
+  masterSpec[j] = CM$byClass[2]
+}
+
+# Accuracy measurements
+MeanAcc = colMeans(masterAcc)
+MeanAcc</code></pre>
+<pre><code>## [1] 0.8</code></pre>
+<pre class="r"><code>masterAcc &lt;- data.frame(masterAcc)
+masterAcc$TestNumber &lt;- 1:nrow(masterAcc)
+max(masterAcc$masterAcc)</code></pre>
+<pre><code>## [1] 0.8846154</code></pre>
+<pre class="r"><code>min(masterAcc$masterAcc)</code></pre>
+<pre><code>## [1] 0.6923077</code></pre>
+<pre class="r"><code>ggplot(masterAcc, aes(x=seq(1,100,1), y=masterAcc)) + 
+  geom_line(color=&quot;darkslateblue&quot;) +
+  ggtitle(&quot;Accuracy of 100 Train/Test Sets&quot;) +
+  xlab(&quot;Number of Train/Test Sets&quot;) +
+  ylab(&quot;Accuracy&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre class="r"><code># Sensitivity measurements
+MeanSens = colMeans(masterSens)
+MeanSens</code></pre>
+<pre><code>## [1] 0.8387946</code></pre>
+<pre class="r"><code>masterSens &lt;- data.frame(masterSens)
+masterSens$TestNumber &lt;- 1:nrow(masterSens)
+max(masterSens$masterSens)</code></pre>
+<pre><code>## [1] 0.9528302</code></pre>
+<pre class="r"><code>min(masterSens$masterSens)</code></pre>
+<pre><code>## [1] 0.7272727</code></pre>
+<pre class="r"><code>ggplot(masterSens, aes(x=seq(1,100,1), y=masterSens)) + 
+  geom_line(color=&quot;darkslateblue&quot;) +
+  ggtitle(&quot;Sensitivity of 100 Train/Test Sets&quot;) +
+  xlab(&quot;Number of Train/Test Sets&quot;) +
+  ylab(&quot;Sensitivity&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<pre class="r"><code># Specificity measurements
+MeanSpec = colMeans(masterSpec)
+MeanSpec</code></pre>
+<pre><code>## [1] 0.6028654</code></pre>
+<pre class="r"><code>masterSpec &lt;- data.frame(masterSpec)
+masterSpec$TestNumber &lt;- 1:nrow(masterSpec)
+max(masterSpec$masterSpec)</code></pre>
+<pre><code>## [1] 0.8666667</code></pre>
+<pre class="r"><code>min(masterSpec$masterSpec)</code></pre>
+<pre><code>## [1] 0.3636364</code></pre>
+<pre class="r"><code>ggplot(masterSpec, aes(x=seq(1,100,1), y=masterSpec)) + 
+  geom_line(color=&quot;darkslateblue&quot;) +
+  ggtitle(&quot;Specificity of 100 Train/Test Sets&quot;) +
+  xlab(&quot;Number of Train/Test Sets&quot;) +
+  ylab(&quot;Specificity&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-18-3.png" width="672" /></p>
+<pre class="r"><code># Plot together
+masterAcc$Value &lt;- masterAcc$masterAcc
+masterAcc$Test &lt;- &quot;Accuracy&quot;
+masterSpec$Value &lt;- masterSpec$masterSpec
+masterSpec$Test &lt;- &quot;Specificity&quot;
+masterSens$Value &lt;- masterSens$masterSens
+masterSens$Test &lt;- &quot;Sensitivity&quot;
+NB.df &lt;- rbind(masterAcc[,c(2,3,4)],masterSens[,c(2,3,4)],masterSpec[,c(2,3,4)])
+
+
+ggplot(NB.df, aes(x=TestNumber, y=Value, linetype=Test, colors=Test)) + 
+  geom_line(color = &quot;darkslateblue&quot;) +
+  ggtitle(&quot;Accuracy, Sensitivity, &amp; Specificity of 100 Train/Test Sets&quot;) +
+  xlab(&quot;Number of Train/Test Sets&quot;) +
+  ylab(&quot;Statistical Values&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values = Rcolors)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-18-4.png" width="672" /></p>
+</div>
+<div id="k-nn-models" class="section level3">
+<h3>k-NN Models</h3>
+<pre class="r"><code>kNNsplitPerc &lt;- .7
+
+# Create dataframe for k-NN model 
+knn.df &lt;- employee.df
+
+# Create standardized variables
+knn.df$z_Age = scale(knn.df$Age)
+knn.df$z_YearsSinceLastPromotion = scale(knn.df$YearsSinceLastPromotion)
+
+kNNtrainIndices &lt;- sample(1:dim(knn.df)[1],round(kNNsplitPerc * dim(knn.df)[1]))
+kNNdfTrain &lt;- knn.df[kNNtrainIndices,]
+kNNdfTest &lt;- knn.df[-kNNtrainIndices,]
+
+# Internal Model
+classifications &lt;- knn.cv(knn.df[,c(2,25)],knn.df$Attrition, k = 20)
+confusionMatrix(table(classifications,knn.df$Attrition))</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                
+## classifications  No Yes
+##             No  728 140
+##             Yes   2   0
+##                                           
+##                Accuracy : 0.8368          
+##                  95% CI : (0.8105, 0.8607)
+##     No Information Rate : 0.8391          
+##     P-Value [Acc &gt; NIR] : 0.595           
+##                                           
+##                   Kappa : -0.0046         
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.9973          
+##             Specificity : 0.0000          
+##          Pos Pred Value : 0.8387          
+##          Neg Pred Value : 0.0000          
+##              Prevalence : 0.8391          
+##          Detection Rate : 0.8368          
+##    Detection Prevalence : 0.9977          
+##       Balanced Accuracy : 0.4986          
+##                                           
+##        &#39;Positive&#39; Class : No              
+## </code></pre>
+<pre class="r"><code># External Model
+classifications1 &lt;- knn(kNNdfTrain[,c(2,35)], kNNdfTest[,c(2,35)], kNNdfTrain$Attrition, 
+                       prob = TRUE, k = 20)
+
+confusionMatrix(table(classifications1,kNNdfTest$Attrition))</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                 
+## classifications1  No Yes
+##              No  218  37
+##              Yes   3   3
+##                                           
+##                Accuracy : 0.8467          
+##                  95% CI : (0.7972, 0.8882)
+##     No Information Rate : 0.8467          
+##     P-Value [Acc &gt; NIR] : 0.5421          
+##                                           
+##                   Kappa : 0.0942          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 1.811e-07       
+##                                           
+##             Sensitivity : 0.9864          
+##             Specificity : 0.0750          
+##          Pos Pred Value : 0.8549          
+##          Neg Pred Value : 0.5000          
+##              Prevalence : 0.8467          
+##          Detection Rate : 0.8352          
+##    Detection Prevalence : 0.9770          
+##       Balanced Accuracy : 0.5307          
+##                                           
+##        &#39;Positive&#39; Class : No              
+## </code></pre>
+</div>
+</div>
+<div id="salary-model" class="section level2">
+<h2>Salary Model</h2>
+<div id="linear-regression" class="section level3">
+<h3>Linear Regression</h3>
+<pre class="r"><code># Train and Test for Linear Regression
+set.seed(9)
+lmsplitPerc &lt;- .8
+trainIndices &lt;- sample(1:dim(employee.df)[1],round(lmsplitPerc * dim(employee.df)[1]))
+dfTrain &lt;- employee.df[trainIndices,]
+dfTest &lt;- employee.df[-trainIndices,]
+dfTrain &lt;- na.omit(dfTrain)
+dfTest &lt;- na.omit(dfTest)
+
+# Multiple variable linear regression with train and test
+Model1_fit = lm(MonthlyIncome~Age+JobLevel+JobRole, data = dfTrain)
+summary(Model1_fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MonthlyIncome ~ Age + JobLevel + JobRole, data = dfTrain)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3613.5  -719.0    -4.9   630.4  4012.9 
+## 
+## Coefficients:
+##                               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   -269.283    290.067  -0.928 0.353556    
+## Age                             11.298      5.424   2.083 0.037602 *  
+## JobLevel                      2995.928     79.096  37.877  &lt; 2e-16 ***
+## JobRoleHuman Resources        -447.969    294.175  -1.523 0.128271    
+## JobRoleLaboratory Technician  -754.446    198.958  -3.792 0.000163 ***
+## JobRoleManager                3839.944    265.368  14.470  &lt; 2e-16 ***
+## JobRoleManufacturing Director   35.227    190.876   0.185 0.853633    
+## JobRoleResearch Director      3845.594    252.323  15.241  &lt; 2e-16 ***
+## JobRoleResearch Scientist     -405.396    200.443  -2.022 0.043513 *  
+## JobRoleSales Executive        -240.793    171.281  -1.406 0.160226    
+## JobRoleSales Representative   -627.789    246.268  -2.549 0.011013 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1102 on 685 degrees of freedom
+## Multiple R-squared:  0.9433, Adjusted R-squared:  0.9425 
+## F-statistic:  1140 on 10 and 685 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code># Show residuals
+hist(Model1_fit$residuals, col = &quot;darkslateblue&quot;, main = &quot;Histogram of Residuals&quot;)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre class="r"><code>sqrt(sum((Model1_fit$residuals)^2))</code></pre>
+<pre><code>## [1] 28853.5</code></pre>
+<pre class="r"><code># Predict with this model
+preds2 &lt;- predict(Model1_fit, newdata = dfTest)
+
+# Assess model
+MSPE = data.frame(Observed = dfTest$MonthlyIncome, Predicted = preds2)
+MSPE$Resisdual = MSPE$Observed - MSPE$Predicted
+MSPE$SquaredResidual = MSPE$Resisdual^2
+mean(MSPE$SquaredResidual)</code></pre>
+<pre><code>## [1] 992086.6</code></pre>
+<pre class="r"><code># Multiple variable linear regression
+Model2_fit = lm(MonthlyIncome~Age+JobLevel+JobRole, data = employee.df)
+summary(Model2_fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MonthlyIncome ~ Age + JobLevel + JobRole, data = employee.df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3639.3  -671.7   -46.5   634.8  4097.4 
+## 
+## Coefficients:
+##                               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   -564.822    249.203  -2.267  0.02367 *  
+## Age                             13.701      4.729   2.898  0.00386 ** 
+## JobLevel                      3032.839     69.606  43.571  &lt; 2e-16 ***
+## JobRoleHuman Resources        -324.725    255.782  -1.270  0.20459    
+## JobRoleLaboratory Technician  -526.524    171.357  -3.073  0.00219 ** 
+## JobRoleManager                3968.183    232.376  17.077  &lt; 2e-16 ***
+## JobRoleManufacturing Director   85.832    169.605   0.506  0.61294    
+## JobRoleResearch Director      3941.604    217.548  18.118  &lt; 2e-16 ***
+## JobRoleResearch Scientist     -249.221    171.560  -1.453  0.14668    
+## JobRoleSales Executive        -127.854    146.073  -0.875  0.38167    
+## JobRoleSales Representative   -404.623    215.498  -1.878  0.06077 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1080 on 859 degrees of freedom
+## Multiple R-squared:  0.9455, Adjusted R-squared:  0.9448 
+## F-statistic:  1490 on 10 and 859 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code># Show residuals
+hist(Model2_fit$residuals, col = &quot;darkslateblue&quot;, main = &quot;Histogram of Residuals&quot;)</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<pre class="r"><code>sqrt(sum((Model2_fit$residuals)^2))</code></pre>
+<pre><code>## [1] 31647.6</code></pre>
+<pre class="r"><code># Predict with this model
+preds2 &lt;- predict(Model2_fit, newdata = NoSalary)
+preds2 &lt;- as.data.frame(preds2)
+NoSalary$Salary &lt;- preds2[,1]
+
+# Plot predicted values
+NoSalary %&gt;% ggplot(aes(x = Age, y = Salary)) + 
+  geom_point(color = &quot;darkslateblue&quot;) + 
+  ggtitle(&quot;Predicted Salary by Age&quot;) +
+  ylab(&quot;Salary&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-20-3.png" width="672" /></p>
+<pre class="r"><code>#Salary.Classify = NoSalary %&gt;% select(&quot;ID&quot;, &quot;Salary&quot;) %&gt;% arrange(ID)
+
+# This code was used to label the predicted Salary amounts on the file provided, but commented out to not replace the file when knitted at a later time.
+#write.csv(Salary.Classify, file = &quot;Case2PredictionsBoyd_Pandey Salary.csv&quot;, row.names=FALSE)</code></pre>
+</div>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<ol style="list-style-type: decimal">
+<li>Top 3 factors that contribute to employee turnover are Age, Monthly
+Income, and Job Role.</li>
+<li>Sales Representative have the highest turnover.</li>
+<li>Manufacturing Director, Research Director and Managers are the
+oldest, have highest income and have the least amount of turnover.</li>
+<li>We used a Naïve Bayes model to predict attrition with 87%
+Accuracy.</li>
+<li>We used a Linear Regression model to predict salary with RMSE of
+1080 and extremely low P-Value (&lt; 2.2e-16).</li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
