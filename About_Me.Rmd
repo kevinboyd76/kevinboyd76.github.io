@@ -9,7 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Kevin Boyd
 
 ![](kevin.jpg){#id .class width=25% height=25%}
 
@@ -20,4 +19,4 @@ I graduated from SMU in the Fall of 2023 earning a 4.0 GPA for a Masters of Scie
 
  ---
 
-### Please check out my other tabs to see some of my work.
+#### Check out my other tabs to see some of my work.
