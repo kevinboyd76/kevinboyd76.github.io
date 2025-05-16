@@ -250,10 +250,13 @@ $(document).ready(function () {
   <a href="About_Me.html">About Me</a>
 </li>
 <li>
+  <a href="DeepLearning_CellStageClassification.html">Deep Learning Classification</a>
+</li>
+<li>
   <a href="DDS_Project1.html">Budweiser Case Study</a>
 </li>
 <li>
-  <a href="CLT2.html">CLT2</a>
+  <a href="CLT2.html">Central Limit Theorem</a>
 </li>
 <li>
   <a href="DDS_Project2_Final.html">Attrition Case Study</a>
@@ -996,8 +999,7 @@ ggplot(employee.df, aes(x=MonthlyIncome, fill = Attrition)) +
   ylab(&quot;Count&quot;) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values = Rcolors)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="monthly-income-by-groups" class="section level3">
@@ -1012,15 +1014,12 @@ employee.df %&gt;% ggplot(aes_string(x = &quot;IncomeGroup&quot;, fill = &quot;A
   labs(x = &quot;Income Group&quot;, y = &quot;Percent Employees&quot;, title = &quot;Attrition for Income Groups&quot;) + 
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values = Rcolors)</code></pre>
-<pre><code>## Warning: `aes_string()` was deprecated in ggplot2
-## 3.0.0.
-## i Please use tidy evaluation idioms with
-##   `aes()`.
-## i See also `vignette(&quot;ggplot2-in-packages&quot;)`
-##   for more information.
+<pre><code>## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+## i Please use tidy evaluation idioms with `aes()`.
+## i See also `vignette(&quot;ggplot2-in-packages&quot;)` for more information.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="age-by-groups" class="section level3">
@@ -1060,8 +1059,7 @@ employee.df %&gt;% ggplot(aes_string(x = &quot;JobRole&quot;, fill = &quot;Attri
   ylab(&quot;Count&quot;) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values = Rcolors)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="DDS_Project2_Final_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="job-role-and-job-satisfaction" class="section level3">
