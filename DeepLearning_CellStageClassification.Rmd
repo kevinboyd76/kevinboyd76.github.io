@@ -12,9 +12,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
+### Associated Publication
+**Title**: _Deep Learning Image Analysis to Isolate and Characterize Different Stages of S-phase in Human Cells_  
+**Authors**: Kevin A. Boyd, Rudranil Mitra, John Santerre, Christopher L. Sansam  
+**Journal**: *SMU Data Science Review*, Vol. 7, Issue 3, Article 7 (2021)  
+**Journal Link**: [View at SMU Scholar](https://scholar.smu.edu/datasciencereview/vol7/iss3/7/)  
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10247155.svg)](https://doi.org/10.5281/zenodo.10247155)
+
+[![View on GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/kevinboyd76/Automated_S-phase_Image_Classification)
 
 # Automated_S-phase_Image_Classification
 ![](cell_classification_images/Title.png)
