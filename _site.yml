@@ -1,7 +1,7 @@
-name: "my-website"
+name: "Kevin Boyd Portfolio"
 output_dir: "."
 navbar:
-  title: "My Website"
+  title: "Kevin Boyd | Data Science & Bioinformatics"
   left:
     - text: "Home"
       href: index.html
@@ -15,3 +15,10 @@ navbar:
       href: CLT2.html
     - text: "Attrition Case Study"
       href: DDS_Project2_Final.html
+      
+output:
+  html_document:
+    theme: flatly
+    toc: true
+    toc_depth: 3
+    df_print: paged
