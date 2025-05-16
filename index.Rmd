@@ -18,7 +18,7 @@ Hi, my name is **Kevin Boyd** — a data scientist and bioinformatician with a p
 - [Budweiser Case Study](https://youtu.be/fjBUYcG8ZlI)
 - [Attrition Case Study](https://youtu.be/MuLEzt19qhw)
 
-### Github
+### Github Repositories
 - [Code + Projects](https://github.com/kevinboyd76)
 
  ---
