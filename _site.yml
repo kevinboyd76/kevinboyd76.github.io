@@ -6,7 +6,9 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "About Me"
-      href: About_Me.html      
+      href: About_Me.html
+    - text: "Deep Learning Classification"
+      href: DeepLearning_CellStageClassification.html
     - text: "Budweiser Case Study"
       href: DDS_Project1.html
     - text: "Central Limit Theorem"
