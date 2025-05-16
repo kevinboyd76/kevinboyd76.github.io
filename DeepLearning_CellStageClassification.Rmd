@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10247155.svg)](https://doi.org/10.5281/zenodo.10247155)
 
 # Automated_S-phase_Image_Classification
-![Title](cell_classification_images/Title.png)
+![](cell_classification_images/Title.png)
 
 - Deep Learning Image analysis to automatically segment and classify cells into 5 distinct patterns.
 - Start with an image or set of images and preprocess.
@@ -26,33 +26,33 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Predefined S-phase Stages
 - Previous studies have classified cells in S-phase into 5 distinct patterns.
-![Stages](cell_classification_images/Cell_Stages.png)
+![](cell_classification_images/Cell_Stages.png)
 
 - In order to make this process more reproducible and increase the throughput we have created automated segmentation and classification models in order to isolate and identify the stage each of the stages the cells are in.
 
 ## Cellpose Masks
-![Cellpose](cell_classification_images/cellpose.png)
+![](cell_classification_images/cellpose.png)
 
 - These are an example of the masks drawn by cellpose. We use those masks to identify the location of each cell to output an individual tif for each cell. 
 
 ## Annotated Images
-![Annotations](cell_classification_images/annotated_images.png)
+![](cell_classification_images/annotated_images.png)
 
 - It is important to have a large selection of annotated images to train the model. Here is an example of annotated images for each of the stages we want to classify.
 
 ## CNN Architecture
-![CNN](cell_classification_images/CNN_Architecture.png)
+![](cell_classification_images/CNN_Architecture.png)
 
 - This image shows the CNN architecture that worked best for our application
 
 # Result Metrics
-![Accuracy](cell_classification_images/accuracy.png)
-![Loss](cell_classification_images/loss.png)
+![](cell_classification_images/accuracy.png)
+![](cell_classification_images/loss.png)
 
 - These plots show the accuracy and loss of our model. We can see that we achieved an 86.5% accuracy overall.
 
 # Classification Results
-![CM](cell_classification_images/classification_results.png)
+![](cell_classification_images/classification_results.png)
 
 - This final plot is a heatmap showing each of the stages and the correct and incorrect classifications.
 
