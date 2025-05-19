@@ -15,6 +15,8 @@ navbar:
       href: CutandTagAnalysis.html
     - text: "Cut and Tag Replicate Peaks"
       href: ReplicatePeakAnalysis.html
+    - text: "ChEC-Seq Analysis"
+      href: ChEC-seq_Analysis.html
     - text: "Budweiser Case Study"
       href: DDS_Project1.html
     - text: "Central Limit Theorem"
