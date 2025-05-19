@@ -26,7 +26,7 @@ This pipeline performs **segmentation of nuclei**, **quantification of PCNA-GFP 
 
  ---
  
-## **Image Analysis Methods**
+# **Image Analysis Methods**
 
 This Python-based image processing workflow is used to quantify nuclear segmentation, colocalization, and statistical comparisons across multiple samples. Load the `.czi` files using **AICSImage (v4.4.0)** [1], which provides channel-separated arrays for the nuclear (channel 0), PCNA (channel 1), and GFP (channel 2) signals. Images are blurred with a Gaussian filter (σ=1.0) and thresholded using `threshold_otsu` to generate binary nuclear masks [2]. Small objects and holes are removed using morphological operations from **scikit-image (v0.19.3)** [3]. Each labeled nucleus is analyzed with `regionprops` to extract pixel intensities for downstream colocalization calculations.
 
@@ -131,7 +131,7 @@ For selected low and high correlation nuclei, overlay images are produced by nor
 
  ---
 
-## **References**
+# **References**
 
 1. Cimini, B. A. et al. The AICSImageIO python library for multidimensional bioimaging. GitHub: https://github.com/AllenCellModeling/aicsimageio (accessed 5 January 2025).  
 2. Otsu, N. A threshold selection method from gray-level histograms. IEEE Transactions on Systems, Man, and Cybernetics 9, 62–66 (1979).  
