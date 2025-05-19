@@ -1,0 +1,56 @@
+---
+title: "Training Projects"
+author: "Kevin Boyd"
+date: "05/19/2025"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+This section highlights specific projects that I completed during my graduate training in data science at SMU. These projects cover statistical modeling, classification, clustering, and visualization — using R, Python, and Shiny.
+
+ ---
+
+## Budweiser Marketing Case Study
+
+**Goal**:  Identify errors and recognize patterns that are present in the beers and breweries data sets given to us by Budweiser. We also want to determine if there is a relationship between ABV (alcohol by volume) and IBU (international bitterness units).
+
+- Explored k-means clustering and PCA
+- Visualized brand clusters in 2D PCA space
+- Presented results in an academic setting
+
+[View Case Study Tab](DDS_Project1.html)  
+
+ ---
+
+## Employee Attrition Prediction
+
+**Goal**: Identify factors that predict employee attrition based on statistical analysis. Finally build a classification model that can predict attrition and salary.
+
+- Trained Naive Bayes, k-NN, and linear regression models
+- Evaluated classification models on accuracy, precision, recall
+- Evaluated linear regression model on RMSE and p-value. 
+
+[View Attrition Tab](DDS_Project2_Final.html)
+
+---
+
+## Central Limit Theorem Simulation
+
+**Goal**: Visualize how the CLT emerges with increasing sample sizes.
+
+- Simulated 10,000 draws from various distributions
+- Showed how sampling distributions approach normality
+- Used animated ggplot2 to demonstrate convergence
+
+[View CLT Tab](CLT2.html)
+
+---
+
+## Notes
+
+These projects were developed as part of SMU's Data Science graduate program (2021–2022) and reflect foundational skill development across applied machine learning, statistics, and data storytelling.
