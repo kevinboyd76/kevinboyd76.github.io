@@ -22,7 +22,7 @@ You’ll find links to my GitHub repositories, Shiny applications, case study vi
 
  ---
 
-# Applied Bioinformatics Projects  
+# Applied Bioinformatics Projects:  
 
 This section showcases bioinformatics projects I’ve contributed to professionally, focused on genomic data analysis, image analysis, and end to end workflow development. These projects support grant proposals and publications, leveraging input from domain experts to design reproducible and scalable workflows tailored to biological research.  
 
@@ -114,10 +114,10 @@ This section highlights specific projects that I completed during my graduate tr
 
 - Explored k-means clustering and PCA
 - Visualized brand clusters in 2D PCA space
-- Presented results in an academic setting
-- [Budweiser Case Study](https://youtu.be/fjBUYcG8ZlI)
+- Presented results in an academic setting  
 
 [View Case Study Tab](DDS_Project1.html)  
+[Budweiser Case Study Video](https://youtu.be/fjBUYcG8ZlI)  
 
  ---
 
@@ -127,10 +127,10 @@ This section highlights specific projects that I completed during my graduate tr
 
 - Trained Naive Bayes, k-NN, and linear regression models
 - Evaluated classification models on accuracy, precision, recall
-- Evaluated linear regression model on RMSE and p-value.
-- [Attrition Case Study](https://youtu.be/MuLEzt19qhw)
+- Evaluated linear regression model on RMSE and p-value.  
 
-[View Attrition Tab](DDS_Project2_Final.html)
+[View Attrition Tab](DDS_Project2_Final.html)  
+[Attrition Case Study Video](https://youtu.be/MuLEzt19qhw)  
 
  ---
 
@@ -140,7 +140,7 @@ This section highlights specific projects that I completed during my graduate tr
 
 - Simulated 10,000 draws from various distributions
 - Showed how sampling distributions approach normality
-- Used animated ggplot2 to demonstrate convergence
+- Used animated ggplot2 to demonstrate convergence  
 
 [View CLT Tab](CLT2.html)
 
