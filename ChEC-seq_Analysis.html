@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kevin Boyd" />
+
+<meta name="date" content="2025-05-19" />
+
+<title>ChEC-Seq_Analysis</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin Boyd | Data Science & Bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About_Me.html">About Me</a>
+</li>
+<li>
+  <a href="DeepLearning_CellStageClassification.html">Deep Learning Classification</a>
+</li>
+<li>
+  <a href="Nuclear_Colocalization.html">Nuclear Colocalization</a>
+</li>
+<li>
+  <a href="CutandTagAnalysis.html">Cut and Tag Analysis</a>
+</li>
+<li>
+  <a href="ReplicatePeakAnalysis.html">Cut and Tag Replicate Peaks</a>
+</li>
+<li>
+  <a href="DDS_Project1.html">Budweiser Case Study</a>
+</li>
+<li>
+  <a href="CLT2.html">Central Limit Theorem</a>
+</li>
+<li>
+  <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">ChEC-Seq_Analysis</h1>
+<h4 class="author">Kevin Boyd</h4>
+<h4 class="date">05/19/2025</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#chec-seq-analysis-snakemake-workflow"
+id="toc-chec-seq-analysis-snakemake-workflow">ChEC-seq Analysis
+Snakemake Workflow</a>
+<ul>
+<li><a href="#project-description" id="toc-project-description">1)
+Project Description</a>
+<ul>
+<li><a href="#key-features" id="toc-key-features">Key Features</a></li>
+</ul></li>
+<li><a href="#intended-use-case" id="toc-intended-use-case">2) Intended
+Use Case</a></li>
+<li><a href="#dependencies-and-configuration"
+id="toc-dependencies-and-configuration">3) Dependencies and
+Configuration</a></li>
+<li><a href="#tools-modules" id="toc-tools-modules">4) Tools &amp;
+Modules</a></li>
+<li><a href="#example-data" id="toc-example-data">5) Example
+Data</a></li>
+</ul></li>
+<li><a href="#explanation-of-samples.csv"
+id="toc-explanation-of-samples.csv">6) Explanation of
+<code>samples.csv</code></a></li>
+<li><a href="#examples-of-output" id="toc-examples-of-output">7)
+Examples of Output</a></li>
+<li><a href="#example-of-qc-plots" id="toc-example-of-qc-plots">8)
+Example of QC Plots</a></li>
+<li><a href="#instructions-to-run-on-slurm-managed-hpc"
+id="toc-instructions-to-run-on-slurm-managed-hpc">9) Instructions to run
+on Slurm managed HPC</a></li>
+</ul>
+</div>
+
+<p><img
+src="https://img.shields.io/github/v/release/RD-Cobre-Help/ChEC-Seq_Analysis"
+alt="GitHub Release" /> <img
+src="https://img.shields.io/github/release-date/RD-Cobre-Help/ChEC-Seq_Analysis"
+alt="GitHub Release Date" /> <img
+src="https://img.shields.io/github/repo-size/RD-Cobre-Help/ChEC-Seq_Analysis"
+alt="GitHub repo size" /> <img
+src="https://img.shields.io/github/last-commit/RD-Cobre-Help/ChEC-Seq_Analysis"
+alt="GitHub last commit" /> <img
+src="https://img.shields.io/github/contributors/RD-Cobre-Help/ChEC-Seq_Analysis"
+alt="GitHub contributors" /> <img
+src="https://img.shields.io/github/downloads/RD-Cobre-Help/ChEC-Seq_Analysis/total"
+alt="GitHub Downloads (all assets, all releases)" /> <img
+src="https://img.shields.io/github/commits-since/RD-Cobre-Help/ChEC-Seq_Analysis/latest"
+alt="GitHub commits since latest release" /> <a
+href="https://doi.org/10.5281/zenodo.15232549"><img
+src="https://zenodo.org/badge/939591126.svg" alt="DOI" /></a> <a
+href="https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis"><img
+src="https://img.shields.io/badge/GitHub-Repo-blue?logo=github"
+alt="View on GitHub" /></a></p>
+<div id="chec-seq-analysis-snakemake-workflow" class="section level1">
+<h1>ChEC-seq Analysis Snakemake Workflow</h1>
+<p><img src="ChEC-seq_images/CHECSeq_pipeline.png" /><br />
+- OpenAI. (2025). Scientific data visualization: CHEC-seq pipeline
+schematic [AI-generated image]. DALL-E. Retrieved from ChatGPT
+interface.</p>
+<hr />
+<div id="project-description" class="section level2">
+<h2>1) Project Description</h2>
+<p><strong>ChEC-seq Analysis Snakemake Workflow</strong> is a Snakemake
+pipeline designed for Chromatin Endogenous Cleavage (ChEC) experiments.
+Rather than manually invoking each step (QC, trimming, alignment,
+coverage generation, mean coverage merging, WIG conversion, and plotting
+alignment metrics), this pipeline automates the entire process from
+<strong>raw FASTQ</strong> inputs to <strong>multiple coverage
+tracks</strong> (raw, CPM, and spike-in normalized), as well as merged
+replicates to create an average signal track via a
+<code>merge_group</code> column in <code>samples.csv</code>. CPM tracks
+are created by calculating the total number of reads in a specified
+include list region (e.g., non-rDNA genome), then generating a scale
+factor as the reciprocal of reads per million (i.e., 1 / (total_reads /
+1,000,000)), which is applied during coverage generation.</p>
+<div id="key-features" class="section level3">
+<h3>Key Features</h3>
+<ul>
+<li><strong>Flexible Spike-In Normalization</strong>
+<ul>
+<li>Simultaneously aligns reads to the primary <strong>S.
+cerevisiae</strong> genome and a <strong>spike-in</strong> genome (e.g.,
+<em>S. pombe</em>), calculating a per-sample scaling factor to
+accurately normalize coverage.</li>
+</ul></li>
+<li><strong>Automatic Trimming &amp; QC</strong>
+<ul>
+<li>FastQC runs on raw FASTQs</li>
+<li>MultiQC summarizes all QC reports into one unified HTML report</li>
+<li>BBDuk handles adapter removal</li>
+</ul></li>
+<li><strong>Multiple Coverage Outputs</strong>
+<ul>
+<li><strong>Raw</strong> BigWig, BedGraph, &amp; Wig: unnormalized
+coverage<br />
+</li>
+<li><strong>CPM</strong> BigWig, BedGraph, &amp; Wig: a scale factor is
+generated as the reciprocal of reads per million and applied to
+normalize coverage to a read depth of 1×10⁶</li>
+<li><strong>Spike-In</strong> BigWig, BedGraph, &amp; Wig: additional
+normalization via spike-in factor<br />
+</li>
+<li><strong>Average Coverage</strong> BigWig, BedGraphs &amp; Wig:
+average signal for single samples and merged sets</li>
+</ul></li>
+<li><strong>Merge Coverage by Group</strong>
+<ul>
+<li>A <code>merge_group</code> column in <code>samples.csv</code> allows
+replicates to be combined into a mean coverage bedGraph and
+BigWig/WIG</li>
+</ul></li>
+<li><strong>Modular, Parallel Workflow</strong>
+<ul>
+<li>Each step defined as a Snakemake rule with explicit
+inputs/outputs<br />
+</li>
+<li>Snakemake manages HPC job submissions, ensuring fast parallel
+processing of samples and the ability to only rerun needed steps</li>
+</ul></li>
+<li><strong>Automated Plot Generation</strong>
+<ul>
+<li>Summary plots include:
+<ul>
+<li><strong>Alignment statistics</strong> (paired reads, alignment rate,
+spike-in reads, spike-in factor)</li>
+<li><strong>Fragment length distributions</strong> per sample using
+violin and line plots</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="intended-use-case" class="section level2">
+<h2>2) Intended Use Case</h2>
+<p>This pipeline is <strong>ideal</strong> for performing
+<strong>ChEC-seq</strong>. It is a user-friendly workflow with
+customizable <code>samples.csv</code> and <code>config.yml</code> files,
+enabling reproducible and flexible analysis:</p>
+<ul>
+<li>Start with raw FASTQ reads<br />
+</li>
+<li>Use an external spike-in organism (e.g., <em>S. pombe</em> or <em>D.
+melanogaster</em>) for normalization<br />
+</li>
+<li>Produce coverage files for genome browsers (BigWigs, BedGraphs, or
+WIGs)<br />
+</li>
+<li>Merges replicates by condition or replicate group</li>
+</ul>
+<p>By offering multiple coverage normalizations and easy HPC
+integration, this pipeline streamlines data preparation for subsequent
+analysis or visualization (e.g., IGV tracks, coverage heatmaps),
+including <strong>mean coverage</strong> tracks for replicate sets.</p>
+<hr />
+</div>
+<div id="dependencies-and-configuration" class="section level2">
+<h2>3) Dependencies and Configuration</h2>
+<p>All parameters and module versions are specified in
+<code>config/config.yml</code></p>
+<p><strong>Key fields include</strong>: - <code>scer_genome</code>: path
+to the <strong>S. cerevisiae</strong> Bowtie2 index<br />
+- <code>spikein_genome</code>: path to the <strong>Spike In</strong>
+Bowtie2 index (e.g., S. pombe)<br />
+- <code>bbmap_ref</code>: adapter sequence reference for BBDuk<br />
+- <code>binSize</code>: bin size for coverage generation<br />
+-
+<code>fastqc, bowtie2, samtools, deeptools, bedtools, ucsc, python</code>:
+module versions for HPC</p>
+<p><strong>Changing Genomes</strong><br />
++ If using a different spike-in (e.g. <em>D. melanogaster</em>), just
+update the relevant Bowtie2 index and references in
+<code>config.yml</code>.</p>
+<p><strong>Tool Versions and Modules</strong><br />
++ The <code>config.yml</code> file specifies all software and specific
+versions</p>
+<hr />
+</div>
+<div id="tools-modules" class="section level2">
+<h2>4) Tools &amp; Modules</h2>
+<p>This Snakemake pipeline relies on: - <strong>FastQC</strong> for read
+quality checks - <strong>MultiQC</strong> for summarizing FastQC reports
+- <strong>BBDuk</strong> (in <strong>BBMap</strong>) for adapter
+trimming<br />
+- <strong>Bowtie2</strong> for alignments<br />
+- <strong>Samtools</strong> for BAM conversions/indexing<br />
+- <strong>DeepTools</strong> (bamCoverage) for coverage generation<br />
+- <strong>Bedtools</strong> for Average Signal files -
+<strong>Python</strong> for spike-in factor calculations and WIG
+conversions - <strong>UCSC</strong> (bedGraphToBigWig) to generate
+average signal BigWigs from BedGraphs - <strong>R</strong> to generate
+alignment metric plots</p>
+<hr />
+</div>
+<div id="example-data" class="section level2">
+<h2>5) Example Data</h2>
+<p>A minimal test dataset can be placed in a <code>resources/</code>
+folder (not included currently). Update <code>samples.csv</code> to
+point to these FASTQs for a quick test run. Once confirmed, replace with
+your personal ChEC-seq data.</p>
+<hr />
+</div>
+</div>
+<div id="explanation-of-samples.csv" class="section level1">
+<h1>6) Explanation of <code>samples.csv</code></h1>
+<p><code>config/samples.csv</code> defines which FASTQ files to process,
+what the naming convention will be, and which samples to create average
+signal tracks. An example <code>samples.csv</code> is provided
+below:</p>
+<table>
+<colgroup>
+<col width="21%" />
+<col width="32%" />
+<col width="31%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr>
+<th>sample</th>
+<th>fastq1</th>
+<th>fastq2</th>
+<th>merge_group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDY226_DMSO_A</strong></td>
+<td>/path/ExampleA_R1.fastq.gz</td>
+<td>/path/ExampleA_R2.fastq.gz</td>
+<td>DMSO</td>
+</tr>
+<tr>
+<td><strong>RDY226_DMSO_B</strong></td>
+<td>/path/ExampleB_R1.fastq.gz</td>
+<td>/path/ExampleB_R2.fastq.gz</td>
+<td>DMSO</td>
+</tr>
+<tr>
+<td><strong>RDY226_IAA_A</strong></td>
+<td>/path/ExampleC_R1.fastq.gz</td>
+<td>/path/ExampleC_R2.fastq.gz</td>
+<td>IAA</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>sample</strong>: unique sample ID that will serve as file
+naming convention downstream<br />
+</li>
+<li><strong>fastq1</strong> and <strong>fastq2</strong>: file paths to
+paired-end fastq files<br />
+</li>
+<li><strong>merge_group</strong>: optional label for merging coverage
+across replicates (e.g., DMSO vs. IAA). Samples with the same
+<code>merge_group</code> will be averaged into a mean coverage BedGraph
+and BigWig/WIG.</li>
+</ul>
+<hr />
+</div>
+<div id="examples-of-output" class="section level1">
+<h1>7) Examples of Output</h1>
+<ol style="list-style-type: decimal">
+<li><strong>Trimming and QC</strong><br />
+</li>
+</ol>
+<ul>
+<li>FastQC HTML reports in <code>results/qc/fastqc/</code></li>
+<li>MultiQC HTML reports in <code>results/qc/multiqc/</code></li>
+<li>Trimmed FASTQs in <code>results/trimmed/</code></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Aligned Files</strong><br />
+</li>
+</ol>
+<ul>
+<li>Primary BAMs in <code>results/alignment/scer</code><br />
+</li>
+<li>Spike-in BAMs in <code>results/alignment/spikein</code></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Spike-In Factors</strong><br />
+</li>
+</ol>
+<ul>
+<li><code>spikein_factors.csv</code> in
+<code>results/spikein_factors/</code>
+<ul>
+<li>lists scer/dmel read counts and a <code>spikein_factor</code> for
+each sample</li>
+</ul></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>CPM Scale Factors</strong></li>
+</ol>
+<ul>
+<li><code>cpm_scale_factors.csv</code> in
+<code>results/scale_reads/</code>
+<ul>
+<li>lists include region read counts and <code>scale_factor</code> for
+each sample</li>
+</ul></li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>BigWig Files</strong></li>
+</ol>
+<ul>
+<li><code>*_raw.bw</code> in <code>results/bigwig/raw/</code><br />
+</li>
+<li><code>*_cpm.bw</code> in <code>results/bigwig/cpm/</code><br />
+</li>
+<li><code>*_spikein.bw</code> in
+<code>results/bigwig/spikein/</code></li>
+<li><code>*_cpm_mean.bw</code> in
+<code>results/bigwig/cpm_mean/</code></li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>BedGraph Files</strong></li>
+</ol>
+<ul>
+<li><code>*_raw.bg</code> in <code>results/bedgraph/raw/</code><br />
+</li>
+<li><code>*_cpm.bg</code> in <code>results/bedgraph/cpm/</code><br />
+</li>
+<li><code>*_spikein.bg</code> in
+<code>results/bedgraph/spikein/</code><br />
+</li>
+<li><code>*_cpm_mean.bg</code> in
+<code>results/bedgraph/cpm_mean/</code></li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li><strong>WIG Files</strong></li>
+</ol>
+<ul>
+<li><code>*_raw.wig</code> in <code>results/wig/raw/</code><br />
+</li>
+<li><code>*_cpm.wig</code> in <code>results/wig/cpm/</code><br />
+</li>
+<li><code>*_spikein.wig</code> in
+<code>results/wig/spikein/</code><br />
+</li>
+<li><code>*_cpm_mean.wig</code> in
+<code>results/wig/cpm_mean/</code></li>
+</ul>
+<ol start="8" style="list-style-type: decimal">
+<li><strong>Alignment Statistics Plot</strong></li>
+</ol>
+<ul>
+<li><code>alignment_stats.png</code> in <code>results/plots/</code>
+<ul>
+<li>Total <strong>paired-end reads</strong> per sample (boxplot)</li>
+<li><strong>Overall alignment rate</strong> per sample (boxplot)</li>
+<li><strong>Total spike-in reads</strong> per sample (boxplot)</li>
+<li><strong>Spike-in factor</strong> per sample (barplot, grouped by
+replicate)</li>
+</ul></li>
+</ul>
+<ol start="9" style="list-style-type: decimal">
+<li><strong>Fragment Length Distribution Plot</strong>:</li>
+</ol>
+<ul>
+<li><code>fragment_length_plot.png</code> in <code>results/plots/</code>
+<ul>
+<li>A two-panel violin and line plot showing the distribution of
+<strong>insert fragment lengths</strong> for each sample, calculated
+from properly paired alignments.</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="example-of-qc-plots" class="section level1">
+<h1>8) Example of QC Plots</h1>
+<p>Below are some example plots generated by the pipeline.</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="49%" />
+</colgroup>
+<thead>
+<tr>
+<th align="center">1. <strong>Alignment Stats Plot.png</strong></th>
+<th align="center">2. <strong>Fragment Length Plot</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+align="center"><img src="ChEC-seq_images/alignment_stats.png" width="300"></td>
+<td
+align="center"><img src="ChEC-seq_images/fragment_length_plot.png" width="300"></td>
+</tr>
+<tr>
+<td align="center"><em>Plots showing alignment metrics of primary and
+spike-in genome</em></td>
+<td align="center"><em>Plot showing the fragment lengh
+distributions</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="instructions-to-run-on-slurm-managed-hpc"
+class="section level1">
+<h1>9) Instructions to run on Slurm managed HPC</h1>
+<p>9A. Download version controlled repository</p>
+<pre><code>wget https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis/releases/download/v1.0.4/ChEC-Seq_Analysis-1.0.4.tar.gz
+tar -xzf ChEC-Seq_Analysis-1.0.4.tar.gz
+rm ChEC-Seq_Analysis-1.0.4.tar.gz
+cd ChEC-Seq_Analysis-1.0.4</code></pre>
+<p>9B. Load modules</p>
+<pre><code>module purge
+module load slurm python/3.10 pandas/2.2.3 numpy/1.22.3 matplotlib/3.7.1</code></pre>
+<p>9C. Modify samples and config file</p>
+<pre><code>vim samples.csv
+vim config.yml</code></pre>
+<p>9D. Dry Run</p>
+<pre><code>snakemake -npr</code></pre>
+<p>9E. Run on HPC with config.yml options</p>
+<pre><code>sbatch --wrap=&quot;snakemake -j 20 --use-envmodules --rerun-incomplete --latency-wait 300 --cluster-config config/cluster_config.yml --cluster &#39;sbatch -A {cluster.account} -p {cluster.partition} --cpus-per-task {cluster.cpus-per-task}  -t {cluster.time} --mem {cluster.mem} --output {cluster.output} --job-name {cluster.name}&#39;&quot;</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
