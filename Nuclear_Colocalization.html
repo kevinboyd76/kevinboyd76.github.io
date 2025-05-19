@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kevin Boyd" />
+
+<meta name="date" content="2025-05-19" />
+
+<title>Nuclear_Colocalization</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin Boyd | Data Science & Bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About_Me.html">About Me</a>
+</li>
+<li>
+  <a href="DeepLearning_CellStageClassification.html">Deep Learning Classification</a>
+</li>
+<li>
+  <a href="DDS_Project1.html">Budweiser Case Study</a>
+</li>
+<li>
+  <a href="CLT2.html">Central Limit Theorem</a>
+</li>
+<li>
+  <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Nuclear_Colocalization</h1>
+<h4 class="author">Kevin Boyd</h4>
+<h4 class="date">05/19/2025</h4>
+
+</div>
+
+
+<p><a href="https://doi.org/10.5281/zenodo.15465658"><img
+src="https://zenodo.org/badge/983030988.svg" alt="DOI" /></a></p>
+<div id="pixel-intensity-distributions-colocalization-results"
+class="section level1">
+<h1><strong>Pixel Intensity Distributions &amp; Colocalization
+Results</strong></h1>
+<p>This pipeline performs <strong>segmentation of nuclei</strong>,
+<strong>quantification of PCNA-GFP colocalization</strong>, and
+<strong>statistical comparisons</strong> across multiple sample
+conditions. Results include correlation metrics, pixel distributions,
+annotated visualizations, and representative nucleus overlays.</p>
+<hr />
+<p><img
+src="example_output/analyzed_nuclei/WT_H9_Ctrl_Image%2010_Nuc1.0_Kept.png" /></p>
+<hr />
+<div id="image-analysis-methods" class="section level2">
+<h2><strong>Image Analysis Methods</strong></h2>
+<p>This Python-based image processing workflow is used to quantify
+nuclear segmentation, colocalization, and statistical comparisons across
+multiple samples. Load the <code>.czi</code> files using
+<strong>AICSImage (v4.4.0)</strong> [1], which provides
+channel-separated arrays for the nuclear (channel 0), PCNA (channel 1),
+and GFP (channel 2) signals. Images are blurred with a Gaussian filter
+(σ=1.0) and thresholded using <code>threshold_otsu</code> to generate
+binary nuclear masks [2]. Small objects and holes are removed using
+morphological operations from <strong>scikit-image (v0.19.3)</strong>
+[3]. Each labeled nucleus is analyzed with <code>regionprops</code> to
+extract pixel intensities for downstream colocalization
+calculations.</p>
+<p><strong>PearsonR</strong> and <strong>Manders’ coefficients (M1,
+M2)</strong> are computed for PCNA vs. GFP intensities. Aggregate
+results are stored in a combined CSV file that included nucleus IDs,
+sample names, and image filenames. Statistical analyses (<strong>ANOVA,
+Tukey HSD</strong>) and plotting are performed in Python using
+<strong>statsmodels (v0.14)</strong> [4], <strong>seaborn
+(v0.12.2)</strong> [5], and <strong>matplotlib (v3.6.3)</strong> [6].
+Boxplots and histograms of the correlation metrics are created to
+visualize distribution differences among sample groups. Additional
+pixel-intensity boxplots (Nuclear, PCNA, GFP) are generated to assess
+signal variance by sample.</p>
+<p>For selected low and high correlation nuclei, overlay images are
+produced by normalizing each channel and assigning <strong>PCNA to
+red</strong>, <strong>GFP to green</strong>, and <strong>nuclear signal
+to grayscale</strong>, allowing for qualitative visualization of
+colocalization. <strong>Multipage TIFF outputs</strong> are saved using
+<strong>tifffile (v2023.7.18)</strong> [7], containing individual
+grayscale channels alongside the merged overlay. All code and data are
+organized in a reproducible directory structure with final results (CSV
+files, plots, and TIFFs) placed in a designated <code>results</code>
+directory.</p>
+<hr />
+</div>
+<div id="folder-structure" class="section level2">
+<h2><strong>Folder Structure</strong></h2>
+<ul>
+<li><code>wt_czi_images/</code> — Root input folder with subfolders per
+sample (e.g., <code>WT_H9_Ctrl/</code>, <code>WT_H9_MK/</code>)</li>
+<li><code>results_wt/</code> — Output directory where all processed
+results, plots, and summary files are saved</li>
+</ul>
+<hr />
+</div>
+<div id="sample-conditions" class="section level2">
+<h2><strong>Sample Conditions</strong></h2>
+<ul>
+<li><code>WT_H9_Ctrl</code></li>
+<li><code>WT_H9_MK</code></li>
+<li><code>WT_H9_MLN</code></li>
+<li><code>WT_H9_MLN_MK</code></li>
+<li><code>WT_H9_NU</code></li>
+</ul>
+<hr />
+</div>
+<div id="processing-workflow" class="section level2">
+<h2><strong>Processing Workflow</strong></h2>
+<ul>
+<li><strong>Loads .czi images</strong> using AICSImageIO</li>
+<li><strong>Extracts 3-channel image stacks:</strong>
+<ul>
+<li>Channel 0: DAPI (nuclear)</li>
+<li>Channel 1: PCNA</li>
+<li>Channel 2: GFP</li>
+</ul></li>
+<li><strong>Nuclear segmentation</strong> with Gaussian blur, Otsu
+thresholding, and morphological cleaning</li>
+<li><strong>Quantifies colocalization metrics</strong> for each nucleus:
+<ul>
+<li>Pearson correlation</li>
+<li>Manders M1 and M2 coefficients</li>
+</ul></li>
+<li><strong>Saves nucleus-level results</strong> in:
+<ul>
+<li><code>results_wt/combined_coloc_results.csv</code></li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="generated-visualizations" class="section level2">
+<h2><strong>Generated Visualizations</strong></h2>
+<ul>
+<li><strong>Pixel Intensity Boxplots:</strong>
+<ul>
+<li>Nuclear → <code>nuclear_pixel_boxplot.png</code></li>
+<li>PCNA → <code>pcna_pixel_boxplot.png</code></li>
+<li>GFP → <code>gfp_pixel_boxplot.png</code></li>
+</ul></li>
+<li><strong>Colocalization Metrics Boxplots with Stripplots:</strong>
+<ul>
+<li>Pearson → <code>pearson_boxplot.png</code></li>
+<li>Manders M1 → <code>mandersM1_boxplot.png</code></li>
+<li>Manders M2 → <code>mandersM2_boxplot.png</code></li>
+</ul></li>
+<li><strong>Histograms:</strong>
+<ul>
+<li><code>pearsonr_histograms.png</code></li>
+<li><code>mandersm1_histograms.png</code></li>
+<li><code>mandersm2_histograms.png</code></li>
+</ul></li>
+<li><strong>ANOVA Boxplots with Asterisk Annotations:</strong> <img
+src="example_output/pearsonr_anova_boxplot_filtered.png" /> <img
+src="example_output/mandersm1_anova_boxplot_filtered.png" /> <img
+src="example_output/mandersm2_anova_boxplot_filtered.png" /></li>
+</ul>
+<hr />
+</div>
+<div id="representative-nucleus-tiffs" class="section level2">
+<h2><strong>Representative Nucleus TIFFs</strong></h2>
+<ul>
+<li>For each sample, the top 3 and bottom 3 nuclei by PearsonR are saved
+as <strong>multipage TIFFs</strong> containing:
+<ul>
+<li>Grayscale: DAPI, PCNA, GFP</li>
+<li>RGB overlay</li>
+</ul></li>
+<li>Example outputs:
+<ul>
+<li><code>WT_H9_Ctrl_Image 9_Nuc1_Pearson-0.229.tif</code></li>
+<li><code>WT_H9_Ctrl_Image 17_Nuc3_Pearson0.661.tif</code></li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="example-nucleus-plots" class="section level2">
+<h2><strong>Example Nucleus Plots</strong></h2>
+<ul>
+<li><p><strong>Included nuclei (analyzed):</strong> <img
+src="example_output/analyzed_nuclei/WT_H9_Ctrl_Image%2010_Nuc1.0_Kept.png" />
+<img
+src="example_output/analyzed_nuclei/WT_H9_MK_Image%2057_Nuc1.0_Kept.png" /></p></li>
+<li><p><strong>Excluded nuclei (removed):</strong> <img
+src="example_output/removed_nuclei/WT_H9_Ctrl_Image%2013_Nuc1.0_Omitted.png" />
+<img
+src="example_output/removed_nuclei/WT_H9_MK_Image%2093_Nuc6.0_Omitted.png" /></p></li>
+</ul>
+<hr />
+</div>
+<div id="dependencies" class="section level2">
+<h2><strong>Dependencies</strong></h2>
+<ul>
+<li><code>aicsimageio</code> v4.4.0</li>
+<li><code>numpy</code>, <code>pandas</code></li>
+<li><code>scikit-image</code> v0.19.3</li>
+<li><code>scipy</code></li>
+<li><code>statsmodels</code> v0.14</li>
+<li><code>seaborn</code> v0.12.2</li>
+<li><code>matplotlib</code> v3.6.3</li>
+<li><code>tifffile</code> v2023.7.18</li>
+</ul>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2><strong>References</strong></h2>
+<ol style="list-style-type: decimal">
+<li>Cimini, B. A. et al. The AICSImageIO python library for
+multidimensional bioimaging. GitHub: <a
+href="https://github.com/AllenCellModeling/aicsimageio"
+class="uri">https://github.com/AllenCellModeling/aicsimageio</a>
+(accessed 5 January 2025).<br />
+</li>
+<li>Otsu, N. A threshold selection method from gray-level histograms.
+IEEE Transactions on Systems, Man, and Cybernetics 9, 62–66
+(1979).<br />
+</li>
+<li>van der Walt, S. et al. scikit-image: Image processing in Python.
+PeerJ 2, e453 (2014).<br />
+</li>
+<li>Seabold, S. &amp; Perktold, J. Statsmodels: Econometric and
+statistical modeling with python. In Proc. of the 9th Python in Science
+Conf. (eds. van der Walt, S. &amp; Millman, J.) 57–61 (2010).<br />
+</li>
+<li>Waskom, M. L. Seaborn: statistical data visualization. J. Open
+Source Softw. 6, 3021 (2021).<br />
+</li>
+<li>Hunter, J. D. Matplotlib: A 2D graphics environment. Comput. Sci.
+Eng. 9, 90–95 (2007).<br />
+</li>
+<li>Christoph Gohlke. tifffile: Read and write image data from and to
+TIFF files. GitHub: <a href="https://github.com/cgohlke/tifffile"
+class="uri">https://github.com/cgohlke/tifffile</a> (accessed 17 January
+2025).</li>
+</ol>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
