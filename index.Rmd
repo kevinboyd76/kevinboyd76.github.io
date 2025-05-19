@@ -51,7 +51,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Enabled batch processing across experimental conditions  
 - Supported statistical reporting and figure generation for publication  
 
-[Nuclear Colocalization Tab](Nuclear_Colocalization.html)
+[Nuclear Colocalization Tab](Nuclear_Colocalization.html)  
 [GitHub Repo](https://github.com/kevinboyd76/Nuclear_Colocalization)
 
  ---
@@ -65,7 +65,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Created summary statistics for sample performance and antibody enrichment  
 - Documented pipeline for lab use and shared as part of reproducible research initiatives  
 
-[Cut&Tag Analysis Tab](CutandTagAnalysis.html)
+[Cut&Tag Analysis Tab](CutandTagAnalysis.html)  
 [GitHub Repo](https://github.com/kevinboyd76/CutandTag_Analysis_Snakemake)
 
  ---
@@ -80,7 +80,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Generate heatmaps to show signal over specific genomic intervals  
 - Provided reproducible scripts for future experiments  
 
-[Replicate Peak Analysis Tab](ReplicatePeakAnalysis.html)
+[Replicate Peak Analysis Tab](ReplicatePeakAnalysis.html)  
 [GitHub Repo](https://github.com/kevinboyd76/CutandTag_ReplicatePeak_Analysis)
 
  ---
@@ -94,7 +94,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Generated signal tracks and enrichment profiles across genomic features  
 - Developed modular, Snakemake-based workflow for reproducibility  
 
-[ChEC-seq Analysis Tab](ChEC-seq_Analysis.html)
+[ChEC-seq Analysis Tab](ChEC-seq_Analysis.html)  
 [GitHub Repo](https://github.com/kevinboyd76/ChEC-Seq_Analysis)
 
  ---
