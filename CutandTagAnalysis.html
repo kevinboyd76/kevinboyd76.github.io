@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kevin Boyd" />
+
+<meta name="date" content="2025-05-19" />
+
+<title>CutandTag_Analysis_Snakemake</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin Boyd | Data Science & Bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About_Me.html">About Me</a>
+</li>
+<li>
+  <a href="DeepLearning_CellStageClassification.html">Deep Learning Classification</a>
+</li>
+<li>
+  <a href="Nuclear_Colocalization.html">Nuclear Colocalization</a>
+</li>
+<li>
+  <a href="DDS_Project1.html">Budweiser Case Study</a>
+</li>
+<li>
+  <a href="CLT2.html">Central Limit Theorem</a>
+</li>
+<li>
+  <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">CutandTag_Analysis_Snakemake</h1>
+<h4 class="author">Kevin Boyd</h4>
+<h4 class="date">05/19/2025</h4>
+
+</div>
+
+
+<p><img
+src="https://img.shields.io/github/v/release/JK-Cobre-Help/CutandTag_Analysis_Snakemake"
+alt="GitHub Release" /> <img
+src="https://img.shields.io/github/release-date/JK-Cobre-Help/CutandTag_Analysis_Snakemake"
+alt="GitHub Release Date" /> <img
+src="https://img.shields.io/github/repo-size/JK-Cobre-Help/CutandTag_Analysis_Snakemake"
+alt="GitHub repo size" /> <img
+src="https://img.shields.io/github/last-commit/JK-Cobre-Help/CutandTag_Analysis_Snakemake"
+alt="GitHub last commit" /> <img
+src="https://img.shields.io/github/contributors/JK-Cobre-Help/CutandTag_Analysis_Snakemake"
+alt="GitHub contributors" /> <img
+src="https://img.shields.io/github/downloads/JK-Cobre-Help/CutandTag_Analysis_Snakemake/total"
+alt="GitHub Downloads (all assets, all releases)" /> <img
+src="https://img.shields.io/github/commits-since/JK-Cobre-Help/CutandTag_Analysis_Snakemake/latest"
+alt="GitHub commits since latest release" /> <a
+href="https://doi.org/10.5281/zenodo.15232228"><img
+src="https://zenodo.org/badge/873121124.svg" alt="DOI" /></a></p>
+<div id="cutandtag_analysis_snakemake" class="section level1">
+<h1>CutandTag_Analysis_Snakemake</h1>
+<p><img src="cutandtaganalysis_images/Cut&amp;Tag.png" /> + OpenAI.
+(2024). Cartoon image of scissors cutting DNA and protein and DNA
+playing tag. DALL-E. Retrieved from OpenAI.</p>
+</div>
+<div id="project-description" class="section level1">
+<h1>1) Project Description</h1>
+<p>CutAndTag_Analysis_Pipeline is a Snakemake pipeline adapted from the
+protocol by Ye Zheng, Kami Ahmad, and Steven Henikoff
+(dx.doi.org/10.17504/protocols.io.bjk2kkye). This pipeline is designed
+to process Cut-and-Tag sequencing data to facilitating the analysis of
+chromatin accessibility and DNA-protein interactions. It includes steps
+for quality control, read alignment, BAM to BigWig conversion, peak
+calling, and various visualizations, enabling high-resolution profiling
+of protein-DNA binding sites.</p>
+<p>The pipeline provides automated quality checks, including FastQC and
+FastQ Screen reports, and performs read alignment with Bowtie2. Outputs
+include raw and scaled BigWig files, which allow users to visualize
+signal intensity across the genome. Additionally, peak calling is
+performed using MACS2, and fragment length and alignment summary plots
+are generated for in-depth data exploration. The workflow is automated
+with Snakemake, and dependencies are managed through module
+environments, ensuring reproducibility and flexibility.</p>
+<p>A compact dataset is included within the repository for testing
+purposes, along with example scripts for analyzing publicly available
+Cut-and-Tag datasets. This pipeline extends the original protocol,
+offering a robust framework for both routine analysis and more complex
+studies.</p>
+<p>Downstream analysis can be performed in the <a
+href="https://github.com/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis">CutandTag_ReplicatePeak_Analysis</a>
+snakemake pipeline. This pipeline starts with already aligned and
+filtered BAM files, focusing on the identification of reproducible
+peaks, the generation of consensus peak sets, and the visualization of
+overlaps and signal distributions across multiple samples or
+experimental conditions.</p>
+</div>
+<div id="explanation-of-samples.csv" class="section level1">
+<h1>2) Explanation of <code>samples.csv</code></h1>
+<p><strong>IMPORTANT:</strong> Always update <code>samples.csv</code>
+with your sample, FASTQ file paths, histone, and replicate information
+before running.</p>
+<p>This file should be placed in the <code>config/</code> directory and
+must contain the following columns:</p>
+<hr />
+<table>
+<colgroup>
+<col width="15%" />
+<col width="30%" />
+<col width="30%" />
+<col width="13%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr>
+<th>sample</th>
+<th>fastq1</th>
+<th>fastq2</th>
+<th>histone</th>
+<th>replicate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K27ac_1_control</td>
+<td>path/to/K27ac_1_control_R1.fastq.gz</td>
+<td>path/to/K27ac_1_control_R2.fastq.gz</td>
+<td>H27ac_Control</td>
+<td>1</td>
+</tr>
+<tr>
+<td>K27ac_2_control</td>
+<td>path/to/K27ac_2_contorl_R1.fastq.gz</td>
+<td>path/to/K27ac_2_control_R1.fastq.gz</td>
+<td>K27ac_Control</td>
+<td>2</td>
+</tr>
+<tr>
+<td>K27me3_1_treatment</td>
+<td>path/to/K27me3_1_treatment_R1.fastq.gz</td>
+<td>path/to/K27me3_1_treatment_R1.fastq.gz</td>
+<td>K27me3_Treatment</td>
+<td>1</td>
+</tr>
+<tr>
+<td>K27me3_2_treatment</td>
+<td>path/to/K27me3_2_treatment_R1.fastq.gz</td>
+<td>path/to/K27me3_2_treatment_R1.fastq.gz</td>
+<td>K27me3_Treatment</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<ul>
+<li><strong>sample</strong>: Unique name used for all output files.</li>
+<li><strong>fastq1 / fastq2</strong>: Paths to R1 and R2 FASTQ
+files.</li>
+<li><strong>histone</strong>: Mark name (used in plots). Include control
+or treatment label in <code>histone</code>_<code>control</code>
+format</li>
+<li><strong>replicate</strong>: Include replicate number (e.g.,
+<code>1</code>, <code>2</code>, <code>A</code>, <code>B</code>,
+etc.)</li>
+</ul>
+<p>Use informative <code>sample</code> names that match your design.
+Examples:</p>
+<ul>
+<li><code>H3K27ac_rep1_control</code></li>
+<li><code>H3K4me3_rep2_treatment</code></li>
+<li><code>H3.3_A_trimmed</code></li>
+<li><code>H2AX_1_H3K27ac</code></li>
+</ul>
+<p>Include both the histone and samlpe type in <code>histone</code>
+column. This determines how samples are grouped together. Following
+these practices will improve downstream plot labeling and
+reproducibility metrics.</p>
+</div>
+<div id="explanation-of-config.yml" class="section level1">
+<h1>3) Explanation of config.yml</h1>
+<p>Note. Make sure to check config.yml for the appropriate genome
+alignment</p>
+<p>The config.yml is used to identify the file path of the bowtie2
+genome index, specify effective genome size and genome for macs2. There
+is also information about specific modules and version numbers to
+maintain dependencies in the snakemake workflow. Running the mm10 genome
+does not require any modifications to the config.yml. When using the
+hg38 genome the following need to be modified with the information
+provided in the config.yml but commented out.</p>
+<p>Run hg38 samples in snakemake pipeline - config.yml + change bowtie2
+genome index file path + change bamCoverage effective genome size +
+change macs2 genome size</p>
+</div>
+<div id="examples-of-output-from-test-files-in-repo"
+class="section level1">
+<h1>4) Examples of Output from Test Files in Repo</h1>
+<p>Below are some example plots generated by the pipeline.</p>
+<table>
+<colgroup>
+<col width="48%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr>
+<th align="center">1. <strong>Alignment Summary Plot</strong></th>
+<th align="center">2. <strong>Peak Summary Plot</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+align="center"><img src="cutandtaganalysis_images/alignment_summary_plot.png" width="300"></td>
+<td
+align="center"><img src="cutandtaganalysis_images/peak_summary_plot.png" width="300"></td>
+</tr>
+<tr>
+<td align="center"><em>Summary of alignment stats</em></td>
+<td align="center"><em>Summary of called peak stats</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="48%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr>
+<th align="center">3. <strong>Fragment Length Plot</strong></th>
+<th align="center">4. <strong>Fragment Count Correlation
+Plot</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+align="center"><img src="cutandtaganalysis_images/fragment_length_plot.png" width="300"></td>
+<td
+align="center"><img src="cutandtaganalysis_images/fragCount_correlation_plot.png" width="300"></td>
+</tr>
+<tr>
+<td align="center"><em>Fragment Length summary plots</em></td>
+<td align="center"><em>Correlation plot of fragment counts</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="instructions-to-run-on-slurm-managed-hpc"
+class="section level1">
+<h1>5) Instructions to run on Slurm managed HPC</h1>
+<p>5A. Download verson controlled repository</p>
+<pre><code>wget https://github.com/JK-Cobre-Help/CutandTag_Analysis_Snakemake/releases/download/v1.0.3/CutandTag_Analysis_Snakemake-1.0.3.tar.gz
+tar -xzf CutandTag_Analysis_Snakemake-1.0.3.tar.gz
+rm CutandTag_Analysis_Snakemake-1.0.3.tar.gz
+cd CutandTag_Analysis_Snakemake-1.0.3</code></pre>
+<p>5B. Load modules</p>
+<pre><code>module purge
+module load slurm python/3.10 pandas/2.2.3 numpy/1.22.3 matplotlib/3.7.1</code></pre>
+<p>5C. Modify samples and config file</p>
+<pre><code>vim samples.csv
+vim config.yml</code></pre>
+<p>5D. Dry Run</p>
+<pre><code>snakemake -npr</code></pre>
+<p>5E. Run on HPC with config.yml options</p>
+<pre><code>sbatch --wrap=&quot;snakemake -j 999 --resources mem_mb=200000 --use-envmodules --latency-wait 300 --cluster-config config/cluster_config.yml --cluster &#39;sbatch -A {cluster.account} -p {cluster.partition} --cpus-per-task {cluster.cpus-per-task}  -t {cluster.time} --mem {cluster.mem} --output {cluster.output}&#39;&quot;</code></pre>
+</div>
+<div id="citations" class="section level1">
+<h1>6) Citations</h1>
+<p>Zheng, Y., Ahmad, K., &amp; Henikoff, S. (2019). CUT&amp;Tag for
+efficient epigenomic profiling of small samples and single cells.
+Protocols.io, dx.doi.org/10.17504/protocols.io.bjk2kkye</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
