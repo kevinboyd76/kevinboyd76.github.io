@@ -14,7 +14,9 @@ My name is **Kevin Boyd** — a data scientist and bioinformatician with a passi
 # Overview
 
 This section highlights specific projects that I completed during my graduate training in data science at SMU. These projects cover statistical modeling, classification, clustering, and visualization — using R, Python, and Shiny.
-
+ 
+ ---
+ 
 # Explore my Work:
 ### Shiny Apps
 - [k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
