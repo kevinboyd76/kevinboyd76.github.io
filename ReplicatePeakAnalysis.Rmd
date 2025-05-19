@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis/total)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis/latest)
 [![DOI](https://zenodo.org/badge/898608902.svg)](https://doi.org/10.5281/zenodo.15232319)
+[![View on GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis)
 
 # CutandTag_ReplicatePeak_Analysis
 
