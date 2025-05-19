@@ -13,6 +13,8 @@ navbar:
       href: Nuclear_Colocalization.html
     - text: "Cut and Tag Analysis"
       href: CutandTagAnalysis.html
+    - text: "Cut and Tag Replicate Peaks"
+      href: ReplicatePeakAnalysis.html
     - text: "Budweiser Case Study"
       href: DDS_Project1.html
     - text: "Central Limit Theorem"

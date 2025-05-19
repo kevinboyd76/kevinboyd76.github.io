@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kevin Boyd" />
+
+<meta name="date" content="2025-05-19" />
+
+<title>CutandTag_ReplicatePeak_Analysis</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin Boyd | Data Science & Bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About_Me.html">About Me</a>
+</li>
+<li>
+  <a href="DeepLearning_CellStageClassification.html">Deep Learning Classification</a>
+</li>
+<li>
+  <a href="Nuclear_Colocalization.html">Nuclear Colocalization</a>
+</li>
+<li>
+  <a href="CutandTagAnalysis.html">Cut and Tag Analysis</a>
+</li>
+<li>
+  <a href="ReplicatePeakAnalysis.html">Cut and Tag Replicate Peaks</a>
+</li>
+<li>
+  <a href="DDS_Project1.html">Budweiser Case Study</a>
+</li>
+<li>
+  <a href="CLT2.html">Central Limit Theorem</a>
+</li>
+<li>
+  <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">CutandTag_ReplicatePeak_Analysis</h1>
+<h4 class="author">Kevin Boyd</h4>
+<h4 class="date">2025-05-19</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#cutandtag_replicatepeak_analysis"
+id="toc-cutandtag_replicatepeak_analysis">CutandTag_ReplicatePeak_Analysis</a></li>
+<li><a href="#project-description" id="toc-project-description">1)
+Project Description</a>
+<ul>
+<li><a href="#key-features" id="toc-key-features">Key Features</a></li>
+</ul></li>
+<li><a href="#intended-use-case" id="toc-intended-use-case">2) Intended
+Use Case</a></li>
+<li><a href="#dependencies-and-configuration"
+id="toc-dependencies-and-configuration">3) Dependencies and
+Configuration</a>
+<ul>
+<li><a href="#explanation-of-config.yml"
+id="toc-explanation-of-config.yml">Explanation of
+<code>config.yml</code></a></li>
+<li><a href="#changing-genomes" id="toc-changing-genomes">Changing
+Genomes</a></li>
+</ul></li>
+<li><a href="#tools-modules" id="toc-tools-modules">4) Tools &amp;
+Modules</a></li>
+<li><a href="#example-data" id="toc-example-data">5) Example
+Data</a></li>
+<li><a href="#explanation-of-samples.csv"
+id="toc-explanation-of-samples.csv">6) Explanation of
+<code>samples.csv</code></a></li>
+<li><a href="#examples-of-output-from-test-files-in-repo"
+id="toc-examples-of-output-from-test-files-in-repo">7) Examples of
+Output from Test Files in Repo</a></li>
+<li><a href="#instructions-to-run-on-slurm-managed-hpc"
+id="toc-instructions-to-run-on-slurm-managed-hpc">8) Instructions to run
+on Slurm managed HPC</a></li>
+</ul>
+</div>
+
+<p><img
+src="https://img.shields.io/github/v/release/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis"
+alt="GitHub Release" /> <img
+src="https://img.shields.io/github/release-date/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis"
+alt="GitHub Release Date" /> <img
+src="https://img.shields.io/github/repo-size/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis"
+alt="GitHub repo size" /> <img
+src="https://img.shields.io/github/last-commit/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis"
+alt="GitHub last commit" /> <img
+src="https://img.shields.io/github/contributors/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis"
+alt="GitHub contributors" /> <img
+src="https://img.shields.io/github/downloads/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis/total"
+alt="GitHub Downloads (all assets, all releases)" /> <img
+src="https://img.shields.io/github/commits-since/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis/latest"
+alt="GitHub commits since latest release" /> <a
+href="https://doi.org/10.5281/zenodo.15232319"><img
+src="https://zenodo.org/badge/898608902.svg" alt="DOI" /></a></p>
+<div id="cutandtag_replicatepeak_analysis" class="section level1">
+<h1>CutandTag_ReplicatePeak_Analysis</h1>
+<p><img src="replicatepeak_analysis_images/replicatePeaks.png" /> -
+OpenAI. (2024). Scientific data visualization: Replicate peak analysis
+in bioinformatics [AI-generated image]. DALL-E. Retrieved from ChatGPT
+interface.</p>
+</div>
+<div id="project-description" class="section level1">
+<h1>1) Project Description</h1>
+<p><strong>CutAndTag_ReplicatePeak_Analysis</strong> is a Snakemake
+pipeline designed to perform downstream analysis on processed
+Cut-and-Tag sequencing data. Rather than starting from raw FASTQ reads,
+this pipeline starts with already aligned and filtered BAM files,
+focusing on the identification of reproducible peaks, the generation of
+consensus peak sets, and the visualization of overlaps and signal
+distributions across multiple samples or experimental conditions.</p>
+<ul>
+<li>Note: If you are starting from raw FASTQ files, consider using the
+<a
+href="https://github.com/JK-Cobre-Help/CutandTag_Analysis_Snakemake">CutandTag_Analysis_Snakemake</a>
+pipeline first. That pipeline handles the initial data processing
+steps—such as quality control, alignment, and basic filtering—providing
+you with the cleaned and aligned data that serve as the input for
+CutAndTag_ReplicatePeak_Analysis.</li>
+</ul>
+<div id="key-features" class="section level2">
+<h2>Key Features</h2>
+<ul>
+<li><p><strong>Peak Calling with MACS2 on Individual and Merged
+Samples</strong>: Each replicate is processed independently using MACS2
+to call peaks. In parallel, biological replicates defined by the
+<code>Set</code> column in <code>samples.csv</code> are merged at the
+BAM level, and a second MACS2 peak calling is performed on the merged
+BAM to capture reproducible signal across replicates.</p></li>
+<li><p><strong>Reproducible Consensus Peak Sets</strong>: A consensus
+peak set is generated by comparing merged peaks to individual replicate
+peaks. Peaks are retained only if they are supported by a minimum number
+of replicates found in the <code>congif.yml</code> (e.g., 2 out of 3),
+ensuring biological reproducibility while reducing noise.</p></li>
+<li><p><strong>Signal Preservation Through Merged Read Support</strong>:
+Reads are extracted directly from the merged BAM preserving read-level
+signal. This enables more accurate representation of genomic signal in
+consensus peak regions.</p></li>
+<li><p><strong>Consensus Peak Conversion to Visualization
+Formats</strong>: Consensus peak regions are used to extract reads and
+generate sorted BAM and BigWig files. These outputs are optimized for
+visualization in genome browsers and for downstream comparative
+analysis.</p></li>
+<li><p><strong>Euler Plots of Replicate and Condition Overlaps</strong>:
+Euler diagrams are created to visualize how consensus peaks arise from
+replicate overlaps within a set. Additional Euler plots show
+condition-level peak set relationships for each mark, providing clear
+insight into reproducibility and condition-specific differences. Euler
+plots color and size can be set in the <code>config.yml</code>.</p></li>
+<li><p><strong>Midpoint and Overlap Quantification</strong>: Consensus
+peaks are processed to determine their midpoints and identify overlaps
+across all sets. This provides a standardized reference point for
+comparing distributions and regional enrichments.</p></li>
+<li><p><strong>High-Resolution Heatmaps of Signal Intensity</strong>:
+The pipeline generates heatmaps centered on consensus peak midpoints.
+These plots visualize the distribution and intensity of signal across
+replicates, conditions, or sample sets, making trends in coverage and
+peak architecture easy to interpret. Heatmaps are customizable in the
+<code>config.yml</code> along with the ability to toggle them on and
+off. In the <code>sampleOrder</code> section the first sample will set
+the order of the bed file in the heatmap.</p></li>
+</ul>
+</div>
+</div>
+<div id="intended-use-case" class="section level1">
+<h1>2) Intended Use Case</h1>
+<p>This pipeline is ideal for researchers who have already processed
+their Cut-and-Tag data through preliminary steps such as quality
+control, alignment, and filtering (e.g., by using <a
+href="https://github.com/JK-Cobre-Help/CutandTag_Analysis_Snakemake">CutandTag_Analysis_Snakemake</a>).
+After obtaining high-quality aligned BAM files, you can use
+CutAndTag_ReplicatePeak_Analysis to:</p>
+<ul>
+<li>Identify reproducible peaks across replicates or experimental
+conditions.</li>
+<li>Generate integrative visual summaries of peak overlaps.</li>
+<li>Compare signal intensity profiles around consensus peak
+midpoints.</li>
+</ul>
+<p>By integrating this two-step approach, you ensure a robust,
+end-to-end workflow for your Cut-and-Tag sequencing experiments.</p>
+</div>
+<div id="dependencies-and-configuration" class="section level1">
+<h1>3) Dependencies and Configuration</h1>
+<p>All parameters (e.g., genome size, MACS2 q-values, minimum number of
+overlapping samples for consensus peaks, paths to executables) are
+controlled via the <code>config/config.yml</code> file.</p>
+<div id="explanation-of-config.yml" class="section level2">
+<h2>Explanation of <code>config.yml</code></h2>
+<ul>
+<li>Note. Make sure to check config.yml for the appropriate genome</li>
+</ul>
+<p>The <code>config.yml</code> file controls genome settings, tool
+versions, and other workflow parameters.</p>
+</div>
+<div id="changing-genomes" class="section level2">
+<h2>Changing Genomes</h2>
+<p>By default, the <code>config.yml</code> is set up for mouse (mm10).
+Running human (hg38) samples requires changing these values to match the
+hg38 parameters, which are already provided in <code>config.yml</code>
+as comments.</p>
+<p>To switch from mm10 to hg38 (or vice versa), you’ll need to change: -
+<strong>Genome and Effective Genome Size</strong>: Update genome and
+effective genomes sizes - For human (hg38), set
+<code>genome: "hs"</code> and
+<code>effective_genome_size: 2913022398</code> - For mouse (mm10), set
+<code>genome: "mm"</code> and
+<code>effective_genome_size: 2730871774</code></p>
+<ul>
+<li><strong>Chrom_sizes File</strong>: Point chrom_sizes to the correct
+chromosome sizes file.
+<ul>
+<li>For human (hg38), set <code>resources/hg38.chrom.sizes</code></li>
+<li>For mouse (mm10), set <code>resources/mm10.chrom.sizes</code></li>
+</ul></li>
+</ul>
+<p>All information required for switching between hg38 and mm10 is
+included in <code>config.yml</code>, commented out next to the default
+settings. Simply uncomment and modify these values as needed when
+changing the genome from mm10 to hg38.</p>
+<p>Tool Versions and Modules The <code>config.yml</code> file also
+specifies versions of tools and modules (e.g., deeptools, macs2,
+samtools, bedtools, R) used by the pipeline. These versions help
+maintain reproducibility and ensure that the pipeline runs consistently
+across different computing environments.</p>
+</div>
+</div>
+<div id="tools-modules" class="section level1">
+<h1>4) Tools &amp; Modules</h1>
+<p>The pipeline relies on bioinformatics tools, including:</p>
+<ul>
+<li><strong>MACS2</strong> for peak calling</li>
+<li><strong>bedtools</strong> and samtools for peak and alignment format
+conversions</li>
+<li><strong>deeptools</strong> for coverage and matrix computation, as
+well as for generating heatmaps</li>
+<li><strong>R</strong> with <strong>Bioconductor</strong> packages for
+merging peaks, checking overlap, creating midpoints, and creating
+<strong>Euler</strong> diagrams</li>
+</ul>
+</div>
+<div id="example-data" class="section level1">
+<h1>5) Example Data</h1>
+<p>A compact, pre-processed dataset aligned to mm10 is included in this
+repository to quickly test the pipeline and validate that your
+environment is set up correctly. This small example replicates the
+pipeline’s key steps from peak calling through to final visualization.
+Visualization examlpes are shown below in section 7.</p>
+</div>
+<div id="explanation-of-samples.csv" class="section level1">
+<h1>6) Explanation of <code>samples.csv</code></h1>
+<p>Note. Make sure to check <code>sample.csv</code> before each run</p>
+<p><code>samples.csv</code> specifies the samples to analyze, their BAM
+file locations, and how they are grouped into sets. The file has three
+columns: <code>sample</code>, <code>bam</code>, and
+<code>set</code>.</p>
+<p><strong>Example <code>samples.csv</code>:</strong></p>
+<pre class="csv"><code>sample,bam,set,mark,condition
+H3K27ac_rep1_C,resources/H3K27ac_rep1_C_PB042_chr1_1_10Mb.bam,H3K27ac_C,H3K27ac,C
+H3K27ac_rep1_T,resources/H3K27ac_rep1_T_PB045_chr1_1_10Mb.bam,H3K27ac_T,H3K27ac,T
+H3K27ac_rep2_C,resources/H3K27ac_rep2_C_PB052_chr1_1_10Mb.bam,H3K27ac_C,H3K27ac,C
+H3K27ac_rep2_T,resources/H3K27ac_rep2_T_PB055_chr1_1_10Mb.bam,H3K27ac_T,H3K27ac,T
+H3K27ac_rep3_C,resources/H3K27ac_rep3_C_PB062_chr1_1_10Mb.bam,H3K27ac_C,H3K27ac,C
+H3K27ac_rep3_T,resources/H3K27ac_rep3_T_PB065_chr1_1_10Mb.bam,H3K27ac_T,H3K27ac,T</code></pre>
+<p><code>sample</code>: Unique sample name<br />
+- used for individual sample output filenames and to identify samples in
+consensus peak euler plot</p>
+<p><code>bam</code>: Path to the aligned BAM file<br />
+- sorted.bam is usually best but other .bam files can be used</p>
+<p><code>set</code>: Sample grouping for consensus peak analysis -
+**{mark}_{condition}<strong> - sets naming for consensus peak files
+downstream. All samples with the same </strong>Set** name will be
+combined to generate a consensus peak set. - MUST MATCH MARK AND
+CONDITION (Ex: H3K27ac_Control or H3K27ac_C)</p>
+<p><code>mark</code>: Indicates the type of histone mark or other
+feature captured - all samples with the same mark name will be grouped
+for subsequent control vs treatment plots - MUST MATCH MARK NAME IN
+SET</p>
+<p><code>condition</code>: Specifies the experimental condition - these
+values are used to distinguish groups in control vs treatment overlap
+plots for each mark - MUST MATCH CONDITION NAME IN SET</p>
+</div>
+<div id="examples-of-output-from-test-files-in-repo"
+class="section level1">
+<h1>7) Examples of Output from Test Files in Repo</h1>
+<p>Below are some example plots generated by the pipeline.</p>
+<table>
+<colgroup>
+<col width="48%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr>
+<th align="center">1. <strong>H3K4me3_C_eulerPlot</strong></th>
+<th align="center">2. <strong>H3K4me3_T_eulerPlot</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+align="center"><img src="replicatepeak_analysis_images/H3K4me3_C_eulerPlot.png" width="300"></td>
+<td
+align="center"><img src="replicatepeak_analysis_images/H3K4me3_T_eulerPlot.png" width="300"></td>
+</tr>
+<tr>
+<td align="center"><em>Euler plot of individual sample overlaps in
+Condition C. Illustrates consensus peaks</em></td>
+<td align="center"><em>Euler plot of individual sample overlaps in
+Condition T. Illustrates consensus peaks</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr>
+<th align="center">3. <strong>H3K4me3_eulerPlot</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+align="center"><img src="replicatepeak_analysis_images/H3K4me3_eulerPlot.png" width="300"></td>
+</tr>
+<tr>
+<td align="center"><em>Euler plot showing consensus peak overlap of
+conditions in each mark. H3K4me3 shown.</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="48%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr>
+<th align="center">4. <strong>HeatPlots_All_Samples</strong></th>
+<th align="center">5. <strong>HeatPlots_Unique_Samples</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+align="center"><img src="replicatepeak_analysis_images/HeatPlots_All_Samples.png" width="300"></td>
+<td
+align="center"><img src="replicatepeak_analysis_images/HeatPlots_Unique_Samples.png" width="300"></td>
+</tr>
+<tr>
+<td align="center"><em>Heatmap showing signal distributions for all
+samples midpoints.</em></td>
+<td align="center"><em>Heatmap showing signal distributions for all
+samples midpoints separated by sample</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="instructions-to-run-on-slurm-managed-hpc"
+class="section level1">
+<h1>8) Instructions to run on Slurm managed HPC</h1>
+<p>A. Download version controlled repository</p>
+<pre><code>wget https://github.com/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis/releases/download/v1.0.5/CutandTag_ReplicatePeak_Analysis-1.0.5.tar.gz
+tar -xzf CutandTag_ReplicatePeak_Analysis-1.0.5.tar.gz
+rm CutandTag_ReplicatePeak_Analysis-1.0.5.tar.gz
+cd CutandTag_ReplicatePeak_Analysis-1.0.5</code></pre>
+<p>B. Load modules</p>
+<pre><code>module purge
+module load slurm python/3.10 pandas/2.2.3 numpy/1.22.3 matplotlib/3.7.1</code></pre>
+<p>C. Modify samples and config file</p>
+<pre><code>vim samples.csv
+vim config.yml</code></pre>
+<p>D. Dry Run</p>
+<pre><code>snakemake -npr</code></pre>
+<p>E. Run on HPC with config.yml options</p>
+<pre><code>sbatch --wrap=&quot;snakemake -j 999 --use-envmodules --latency-wait 60 --cluster-config config/cluster_config.yml --cluster &#39;sbatch -A {cluster.account} -p {cluster.partition} --cpus-per-task {cluster.cpus-per-task} --time {cluster.time} --mem {cluster.mem} --output {cluster.output} --job-name {cluster.name}&#39;&quot;</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
