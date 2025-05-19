@@ -2,7 +2,10 @@
 title: "Nuclear_Colocalization"
 author: "Kevin Boyd"
 date: "05/19/2025"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -10,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 [![DOI](https://zenodo.org/badge/983030988.svg)](https://doi.org/10.5281/zenodo.15465658)
+
+[![View on GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/CS-Cobre-Help/Nuclear_Colocalization)
 
 # **Pixel Intensity Distributions & Colocalization Results**
 
