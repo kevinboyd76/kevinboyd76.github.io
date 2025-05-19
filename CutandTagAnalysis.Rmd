@@ -2,7 +2,10 @@
 title: "CutandTag_Analysis_Snakemake"
 author: "Kevin Boyd"
 date: "05/19/2025"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
