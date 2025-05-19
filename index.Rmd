@@ -11,18 +11,100 @@ My name is **Kevin Boyd** — a data scientist and bioinformatician with a passi
 
  ---
 
-# Overview
+# Overview  
+
+This portfolio highlights selected projects that demonstrate my capabilities in data science and bioinformatics. It includes real-world applications from my professional work as well as training projects completed during my graduate studies at SMU.
+
+You’ll find links to my GitHub repositories, Shiny applications, case study videos, and published work — all of which are focused on translating data into actionable insights.
+
+#### Github Repositories
+- [View Code + Projects](https://github.com/kevinboyd76)
+
+ ---
+
+# Applied Bioinformatics Projects  
+
+This section showcases bioinformatics projects I’ve contributed to professionally, focused on genomic data analysis, image analysis, and end to end workflow development. These projects support grant proposals and publications, leveraging input from domain experts to design reproducible and scalable workflows tailored to biological research.  
+
+ ---
+
+## Deep Learning Image Classification
+
+**Goal**: Classify human cells into five distinct patterns representing S-phase progression using a convolutional neural network (CNN).  
+
+- Developed deep learning pipeline for image segmentation and classification  
+- Preprocessed raw microscopy data and generated labeled training sets  
+- Built CNN-based models to predict nuclear patterns across timepoints  
+- Integrated model into publication and GitHub-hosted analysis toolkit  
+
+[Deep Learning Classification Tab](DeepLearning_CellStageClassification.html)  
+[GitHub Repo](https://github.com/kevinboyd76/Automated_S-phase_Image_Classification)
+
+ ---
+
+## Nuclear Colocalization Analysis
+
+**Goal**: Quantify colocalization between nuclear proteins using multi-channel fluorescence microscopy.
+
+- Designed reproducible image analysis workflow using Python and `skimage`  
+- Calculated Pearson’s and Manders’ correlation coefficients for nuclear ROIs  
+- Enabled batch processing across experimental conditions  
+- Supported statistical reporting and figure generation for publication  
+
+[Nuclear Colocalization Tab](Nuclear_Colocalization.html)
+[GitHub Repo](https://github.com/kevinboyd76/Nuclear_Colocalization)
+
+ ---
+
+## CUT&Tag Analysis Pipeline
+
+**Goal**: Develop a modular CUT&Tag data analysis pipeline for chromatin profiling in human cells using snakemake. This pipeline uses fastqs (raw sequencing files) as input.
+
+- Designed reproducible pipeline for read alignment, peak calling, and signal normalization  
+- Generated QC plots and coverage tracks for visualization in IGV  
+- Created summary statistics for sample performance and antibody enrichment  
+- Documented pipeline for lab use and shared as part of reproducible research initiatives  
+
+[Cut&Tag Analysis Tab](CutandTagAnalysis.html)
+[GitHub Repo](https://github.com/kevinboyd76/CutandTag_Analysis_Snakemake)
+
+ ---
+
+## CUT&Tag Replicate Peak Integration
+
+**Goal**: Integrate biological replicates in CUT&Tag experiments to define consensus peaks. This pipeline performs downstream analysis using genome aligned files as input.
+
+- Merged aligned BAM files across replicates to increase reproducibility    
+- Identified reproducible peaks using a peak overlap threshold  
+- Generated Euler plots and summary metrics for peak consistency  
+- Generate heatmaps to show signal over specific genomic intervals  
+- Provided reproducible scripts for future experiments  
+
+[Replicate Peak Analysis Tab](ReplicatePeakAnalysis.html)
+[GitHub Repo](https://github.com/kevinboyd76/CutandTag_ReplicatePeak_Analysis)
+
+ ---
+
+## ChEC-seq Analysis
+
+**Goal**: Build a reproducible pipeline for analyzing ChEC-seq data from S. cerevisiae and S. pombe.
+
+- Aligned primary and spike-in reads to dual reference genomes  
+- Performed spike-in and CPM normalization for cross-sample comparison  
+- Generated signal tracks and enrichment profiles across genomic features  
+- Developed modular, Snakemake-based workflow for reproducibility  
+
+[ChEC-seq Analysis Tab](ChEC-seq_Analysis.html)
+[GitHub Repo](https://github.com/kevinboyd76/ChEC-Seq_Analysis)
+
+ ---
+
+# Training Projects:  
 
 This section highlights specific projects that I completed during my graduate training in data science at SMU. These projects cover statistical modeling, classification, clustering, and visualization — using R, Python, and Shiny.
- 
- ---
- 
-# Explore my Work:
+
 ### Shiny Apps
 - [k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
-
-### Github Repositories
-- [Code + Projects](https://github.com/kevinboyd76)
 
  ---
 
@@ -68,5 +150,5 @@ This section highlights specific projects that I completed during my graduate tr
 
 These projects were developed as part of SMU's Data Science graduate program (2021–2022) and reflect foundational skill development across applied machine learning, statistics, and data storytelling.
 
-
+## Contact
 Feel free to look around and reach out if you would like to connect! You can contact me by email at kevinboyd76@gmail.com
