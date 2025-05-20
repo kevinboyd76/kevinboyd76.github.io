@@ -7,18 +7,19 @@ navbar:
       href: index.html
     - text: "About Me"
       href: About_Me.html
-    - text: "Deep Learning Classification"
-      href: DeepLearning_CellStageClassification.html
-    - text: "Nuclear Colocalization"
-      href: Nuclear_Colocalization.html
-    - text: "Cut and Tag Analysis"
-      href: CutandTagAnalysis.html
-    - text: "Cut and Tag Replicate Peaks"
-      href: ReplicatePeakAnalysis.html
-    - text: "ChEC-Seq Analysis"
-      href: ChEC-seq_Analysis.html
+    - text: "Applied Bioinformatics Projects"
+      menu:
+        - text: "Deep Learning Classification"
+          href: DeepLearning_CellStageClassification.html
+        - text: "Nuclear Colocalization"
+          href: Nuclear_Colocalization.html
+        - text: "Cut and Tag Analysis"
+          href: CutandTagAnalysis.html
+        - text: "Cut and Tag Replicate Peaks"
+          href: ReplicatePeakAnalysis.html
+        - text: "ChEC-Seq Analysis"
+          href: ChEC-seq_Analysis.html
     - text: "Training Projects"
-      href: TrainingProjects.html
       menu:
         - text: "Budweiser Case Study"
           href: DDS_Project1.html
