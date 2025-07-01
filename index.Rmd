@@ -1,8 +1,7 @@
 ---
 title: "My Portfolio"
 author: |
-  "Author: Kevin Boyd"
-  "GitHub: [GitHub](https://github.com/kevinboyd76)"
+  Author: Kevin Boyd<br><a href='https://github.com/kevinboyd76'><img src='https://img.shields.io/badge/GitHub-kevinboyd76-181717?logo=github&style=flat&logoColor=white' alt='GitHub Badge'></a>
 date: "Last Updated: 7/1/2025"
 output: html_document
 ---
@@ -15,12 +14,9 @@ My name is **Kevin Boyd**! I'm a data scientist and bioinformatician with a pass
 
 # Overview  
 
-This portfolio highlights selected projects that demonstrate my capabilities in data science and bioinformatics. It includes real-world applications from my professional work as well as training projects completed during my graduate studies at SMU.
+This portfolio highlights projects that demonstrate my past work in data science and bioinformatics. It includes real world analysis and NGS pipelines from my professional bioinformatic work as well as training projects completed during my graduate studies at SMU.
 
-You’ll find links to my GitHub repositories, Shiny applications, case study videos, and published work — all of which are focused on translating data into actionable insights.
-
-#### Github Repositories
-- [View Code + Projects](https://github.com/kevinboyd76)
+In each section I have provided an overview of the project and a link to the GitHub repository. I have also included links to Shiny applications, case study videos, and publications when applicable. These examples show end to end workflows and are focused on translating data into actionable insights.
 
  ---
 
@@ -103,7 +99,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 
 # Training Projects:  
 
-This section highlights specific projects that I completed during my graduate training in data science at SMU. These projects cover statistical modeling, classification, clustering, and visualization — using R, Python, and Shiny.
+This section highlights specific projects that I completed during my graduate training in data science at SMU. These projects cover statistical modeling, classification, clustering, and visualization using R, Python, and Shiny.
 
 ### Shiny Apps
 - [k-NN_Classifier](https://kevinboyd76.shinyapps.io/k-NN_Classifier/)
