@@ -1,7 +1,9 @@
 ---
 title: "My Portfolio"
-author: "Author: Kevin Boyd"
-date: "Last Updated: 5/15/2025"
+author: |
+  "Author: Kevin Boyd"
+  "GitHub: [GitHub](https://github.com/kevinboyd76)"
+date: "Last Updated: 7/1/2025"
 output: html_document
 ---
 
@@ -52,7 +54,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Supported statistical reporting and figure generation for publication  
 
 [Nuclear Colocalization Tab](Nuclear_Colocalization.html)  
-[GitHub Repo](https://github.com/kevinboyd76/Nuclear_Colocalization)
+[GitHub Repo](https://github.com/CS-Cobre-Help/Nuclear_Colocalization)
 
  ---
 
