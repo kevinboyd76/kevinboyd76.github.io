@@ -7,7 +7,7 @@ output: html_document
 
 ![](images/hello_world.jpg)  
 
-My name is **Kevin Boyd** — a data scientist and bioinformatician with a passion for utilizing complex data into actionable insights. I currently live in Oklahoma and work as a Senior Bioinformatic Analyst. I specialize in statistical modeling, data visualization, image analysis, and building end-to-end data pipelines with R and Python.
+My name is **Kevin Boyd**! I'm a data scientist and bioinformatician with a passion for utilizing complex data into actionable insights. I currently live in Oklahoma and work as a Senior Bioinformatic Analyst. I specialize in statistical modeling, data visualization, image analysis, and building end-to-end data pipelines with R and Python.
 
  ---
 
@@ -28,7 +28,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 
  ---
 
-## Deep Learning Image Classification
+### Deep Learning Image Classification
 
 **Goal**: Classify human cells into five distinct patterns representing S-phase progression using a convolutional neural network (CNN).  
 
@@ -42,7 +42,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 
  ---
 
-## Nuclear Colocalization Analysis
+### Nuclear Colocalization Analysis
 
 **Goal**: Quantify colocalization between nuclear proteins using multi-channel fluorescence microscopy.
 
@@ -56,7 +56,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 
  ---
 
-## CUT&Tag Analysis Pipeline
+### CUT&Tag Analysis Pipeline
 
 **Goal**: Develop a modular CUT&Tag data analysis pipeline for chromatin profiling in human cells using snakemake. This pipeline uses fastqs (raw sequencing files) as input.
 
@@ -66,11 +66,11 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Documented pipeline for lab use and shared as part of reproducible research initiatives  
 
 [Cut&Tag Analysis Tab](CutandTagAnalysis.html)  
-[GitHub Repo](https://github.com/kevinboyd76/CutandTag_Analysis_Snakemake)
+[GitHub Repo](https://github.com/JK-Cobre-Help/CutandTag_Analysis_Snakemake)
 
  ---
 
-## CUT&Tag Replicate Peak Integration
+### CUT&Tag Replicate Peak Integration
 
 **Goal**: Integrate biological replicates in CUT&Tag experiments to define consensus peaks. This pipeline performs downstream analysis using genome aligned files as input.
 
@@ -81,11 +81,11 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Provided reproducible scripts for future experiments  
 
 [Replicate Peak Analysis Tab](ReplicatePeakAnalysis.html)  
-[GitHub Repo](https://github.com/kevinboyd76/CutandTag_ReplicatePeak_Analysis)
+[GitHub Repo](https://github.com/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis)
 
  ---
 
-## ChEC-seq Analysis
+### ChEC-seq Analysis
 
 **Goal**: Build a reproducible pipeline for analyzing ChEC-seq data from S. cerevisiae and S. pombe.
 
@@ -95,7 +95,7 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Developed modular, Snakemake-based workflow for reproducibility  
 
 [ChEC-seq Analysis Tab](ChEC-seq_Analysis.html)  
-[GitHub Repo](https://github.com/kevinboyd76/ChEC-Seq_Analysis)
+[GitHub Repo](https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis)
 
  ---
 
@@ -108,7 +108,7 @@ This section highlights specific projects that I completed during my graduate tr
 
  ---
 
-## Budweiser Marketing Case Study
+### Budweiser Marketing Case Study
 
 **Goal**:  Identify errors and recognize patterns that are present in the beers and breweries data sets given to us by Budweiser. We also want to determine if there is a relationship between ABV (alcohol by volume) and IBU (international bitterness units).
 
@@ -121,7 +121,7 @@ This section highlights specific projects that I completed during my graduate tr
 
  ---
 
-## Employee Attrition Prediction
+### Employee Attrition Prediction
 
 **Goal**: Identify factors that predict employee attrition based on statistical analysis. Finally build a classification model that can predict attrition and salary.
 
@@ -134,7 +134,7 @@ This section highlights specific projects that I completed during my graduate tr
 
  ---
 
-## Central Limit Theorem Simulation
+### Central Limit Theorem Simulation
 
 **Goal**: Visualize how the CLT emerges with increasing sample sizes.
 
@@ -146,7 +146,7 @@ This section highlights specific projects that I completed during my graduate tr
 
  ---
 
-## Notes
+#### Notes
 
 These projects were developed as part of SMU's Data Science graduate program (2021–2022) and reflect foundational skill development across applied machine learning, statistics, and data storytelling.
 
