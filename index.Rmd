@@ -56,27 +56,28 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 
 ### CUT&Tag Analysis Pipeline
 
-**Goal**: Develop a modular CUT&Tag data analysis pipeline for chromatin profiling in human cells using snakemake. This pipeline uses fastqs (raw sequencing files) as input.
+**Goal**: Develop a modular CUT&Tag data analysis pipeline for chromatin profiling in human cells using snakemake. This pipeline uses FASTQ (raw sequencing files) as input and produces QC plots, BAM files, BigWigs (scaled and unscaled), and calls peaks with MACS2.  
 
-- Designed reproducible pipeline for read alignment, peak calling, and signal normalization  
-- Generated QC plots and coverage tracks for visualization in IGV  
-- Created summary statistics for sample performance and antibody enrichment  
-- Documented pipeline for lab use and shared as part of reproducible research initiatives  
+- Pipeline used for read alignment, peak calling, and signal normalization 
+- Specific genome used for alignment can easily be changed in config.yml
+- Generate alignment statistics to produce QC plots and create coverage tracks for visualization in IGV  
+- Documented pipeline for lab use to improve reproducibility and assigned a DOI for publication and broader accessibility
 
 [Cut&Tag Analysis Tab](CutandTagAnalysis.html)  
 [GitHub Repo](https://github.com/JK-Cobre-Help/CutandTag_Analysis_Snakemake)
 
  ---
 
-### CUT&Tag Replicate Peak Integration
+### CUT&Tag Replicate Peak Analysis
 
-**Goal**: Integrate biological replicates in CUT&Tag experiments to define consensus peaks. This pipeline performs downstream analysis using genome aligned files as input.
+**Goal**: Combine biological replicates in CUT&Tag experiments to create consensus peak files. This pipeline performs downstream analysis on consensus peak sets using genome aligned BAM files as input.
 
-- Merged aligned BAM files across replicates to increase reproducibility    
-- Identified reproducible peaks using a peak overlap threshold  
-- Generated Euler plots and summary metrics for peak consistency  
-- Generate heatmaps to show signal over specific genomic intervals  
-- Provided reproducible scripts for future experiments  
+- Merged aligned BAM files across replicates  
+- Identified reproducible peaks using a peak overlap threshold set in the config.yml (eg: 2/3 samples overlap with merged peak set)   
+- Generate Euler plots and summary metrics for peak consistency  
+- Compares overlap of consensus peaks for each condition provided in the samples.csv   
+- Generate heatmaps to show signal over specific genomic intervals   
+- Documented pipeline for lab use to improve reproducibility and assigned a DOI for publication and broader accessibility  
 
 [Replicate Peak Analysis Tab](ReplicatePeakAnalysis.html)  
 [GitHub Repo](https://github.com/JK-Cobre-Help/CutandTag_ReplicatePeak_Analysis)
@@ -85,12 +86,13 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 
 ### ChEC-seq Analysis
 
-**Goal**: Build a reproducible pipeline for analyzing ChEC-seq data from S. cerevisiae and S. pombe.
+**Goal**: Build a reproducible pipeline for analyzing ChEC-seq data aligned to a primary genome (eg: S. cerevisiae) and a spike-in genome (eg: S. pombe). This pipeline takes FASTQ files as input and produces multiple coverage tracks including raw, CPM, and spike-in normalized.  
 
-- Aligned primary and spike-in reads to dual reference genomes  
+- Align primary and spike-in reads to specific reference genomes set in the config.yml   
 - Performed spike-in and CPM normalization for cross-sample comparison  
 - Generated signal tracks and enrichment profiles across genomic features  
-- Developed modular, Snakemake-based workflow for reproducibility  
+- Produce QC plots that show alignment statistics and fragment lengths  
+- Documented pipeline for lab use to improve reproducibility and assigned a DOI for publication and broader accessibility  
 
 [ChEC-seq Analysis Tab](ChEC-seq_Analysis.html)  
 [GitHub Repo](https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis)

@@ -390,19 +390,19 @@ Repo</a></p>
 <h3>CUT&amp;Tag Analysis Pipeline</h3>
 <p><strong>Goal</strong>: Develop a modular CUT&amp;Tag data analysis
 pipeline for chromatin profiling in human cells using snakemake. This
-pipeline uses fastqs (raw sequencing files) as input.</p>
+pipeline uses FASTQ (raw sequencing files) as input and produces QC
+plots, BAM files, BigWigs (scaled and unscaled), and calls peaks with
+MACS2.</p>
 <ul>
-<li>Designed reproducible pipeline for read alignment, peak calling, and
-signal normalization<br />
+<li>Pipeline used for read alignment, peak calling, and signal
+normalization</li>
+<li>Specific genome used for alignment can easily be changed in
+config.yml</li>
+<li>Generate alignment statistics to produce QC plots and create
+coverage tracks for visualization in IGV<br />
 </li>
-<li>Generated QC plots and coverage tracks for visualization in
-IGV<br />
-</li>
-<li>Created summary statistics for sample performance and antibody
-enrichment<br />
-</li>
-<li>Documented pipeline for lab use and shared as part of reproducible
-research initiatives</li>
+<li>Documented pipeline for lab use to improve reproducibility and
+assigned a DOI for publication and broader accessibility</li>
 </ul>
 <p><a href="CutandTagAnalysis.html">Cut&amp;Tag Analysis Tab</a><br />
 <a
@@ -410,23 +410,28 @@ href="https://github.com/JK-Cobre-Help/CutandTag_Analysis_Snakemake">GitHub
 Repo</a></p>
 <hr />
 </div>
-<div id="cuttag-replicate-peak-integration" class="section level3">
-<h3>CUT&amp;Tag Replicate Peak Integration</h3>
-<p><strong>Goal</strong>: Integrate biological replicates in CUT&amp;Tag
-experiments to define consensus peaks. This pipeline performs downstream
-analysis using genome aligned files as input.</p>
+<div id="cuttag-replicate-peak-analysis" class="section level3">
+<h3>CUT&amp;Tag Replicate Peak Analysis</h3>
+<p><strong>Goal</strong>: Combine biological replicates in CUT&amp;Tag
+experiments to create consensus peak files. This pipeline performs
+downstream analysis on consensus peak sets using genome aligned BAM
+files as input.</p>
 <ul>
-<li>Merged aligned BAM files across replicates to increase
-reproducibility<br />
+<li>Merged aligned BAM files across replicates<br />
 </li>
-<li>Identified reproducible peaks using a peak overlap threshold<br />
+<li>Identified reproducible peaks using a peak overlap threshold set in
+the config.yml (eg: 2/3 samples overlap with merged peak set)<br />
 </li>
-<li>Generated Euler plots and summary metrics for peak consistency<br />
+<li>Generate Euler plots and summary metrics for peak consistency<br />
+</li>
+<li>Compares overlap of consensus peaks for each condition provided in
+the samples.csv<br />
 </li>
 <li>Generate heatmaps to show signal over specific genomic
 intervals<br />
 </li>
-<li>Provided reproducible scripts for future experiments</li>
+<li>Documented pipeline for lab use to improve reproducibility and
+assigned a DOI for publication and broader accessibility</li>
 </ul>
 <p><a href="ReplicatePeakAnalysis.html">Replicate Peak Analysis
 Tab</a><br />
@@ -438,9 +443,13 @@ Repo</a></p>
 <div id="chec-seq-analysis" class="section level3">
 <h3>ChEC-seq Analysis</h3>
 <p><strong>Goal</strong>: Build a reproducible pipeline for analyzing
-ChEC-seq data from S. cerevisiae and S. pombe.</p>
+ChEC-seq data aligned to a primary genome (eg: S. cerevisiae) and a
+spike-in genome (eg: S. pombe). This pipeline takes FASTQ files as input
+and produces multiple coverage tracks including raw, CPM, and spike-in
+normalized.</p>
 <ul>
-<li>Aligned primary and spike-in reads to dual reference genomes<br />
+<li>Align primary and spike-in reads to specific reference genomes set
+in the config.yml<br />
 </li>
 <li>Performed spike-in and CPM normalization for cross-sample
 comparison<br />
@@ -448,7 +457,11 @@ comparison<br />
 <li>Generated signal tracks and enrichment profiles across genomic
 features<br />
 </li>
-<li>Developed modular, Snakemake-based workflow for reproducibility</li>
+<li>Produce QC plots that show alignment statistics and fragment
+lengths<br />
+</li>
+<li>Documented pipeline for lab use to improve reproducibility and
+assigned a DOI for publication and broader accessibility</li>
 </ul>
 <p><a href="ChEC-seq_Analysis.html">ChEC-seq Analysis Tab</a><br />
 <a href="https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis">GitHub
