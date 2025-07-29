@@ -21,6 +21,8 @@ navbar:
           href: ReplicatePeakAnalysis.html
         - text: "ChEC-Seq Analysis"
           href: ChEC-seq_Analysis.html
+        - text: "SLAM-Seq Analysis"
+          href: SLAM-seq_Analysis.html
     - text: "Training Projects"
       menu:
         - text: "Budweiser Case Study"
