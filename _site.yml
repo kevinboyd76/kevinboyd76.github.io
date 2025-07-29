@@ -8,7 +8,7 @@ navbar:
     - text: "About Me"
       href: About_Me.html
     - text: "Resume"
-      href: KevinBoyd_CV_Professional_7-1-25.pdf
+      href: KevinBoyd_CV_Professional_7-29-25.pdf
     - text: "Applied Bioinformatics Projects"
       menu:
         - text: "Deep Learning Classification"

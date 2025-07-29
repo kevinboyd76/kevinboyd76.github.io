@@ -251,7 +251,7 @@ $(document).ready(function () {
   <a href="About_Me.html">About Me</a>
 </li>
 <li>
-  <a href="KevinBoyd_CV_Professional_7-1-25.pdf">Resume</a>
+  <a href="KevinBoyd_CV_Professional_7-29-25.pdf">Resume</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -333,40 +333,45 @@ Configuration</a></li>
 Modules</a></li>
 <li><a href="#example-data" id="toc-example-data">5) Example
 Data</a></li>
-</ul></li>
 <li><a href="#explanation-of-samples.csv"
 id="toc-explanation-of-samples.csv">6) Explanation of
 <code>samples.csv</code></a></li>
-<li><a href="#examples-of-output" id="toc-examples-of-output">7)
-Examples of Output</a></li>
+<li><a href="#output-structure" id="toc-output-structure">7) Output
+Structure</a></li>
 <li><a href="#example-of-qc-plots" id="toc-example-of-qc-plots">8)
 Example of QC Plots</a></li>
 <li><a href="#instructions-to-run-on-slurm-managed-hpc"
 id="toc-instructions-to-run-on-slurm-managed-hpc">9) Instructions to run
 on Slurm managed HPC</a></li>
+<li><a href="#citation" id="toc-citation">10) Citation</a></li>
+<li><a href="#authorship-contributions"
+id="toc-authorship-contributions">11) Authorship &amp;
+Contributions</a></li>
+<li><a href="#license" id="toc-license">12) License</a></li>
+</ul></li>
 </ul>
 </div>
 
 <p><img
-src="https://img.shields.io/github/v/release/RD-Cobre-Help/ChEC-Seq_Analysis"
+src="https://img.shields.io/github/v/release/DonczewLab/ChEC-Seq_Analysis"
 alt="GitHub Release" /> <img
-src="https://img.shields.io/github/release-date/RD-Cobre-Help/ChEC-Seq_Analysis"
+src="https://img.shields.io/github/release-date/DonczewLab/ChEC-Seq_Analysis"
 alt="GitHub Release Date" /> <img
-src="https://img.shields.io/github/repo-size/RD-Cobre-Help/ChEC-Seq_Analysis"
+src="https://img.shields.io/github/repo-size/DonczewLab/ChEC-Seq_Analysis"
 alt="GitHub repo size" /> <img
-src="https://img.shields.io/github/last-commit/RD-Cobre-Help/ChEC-Seq_Analysis"
+src="https://img.shields.io/github/last-commit/DonczewLab/ChEC-Seq_Analysis"
 alt="GitHub last commit" /> <img
-src="https://img.shields.io/github/contributors/RD-Cobre-Help/ChEC-Seq_Analysis"
+src="https://img.shields.io/github/contributors/DonczewLab/ChEC-Seq_Analysis"
 alt="GitHub contributors" /> <img
-src="https://img.shields.io/github/downloads/RD-Cobre-Help/ChEC-Seq_Analysis/total"
+src="https://img.shields.io/github/downloads/DonczewLab/ChEC-Seq_Analysis/total"
 alt="GitHub Downloads (all assets, all releases)" /> <img
-src="https://img.shields.io/github/commits-since/RD-Cobre-Help/ChEC-Seq_Analysis/latest"
+src="https://img.shields.io/github/commits-since/DonczewLab/ChEC-Seq_Analysis/latest"
 alt="GitHub commits since latest release" /> <a
 href="https://doi.org/10.5281/zenodo.15232549"><img
 src="https://zenodo.org/badge/939591126.svg" alt="DOI" /></a> <a
-href="https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis"><img
-src="https://img.shields.io/badge/GitHub-Repo-blue?logo=github"
-alt="View on GitHub" /></a></p>
+href="https://opensource.org/licenses/Apache-2.0"><img
+src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"
+alt="License: Apache 2.0" /></a></p>
 <div id="chec-seq-analysis-snakemake-workflow" class="section level1">
 <h1>ChEC-seq Analysis Snakemake Workflow</h1>
 <p><img src="ChEC-seq_images/CHECSeq_pipeline.png" /><br />
@@ -403,7 +408,7 @@ accurately normalize coverage.</li>
 <ul>
 <li>FastQC runs on raw FASTQs</li>
 <li>MultiQC summarizes all QC reports into one unified HTML report</li>
-<li>BBDuk handles adapter removal</li>
+<li>BBDuk or Trim Galore handles adapter removal</li>
 </ul></li>
 <li><strong>Multiple Coverage Outputs</strong>
 <ul>
@@ -450,7 +455,7 @@ violin and line plots</li>
 <div id="intended-use-case" class="section level2">
 <h2>2) Intended Use Case</h2>
 <p>This pipeline is <strong>ideal</strong> for performing
-<strong>ChEC-seq</strong>. It is a user-friendly workflow with
+<strong>ChEC-seq</strong> analysis. It is a user-friendly workflow with
 customizable <code>samples.csv</code> and <code>config.yml</code> files,
 enabling reproducible and flexible analysis:</p>
 <ul>
@@ -474,38 +479,54 @@ including <strong>mean coverage</strong> tracks for replicate sets.</p>
 <h2>3) Dependencies and Configuration</h2>
 <p>All parameters and module versions are specified in
 <code>config/config.yml</code></p>
-<p><strong>Key fields include</strong>: - <code>scer_genome</code>: path
-to the <strong>S. cerevisiae</strong> Bowtie2 index<br />
+<p><strong>Key fields include</strong>: - <code>use_trim_galore</code>:
+true or false (default = false) set to true to use Trim Galore instead
+of BBDuk - <code>use_filtering</code>: true or false (default = true)
+set to false to skip <code>alignmentSieve</code> filtering -
+<code>scer_genome</code>: path to the <strong>S. cerevisiae</strong>
+Bowtie2 index<br />
 - <code>spikein_genome</code>: path to the <strong>Spike In</strong>
 Bowtie2 index (e.g., S. pombe)<br />
 - <code>bbmap_ref</code>: adapter sequence reference for BBDuk<br />
 - <code>binSize</code>: bin size for coverage generation<br />
 -
-<code>fastqc, bowtie2, samtools, deeptools, bedtools, ucsc, python</code>:
+<code>fastqc, bowtie2, samtools, deeptools, bedtools, trim_galore, bbduk, ucsc, python, R</code>:
 module versions for HPC</p>
 <p><strong>Changing Genomes</strong><br />
 + If using a different spike-in (e.g. <em>D. melanogaster</em>), just
 update the relevant Bowtie2 index and references in
 <code>config.yml</code>.</p>
 <p><strong>Tool Versions and Modules</strong><br />
-+ The <code>config.yml</code> file specifies all software and specific
-versions</p>
++ The <code>config/config.yml</code> file specifies all software and
+specific versions<br />
++ The <code>config/cluster_config.yml</code> file defines resource
+requirements for each Snakemake rule</p>
 <hr />
 </div>
 <div id="tools-modules" class="section level2">
 <h2>4) Tools &amp; Modules</h2>
-<p>This Snakemake pipeline relies on: - <strong>FastQC</strong> for read
-quality checks - <strong>MultiQC</strong> for summarizing FastQC reports
-- <strong>BBDuk</strong> (in <strong>BBMap</strong>) for adapter
-trimming<br />
-- <strong>Bowtie2</strong> for alignments<br />
-- <strong>Samtools</strong> for BAM conversions/indexing<br />
-- <strong>DeepTools</strong> (bamCoverage) for coverage generation<br />
-- <strong>Bedtools</strong> for Average Signal files -
-<strong>Python</strong> for spike-in factor calculations and WIG
-conversions - <strong>UCSC</strong> (bedGraphToBigWig) to generate
-average signal BigWigs from BedGraphs - <strong>R</strong> to generate
-alignment metric plots</p>
+<p>This pipeline uses the following tools via HPC environment
+modules:</p>
+<ul>
+<li><strong>FastQC</strong> for read quality checks</li>
+<li><strong>MultiQC</strong> for summarizing FastQC reports</li>
+<li><strong>BBDuk</strong> (in <strong>BBMap</strong>) for adapter
+trimming</li>
+<li><strong>Trim Galore</strong> for adapter trimming (optional)</li>
+<li><strong>Bowtie2</strong> for alignments<br />
+</li>
+<li><strong>Samtools</strong> for BAM conversions/indexing</li>
+<li><strong>DeepTools</strong> <code>alignmentSieve</code> for optional
+filtering of aligned BAMs &amp; <code>bamCoverage</code> for coverage
+generation<br />
+</li>
+<li><strong>Bedtools</strong> for Average Signal files</li>
+<li><strong>Python</strong> for spike-in factor calculations and WIG
+conversions</li>
+<li><strong>UCSC</strong> <code>bedGraphToBigWig</code> to generate
+average signal BigWigs from BedGraphs</li>
+<li><strong>R</strong> to generate alignment metric plots</li>
+</ul>
 <hr />
 </div>
 <div id="example-data" class="section level2">
@@ -516,19 +537,18 @@ point to these FASTQs for a quick test run. Once confirmed, replace with
 your personal ChEC-seq data.</p>
 <hr />
 </div>
-</div>
-<div id="explanation-of-samples.csv" class="section level1">
-<h1>6) Explanation of <code>samples.csv</code></h1>
+<div id="explanation-of-samples.csv" class="section level2">
+<h2>6) Explanation of <code>samples.csv</code></h2>
 <p><code>config/samples.csv</code> defines which FASTQ files to process,
 what the naming convention will be, and which samples to create average
 signal tracks. An example <code>samples.csv</code> is provided
 below:</p>
 <table>
 <colgroup>
-<col width="21%" />
-<col width="32%" />
-<col width="31%" />
-<col width="13%" />
+<col width="17%" />
+<col width="35%" />
+<col width="35%" />
+<col width="12%" />
 </colgroup>
 <thead>
 <tr>
@@ -540,21 +560,39 @@ below:</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>RDY226_DMSO_A</strong></td>
-<td>/path/ExampleA_R1.fastq.gz</td>
-<td>/path/ExampleA_R2.fastq.gz</td>
+<td><strong>RDY73_DMSO_A</strong></td>
+<td>/path/RDHTS192_S63_R1_001.fastq.gz</td>
+<td>/path/RDHTS192_S63_R2_001.fastq.gz</td>
 <td>DMSO</td>
 </tr>
 <tr>
-<td><strong>RDY226_DMSO_B</strong></td>
-<td>/path/ExampleB_R1.fastq.gz</td>
-<td>/path/ExampleB_R2.fastq.gz</td>
+<td><strong>RDY73_IAA_A</strong></td>
+<td>/path/RDHTS193_S64_R1_001.fastq.gz</td>
+<td>/path/RDHTS193_S64_R2_001.fastq.gz</td>
+<td>IAA</td>
+</tr>
+<tr>
+<td><strong>RDY73_DMSO_B</strong></td>
+<td>/path/RDHTS195_S66_R1_001.fastq.gz</td>
+<td>/path/RDHTS195_S66_R2_001.fastq.gz</td>
 <td>DMSO</td>
 </tr>
 <tr>
-<td><strong>RDY226_IAA_A</strong></td>
-<td>/path/ExampleC_R1.fastq.gz</td>
-<td>/path/ExampleC_R2.fastq.gz</td>
+<td><strong>RDY73_IAA_B</strong></td>
+<td>/path/RDHTS196_S67_R1_001.fastq.gz</td>
+<td>/path/RDHTS196_S67_R2_001.fastq.gz</td>
+<td>IAA</td>
+</tr>
+<tr>
+<td><strong>RDY73_DMSO_C</strong></td>
+<td>/path/RDHTS198_S69_R1_001.fastq.gz</td>
+<td>/path/RDHTS198_S69_R2_001.fastq.gz</td>
+<td>DMSO</td>
+</tr>
+<tr>
+<td><strong>RDY73_IAA_C</strong></td>
+<td>/path/RDHTS199_S70_R1_001.fastq.gz</td>
+<td>/path/RDHTS199_S70_R2_001.fastq.gz</td>
 <td>IAA</td>
 </tr>
 </tbody>
@@ -573,8 +611,9 @@ and BigWig/WIG.</li>
 </ul>
 <hr />
 </div>
-<div id="examples-of-output" class="section level1">
-<h1>7) Examples of Output</h1>
+<div id="output-structure" class="section level2">
+<h2>7) Output Structure</h2>
+<p>The pipeline generates output across several folders:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Trimming and QC</strong><br />
 </li>
@@ -582,14 +621,16 @@ and BigWig/WIG.</li>
 <ul>
 <li>FastQC HTML reports in <code>results/qc/fastqc/</code></li>
 <li>MultiQC HTML reports in <code>results/qc/multiqc/</code></li>
-<li>Trimmed FASTQs in <code>results/trimmed/</code></li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Aligned Files</strong><br />
 </li>
 </ol>
 <ul>
-<li>Primary BAMs in <code>results/alignment/scer</code><br />
+<li>Primary BAMs in <code>results/alignment/scer</code></li>
+<li>If filtering is enabled, a
+<code>results/alignment/scer/{sample}_filtering.log</code> will be
+written for each sample<br />
 </li>
 <li>Spike-in BAMs in <code>results/alignment/spikein</code></li>
 </ul>
@@ -683,8 +724,8 @@ from properly paired alignments.</li>
 </ul>
 <hr />
 </div>
-<div id="example-of-qc-plots" class="section level1">
-<h1>8) Example of QC Plots</h1>
+<div id="example-of-qc-plots" class="section level2">
+<h2>8) Example of QC Plots</h2>
 <p>Below are some example plots generated by the pipeline.</p>
 <table>
 <colgroup>
@@ -707,7 +748,7 @@ align="center"><img src="ChEC-seq_images/fragment_length_plot.png" width="300"><
 <tr>
 <td align="center"><em>Plots showing alignment metrics of primary and
 spike-in genome</em></td>
-<td align="center"><em>Plot showing the fragment lengh
+<td align="center"><em>Plot showing the fragment length
 distributions</em></td>
 </tr>
 </tbody>
@@ -715,23 +756,63 @@ distributions</em></td>
 <hr />
 </div>
 <div id="instructions-to-run-on-slurm-managed-hpc"
-class="section level1">
-<h1>9) Instructions to run on Slurm managed HPC</h1>
+class="section level2">
+<h2>9) Instructions to run on Slurm managed HPC</h2>
 <p>9A. Download version controlled repository</p>
-<pre><code>wget https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis/releases/download/v1.0.4/ChEC-Seq_Analysis-1.0.4.tar.gz
-tar -xzf ChEC-Seq_Analysis-1.0.4.tar.gz
-rm ChEC-Seq_Analysis-1.0.4.tar.gz
-cd ChEC-Seq_Analysis-1.0.4</code></pre>
+<pre><code>wget https://github.com/DonczewLab/ChEC-Seq_Analysis/releases/download/v1.1.1/ChEC-Seq_Analysis-1.1.1.tar.gz
+tar -xzf ChEC-Seq_Analysis-1.1.1.tar.gz
+rm ChEC-Seq_Analysis-1.1.1.tar.gz
+cd ChEC-Seq_Analysis-1.1.1</code></pre>
 <p>9B. Load modules</p>
 <pre><code>module purge
 module load slurm python/3.10 pandas/2.2.3 numpy/1.22.3 matplotlib/3.7.1</code></pre>
 <p>9C. Modify samples and config file</p>
-<pre><code>vim samples.csv
-vim config.yml</code></pre>
+<pre><code>vim config/samples.csv
+vim config/config.yml</code></pre>
 <p>9D. Dry Run</p>
 <pre><code>snakemake -npr</code></pre>
 <p>9E. Run on HPC with config.yml options</p>
 <pre><code>sbatch --wrap=&quot;snakemake -j 20 --use-envmodules --rerun-incomplete --latency-wait 300 --cluster-config config/cluster_config.yml --cluster &#39;sbatch -A {cluster.account} -p {cluster.partition} --cpus-per-task {cluster.cpus-per-task}  -t {cluster.time} --mem {cluster.mem} --output {cluster.output} --job-name {cluster.name}&#39;&quot;</code></pre>
+<hr />
+</div>
+<div id="citation" class="section level2">
+<h2>10) Citation</h2>
+<p>If you use this workflow in your research, please cite:</p>
+<p><strong>Boyd, K.A.</strong>, Ridenour, J., &amp; Donczew, R. (2025).
+<em>ChEC-Seq_Analysis: A reproducible Snakemake workflow for Chromatin
+Endogenous Cleavage (ChEC) experiments</em>. Zenodo. <a
+href="https://doi.org/10.5281/zenodo.15232549"
+class="uri">https://doi.org/10.5281/zenodo.15232549</a></p>
+<p><a href="https://doi.org/10.5281/zenodo.15232549"><img
+src="https://zenodo.org/badge/939591126.svg" alt="DOI" /></a></p>
+<hr />
+</div>
+<div id="authorship-contributions" class="section level2">
+<h2>11) Authorship &amp; Contributions</h2>
+<p><strong>Kevin A. Boyd</strong> – Designed and implemented the
+Snakemake workflow for a Slurm-managed HPC environment, modularized the
+pipeline structure, implemented all processing steps, integrated
+spike-in normalization support, designed quality control plots, and
+created the documentation.</p>
+<p><strong>John Ridenour</strong> – Developed original ChEC-seq bash
+scripts used as the foundation for this pipeline.</p>
+<p><strong>Rafal Donczew</strong> – Principal Investigator; provided
+project direction, conceptual guidance, and experimental data for
+pipeline development.</p>
+<p>This work was developed under the guidance of Rafal Donczew as part
+of a COBRE-funded collaborative effort. While the pipeline was built
+specifically for use within the Donczew Lab, it is broadly applicable to
+ChEC-seq data analysis in other research settings.</p>
+<hr />
+</div>
+<div id="license" class="section level2">
+<h2>12) License</h2>
+<p>This project is licensed under the <strong>Apache 2.0</strong>. See
+the <a href="LICENSE">LICENSE</a> file for details.</p>
+<p><a href="https://opensource.org/licenses/Apache-2.0"><img
+src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"
+alt="License: Apache 2.0" /></a></p>
+</div>
 </div>
 
 
