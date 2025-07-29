@@ -470,7 +470,38 @@ lengths<br />
 assigned a DOI for publication and broader accessibility</li>
 </ul>
 <p><a href="ChEC-seq_Analysis.html">ChEC-seq Analysis Tab</a><br />
-<a href="https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis">GitHub
+<a href="https://github.com/DonczewLab/ChEC-Seq_Analysis">GitHub
+Repo</a></p>
+<hr />
+</div>
+<div id="slam-seq-analysis" class="section level3">
+<h3>SLAM-seq Analysis</h3>
+<p><strong>Goal</strong>: Build a reproducible pipeline for analyzing
+SLAM-seq data to quantify RNA synthesis and degradation through T&gt;C
+transition detection. This workflow processes paired-end FASTQ files and
+produces aligned BAM files, mutation counts, summary reports, and
+MultiQC outputs for comprehensive analysis.</p>
+<ul>
+<li>Extracts UMIs, trims adapters, and aligns reads using
+SLAM-Dunk<br />
+</li>
+<li>Performs T&gt;C mutation quantification at both 1-TC and 2-TC
+thresholds<br />
+</li>
+<li>Integrates Alleyoop to generate mutation context profiles, UTR
+metrics, and summary statistics<br />
+</li>
+<li>Supports optional spike-in genome alignment and normalization (e.g.,
+S. pombe)<br />
+</li>
+<li>Produces QC reports at each stage (raw, trimmed, SLAM-Dunk logs) and
+outputs summary metrics for cross-sample comparison<br />
+</li>
+<li>Modular, scalable workflow designed for SLURM HPC environments and
+fully documented for reproducibility</li>
+</ul>
+<p><a href="SLAM-seq_Analysis.html">SLAM-seq Analysis Tab</a><br />
+<a href="https://github.com/DonczewLab/SLAM-Seq_Analysis">GitHub
 Repo</a></p>
 <hr />
 </div>

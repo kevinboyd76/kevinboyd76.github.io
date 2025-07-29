@@ -95,7 +95,23 @@ This section showcases bioinformatics projects I’ve contributed to professiona
 - Documented pipeline for lab use to improve reproducibility and assigned a DOI for publication and broader accessibility  
 
 [ChEC-seq Analysis Tab](ChEC-seq_Analysis.html)  
-[GitHub Repo](https://github.com/RD-Cobre-Help/ChEC-Seq_Analysis)
+[GitHub Repo](https://github.com/DonczewLab/ChEC-Seq_Analysis)
+
+ ---
+
+### SLAM-seq Analysis
+
+**Goal**: Build a reproducible pipeline for analyzing SLAM-seq data to quantify RNA synthesis and degradation through T>C transition detection. This workflow processes paired-end FASTQ files and produces aligned BAM files, mutation counts, summary reports, and MultiQC outputs for comprehensive analysis.
+
+- Extracts UMIs, trims adapters, and aligns reads using SLAM-Dunk  
+- Performs T>C mutation quantification at both 1-TC and 2-TC thresholds  
+- Integrates Alleyoop to generate mutation context profiles, UTR metrics, and summary statistics  
+- Supports optional spike-in genome alignment and normalization (e.g., S. pombe)  
+- Produces QC reports at each stage (raw, trimmed, SLAM-Dunk logs) and outputs summary metrics for cross-sample comparison  
+- Modular, scalable workflow designed for SLURM HPC environments and fully documented for reproducibility  
+
+[SLAM-seq Analysis Tab](SLAM-seq_Analysis.html)  
+[GitHub Repo](https://github.com/DonczewLab/SLAM-Seq_Analysis)
 
  ---
 
