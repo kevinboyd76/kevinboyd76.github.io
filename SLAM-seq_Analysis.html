@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kevin Boyd" />
+
+<meta name="date" content="2025-07-29" />
+
+<title>SLAM-seq_Analysis</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin Boyd | Data Science & Bioinformatics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About_Me.html">About Me</a>
+</li>
+<li>
+  <a href="KevinBoyd_CV_Professional_7-29-25.pdf">Resume</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Applied Bioinformatics Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DeepLearning_CellStageClassification.html">Deep Learning Classification</a>
+    </li>
+    <li>
+      <a href="Nuclear_Colocalization.html">Nuclear Colocalization</a>
+    </li>
+    <li>
+      <a href="CutandTagAnalysis.html">Cut and Tag Analysis</a>
+    </li>
+    <li>
+      <a href="ReplicatePeakAnalysis.html">Cut and Tag Replicate Peaks</a>
+    </li>
+    <li>
+      <a href="ChEC-seq_Analysis.html">ChEC-Seq Analysis</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Training Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DDS_Project1.html">Budweiser Case Study</a>
+    </li>
+    <li>
+      <a href="CLT2.html">Central Limit Theorem</a>
+    </li>
+    <li>
+      <a href="DDS_Project2_Final.html">Attrition Case Study</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">SLAM-seq_Analysis</h1>
+<h4 class="author">Kevin Boyd</h4>
+<h4 class="date">2025-07-29</h4>
+
+</div>
+
+
+<p><img
+src="https://img.shields.io/github/v/release/DonczewLab/SLAM-Seq_Analysis"
+alt="GitHub Release" /> <img
+src="https://img.shields.io/github/release-date/DonczewLab/SLAM-Seq_Analysis"
+alt="GitHub Release Date" /> <img
+src="https://img.shields.io/github/repo-size/DonczewLab/SLAM-Seq_Analysis"
+alt="GitHub repo size" /> <img
+src="https://img.shields.io/github/last-commit/DonczewLab/SLAM-Seq_Analysis"
+alt="GitHub last commit" /> <img
+src="https://img.shields.io/github/contributors/DonczewLab/SLAM-Seq_Analysis"
+alt="GitHub contributors" /> <img
+src="https://img.shields.io/github/downloads/DonczewLab/SLAM-Seq_Analysis/total"
+alt="GitHub Downloads (all assets, all releases)" /> <img
+src="https://img.shields.io/github/commits-since/DonczewLab/SLAM-Seq_Analysis/latest"
+alt="GitHub commits since latest release" /> <a
+href="https://doi.org/10.5281/zenodo.16106788"><img
+src="https://zenodo.org/badge/991471979.svg" alt="DOI" /></a> <a
+href="https://opensource.org/licenses/Apache-2.0"><img
+src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"
+alt="License: Apache 2.0" /></a></p>
+<div id="slam-seq_analysis" class="section level1">
+<h1>SLAM-Seq_Analysis</h1>
+<p><img src="images/SLAM-seq.png" alt="SLAM-Seq Analysis" /><br />
+- OpenAI. (2025). Scientific data visualization: SLAM-seq pipeline
+schematic [AI-generated image]. DALL-E. Retrieved from ChatGPT
+interface.</p>
+<hr />
+<div id="project-description" class="section level2">
+<h2>1) Project Description</h2>
+<p><strong>SLAM-Seq_Analysis</strong> is a modular, high-throughput
+Snakemake pipeline designed to analyze <strong>SLAM-Seq</strong> data.
+It quantifies RNA synthesis and degradation by detecting <strong>T&gt;C
+transitions</strong>. This pipeline processes raw <strong>paired-end
+FASTQ</strong> files through quality control, UMI extraction, adapter
+trimming, alignment, mutation counting, and context-specific mutation
+analysis using <strong>SLAM-Dunk</strong> and <strong>Alleyoop</strong>.
+The final output includes BAM files, CSVs, summary files, and MultiQC
+reports.</p>
+<p>It supports both <strong>default 1-TC</strong> and <strong>custom
+2-TC</strong> read count thresholds for downstream comparative analysis
+and includes fully automated <strong>MultiQC</strong> reports for raw,
+trimmed, and SLAM-Dunk outputs. Additionally, the pipeline optionally
+supports a <strong>spike-in genome</strong> (e.g., S. pombe), allowing
+for parallel alignment and mutation quantification for normalization and
+QC purposes. Spike-in analysis is controlled by the flag
+<code>use_spikein</code> in the <code>config.yml</code> and produces a
+parallel set of filtered BAMs, mutation calls, and summary reports in a
+separate output directory <code>results/slamdunk_spikein</code>.</p>
+<div id="key-features" class="section level3">
+<h3>Key Features</h3>
+<ul>
+<li><strong>UMI Support</strong>
+<ul>
+<li>Extracts UMIs using <code>fastp</code>, allowing for duplicate-aware
+alignment and quantification</li>
+</ul></li>
+<li><strong>Multiple Adapter Trimming Methods Set in
+<code>config.yml</code> (optional)</strong>
+<ul>
+<li>Choose between <strong>Trim Galore</strong> or
+<strong>BBduk</strong><br />
+</li>
+<li><code>use_trim_galore</code>: toggle between BBduk and Trim
+Galore</li>
+</ul></li>
+<li><strong>Comprehensive QC Reports</strong>
+<ul>
+<li>FastQC on raw and trimmed reads<br />
+</li>
+<li>MultiQC reports summarize results in unified HTML</li>
+</ul></li>
+<li><strong>Spike-In Genome Support in <code>config.yml</code>
+(optional)</strong>
+<ul>
+<li><code>use_spikein</code>: toggle between true/false to
+enable/disable spike-in genome alignment<br />
+</li>
+<li><code>spikein_genome</code>, <code>spikein_bed</code>: reference
+FASTA and BED for spike-in genome<br />
+</li>
+<li>Generates its own BAMs, tcount files, and QC reports</li>
+</ul></li>
+<li><strong>SLAM-Dunk Integration</strong>
+<ul>
+<li><code>slam-dunk all</code>: Align, filter, SNP call, and count<br />
+</li>
+<li><code>slam-dunk count</code>: Rerun mutation quantification with
+2-TC threshold</li>
+</ul></li>
+<li><strong>Alleyoop Analysis</strong>
+<ul>
+<li>Generates mutation rates, context, UTR rates, SNP evaluation<br />
+</li>
+<li>Summarizes and merges mutation counts across samples<br />
+</li>
+<li>Outputs T&gt;C mutation information per read and UTR position</li>
+</ul></li>
+<li><strong>Scalable and Reproducible</strong>
+<ul>
+<li>Parallelizable via Snakemake<br />
+</li>
+<li>Designed for Slurm HPC environments</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="intended-use-case" class="section level2">
+<h2>2) Intended Use Case</h2>
+<p>This pipeline is built for researchers analyzing <strong>RNA
+turnover</strong> via <strong>SLAM-seq</strong>, especially when
+interested in:</p>
+<ul>
+<li>Mutation counts (T&gt;C transitions) per gene or region<br />
+</li>
+<li>Comparing samples using 1-TC vs. 2-TC thresholds<br />
+</li>
+<li>Producing summary metrics and mutation contexts<br />
+</li>
+<li>Running in a reproducible and modular HPC environment<br />
+</li>
+<li>Supports optional spike-in controls (e.g., <em>S. pombe</em>) to
+facilitate normalization across samples or conditions.</li>
+</ul>
+<p>Starting from raw paired-end FASTQs, it provides all necessary
+intermediate and final outputs, from filtered BAMs to mutation summaries
+and log diagnostics.</p>
+<hr />
+</div>
+<div id="dependencies-and-configuration" class="section level2">
+<h2>3) Dependencies and Configuration</h2>
+<p>All user-defined settings and tool versions are declared in
+<code>config/config.yml</code>.</p>
+<p><strong>Key fields include</strong>: + <code>scer_genome</code>:
+reference genome FASTA<br />
++ <code>bed_file</code>: annotation BED file<br />
++ <code>bbmap_ref</code>: adapter reference for BBduk (optional)<br />
++ <code>umi_loc</code>, <code>umi_len</code>: UMI extraction
+parameters<br />
++ <code>trim_5p</code>, <code>max_read_length</code>,
+<code>min_base_qual</code>: parameters for SLAM-Dunk<br />
++ <code>use_trim_galore</code>: Boolean to toggle trimming tool<br />
++ <code>stringency</code>, <code>length</code>: used by Trim Galore</p>
+<p><strong>Tool Versions</strong><br />
++ <code>fastqc</code>, <code>multiqc</code>, <code>fastp</code>,
+<code>bbmap</code>, <code>trim_galore</code>, <code>slamdunk</code>,
+<code>samtools</code>, <code>varscan</code>, <code>nextgenmap</code></p>
+<hr />
+</div>
+<div id="tools-modules" class="section level2">
+<h2>4) Tools &amp; Modules</h2>
+<p>This pipeline uses the following tools via HPC environment
+modules:</p>
+<ul>
+<li><strong>FastQC</strong> for raw and trimmed read QC<br />
+</li>
+<li><strong>MultiQC</strong> for unified reporting of QC metrics<br />
+</li>
+<li><strong>Fastp</strong> for UMI extraction<br />
+</li>
+<li><strong>BBduk</strong> or <strong>Trim Galore</strong> for adapter
+trimming<br />
+</li>
+<li><strong>SLAM-Dunk</strong> for alignment, mutation calling,
+filtering<br />
+</li>
+<li><strong>Alleyoop</strong> for contextual mutation analysis and
+merging<br />
+</li>
+<li><strong>Samtools</strong>, <strong>VarScan</strong>,
+<strong>NextGenMap</strong> used internally by SLAM-Dunk<br />
+</li>
+<li><strong>Snakemake</strong> for workflow management</li>
+</ul>
+<hr />
+</div>
+<div id="example-data" class="section level2">
+<h2>5) Example Data</h2>
+<p>A minimal test dataset can be placed in a <code>resources/</code>
+folder (not included currently). Update <code>samples.csv</code> to
+point to these FASTQs for a quick test run. Once confirmed, replace with
+your personal SLAM-seq data.</p>
+<hr />
+</div>
+<div id="explanation-of-samples.csv" class="section level2">
+<h2>6) Explanation of <code>samples.csv</code></h2>
+<p><code>config/samples.csv</code> defines which FASTQ files to process,
+what the naming convention will be, and which samples to create average
+signal tracks. An example <code>samples.csv</code> is provided
+below:</p>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="35%" />
+<col width="35%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr>
+<th>sample</th>
+<th>fastq1</th>
+<th>fastq2</th>
+<th>merge_group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RDY73_DMSO_A</strong></td>
+<td>/path/RDHTS192_S63_R1_001.fastq.gz</td>
+<td>/path/RDHTS192_S63_R2_001.fastq.gz</td>
+<td>DMSO</td>
+</tr>
+<tr>
+<td><strong>RDY73_IAA_A</strong></td>
+<td>/path/RDHTS193_S64_R1_001.fastq.gz</td>
+<td>/path/RDHTS193_S64_R2_001.fastq.gz</td>
+<td>IAA</td>
+</tr>
+<tr>
+<td><strong>RDY73_DMSO_B</strong></td>
+<td>/path/RDHTS195_S66_R1_001.fastq.gz</td>
+<td>/path/RDHTS195_S66_R2_001.fastq.gz</td>
+<td>DMSO</td>
+</tr>
+<tr>
+<td><strong>RDY73_IAA_B</strong></td>
+<td>/path/RDHTS196_S67_R1_001.fastq.gz</td>
+<td>/path/RDHTS196_S67_R2_001.fastq.gz</td>
+<td>IAA</td>
+</tr>
+<tr>
+<td><strong>RDY73_DMSO_C</strong></td>
+<td>/path/RDHTS198_S69_R1_001.fastq.gz</td>
+<td>/path/RDHTS198_S69_R2_001.fastq.gz</td>
+<td>DMSO</td>
+</tr>
+<tr>
+<td><strong>RDY73_IAA_C</strong></td>
+<td>/path/RDHTS199_S70_R1_001.fastq.gz</td>
+<td>/path/RDHTS199_S70_R2_001.fastq.gz</td>
+<td>IAA</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>sample</strong>: unique sample ID that will serve as file
+naming convention downstream<br />
+</li>
+<li><strong>fastq1</strong> and <strong>fastq2</strong>: file paths to
+paired-end fastq files<br />
+</li>
+<li><strong>merge_group</strong>: optional group for downstream
+averaging or plotting</li>
+</ul>
+<hr />
+</div>
+<div id="output-structure" class="section level2">
+<h2>7) Output Structure</h2>
+<p>The pipeline generates output across several folders:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Quality Control</strong>
+<ul>
+<li><code>results/qc/raw/fastqc/</code> — FastQC HTML/ZIP for raw
+FASTQs<br />
+</li>
+<li><code>results/qc/raw/multiqc/</code> — MultiQC report for raw
+reads<br />
+</li>
+<li><code>results/qc/trimmed/fastqc/</code> — FastQC on trimmed
+FASTQs<br />
+</li>
+<li><code>results/qc/trimmed/multiqc/</code> — MultiQC report for
+trimmed reads</li>
+</ul></li>
+<li><strong>Preprocessing</strong>
+<ul>
+<li><code>results/fastp/</code> — FASTQs with UMIs extracted<br />
+</li>
+<li><code>results/trimmed/</code> — Adapter-trimmed FASTQs</li>
+</ul></li>
+<li><strong>SLAM-Dunk Core Output</strong>
+<ul>
+<li><code>results/slamdunk_scer/filter/</code> — Filtered BAM
+files<br />
+</li>
+<li><code>results/slamdunk_scer/count/</code> — 1-TC tcount TSVs, logs,
+bedgraphs<br />
+</li>
+<li><code>results/slamdunk_scer/count_twotcreadcount/</code> — 2-TC
+threshold tcount files</li>
+</ul></li>
+<li><strong>Alleyoop Output</strong>
+<ul>
+<li><code>alleyoop/rates/</code> — overall mutation rates<br />
+</li>
+<li><code>alleyoop/tccontext/</code> — T&gt;C context profiles<br />
+</li>
+<li><code>alleyoop/utrrates/</code> — UTR region mutation rates<br />
+</li>
+<li><code>alleyoop/snpeval/</code> — SNP evaluation outputs<br />
+</li>
+<li><code>alleyoop/tcperreadpos/</code> — mutation per read<br />
+</li>
+<li><code>alleyoop/tcperutrpos/</code> — mutation per UTR position<br />
+</li>
+<li><code>alleyoop/dump/</code> — <code>.sdunk</code> read info
+dump<br />
+</li>
+<li><code>alleyoop/summary_*</code> — summary stats for 1-TC and 2-TC
+thresholds<br />
+</li>
+<li><code>alleyoop/merge_*</code> — merged summary tables across all
+samples</li>
+</ul></li>
+<li><strong>Final QC</strong>
+<ul>
+<li><code>results/qc/slamdunk_scer/multiqc/</code> — Summary MultiQC
+report of SLAM-Dunk logs</li>
+</ul></li>
+<li><strong>Spike-In Genome Output (if
+<code>use_spikein: true</code>)</strong>
+<ul>
+<li><code>results/slamdunk_spikein/filter/</code> — filtered BAMs
+aligned to spike-in genome<br />
+</li>
+<li><code>results/slamdunk_spikein/count/</code> — 1-TC tcount TSVs,
+logs, bedgraphs<br />
+</li>
+<li><code>results/slamdunk_spikein/count_twotcreadcount/</code> — 2-TC
+threshold tcount files<br />
+</li>
+<li><code>results/slamdunk_spikein/alleyoop/</code> — all standard
+mutation metrics (rates, context, UTRs, SNP eval, dump, summaries,
+merges)<br />
+</li>
+<li><code>results/qc/slamdunk_spikein/multiqc/</code> — MultiQC summary
+report for spike-in genome</li>
+</ul></li>
+</ol>
+<p><em>This output mirrors the primary genome
+<code>slamdunk_scer/</code> and can be used for spike-in normalization
+or quality control tracking.</em></p>
+<hr />
+</div>
+<div id="instructions-to-run-on-hpc" class="section level2">
+<h2>8) Instructions to Run on HPC</h2>
+<p>8A. Download version controlled repository</p>
+<pre><code>wget https://github.com/DonczewLab/SLAM-Seq_Analysis/releases/download/v1.0.1/SLAM-Seq_Analysis-1.0.1.tar.gz
+tar -xzf SLAM-Seq_Analysis-1.0.1.tar.gz
+rm SLAM-Seq_Analysis-1.0.1.tar.gz
+cd SLAM-Seq_Analysis-1.0.1</code></pre>
+<p>8B. Load modules</p>
+<pre><code>module purge
+module load slurm python/3.10 pandas/2.2.3 numpy/1.22.3 matplotlib/3.7.1</code></pre>
+<p>8C. Modify samples and config file</p>
+<pre><code>vim config/samples.csv
+vim config/config.yml</code></pre>
+<p>8D. Dry Run</p>
+<pre><code>snakemake -npr</code></pre>
+<p>8E. Run on HPC with config.yml options</p>
+<pre><code>sbatch --wrap=&quot;snakemake -j 20 --use-envmodules --rerun-incomplete --latency-wait 300 --cluster-config config/cluster_config.yml --cluster &#39;sbatch -A {cluster.account} -p {cluster.partition} --cpus-per-task {cluster.cpus-per-task}  -t {cluster.time} --mem {cluster.mem} --output {cluster.output} --job-name {cluster.name}&#39;&quot;</code></pre>
+<hr />
+</div>
+<div id="citation" class="section level2">
+<h2>9) Citation</h2>
+<p>If you use this workflow in your research, please cite:</p>
+<p><strong>Boyd, K.A.</strong>, Ridenour, J., &amp; Donczew, R. (2025).
+<em>SLAM-Seq_Analysis: A reproducible Snakemake workflow for RNA
+metabolism analysis using SLAM-Seq data</em>. Zenodo. <a
+href="https://doi.org/10.5281/zenodo.16106788"
+class="uri">https://doi.org/10.5281/zenodo.16106788</a></p>
+<p><a href="https://doi.org/10.5281/zenodo.16106788"><img
+src="https://zenodo.org/badge/991471979.svg" alt="DOI" /></a></p>
+<hr />
+</div>
+<div id="authorship-contributions" class="section level2">
+<h2>10) Authorship &amp; Contributions</h2>
+<p><strong>Kevin A. Boyd</strong> – Designed and implemented the
+Snakemake workflow for a Slurm-managed HPC environment, modularized the
+pipeline structure, implemented all processing steps, integrated
+spike-in normalization support, and created the documentation.</p>
+<p><strong>John Ridenour</strong> – Developed original SLAM-Seq bash
+scripts used as the foundation for this pipeline.</p>
+<p><strong>Rafal Donczew</strong> – Principal Investigator; provided
+project direction, conceptual guidance, and experimental data for
+pipeline development.</p>
+<p>This work was developed under the guidance of Rafal Donczew as part
+of a COBRE-funded collaborative effort. While the pipeline was built
+specifically for use within the Donczew Lab, it is broadly applicable to
+SLAM-Seq data analysis in other research settings.</p>
+<hr />
+</div>
+<div id="license" class="section level2">
+<h2>11) License</h2>
+<p>This project is licensed under the <strong>Apache 2.0</strong>. See
+the <a href="LICENSE">LICENSE</a> file for details.</p>
+<p><a href="https://opensource.org/licenses/Apache-2.0"><img
+src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"
+alt="License: Apache 2.0" /></a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
